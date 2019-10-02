@@ -1,0 +1,98 @@
+body
+{
+	/* Background pattern from subtlepatterns.com */
+	background-image: url("img/tlo2.png");
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#container
+{
+	background-color: white;
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
+	-moz-box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
+	box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
+}
+
+#left_bar
+{
+	width: 170px;
+	min-height: 890px;
+	float: left;
+	background-image: url("img/tlo.png");
+	color: white;
+	padding:5px;
+}
+
+#top_left_bar
+{
+	min-height: 100px;
+}
+
+#nav
+{
+	min-height: 700px;
+}
+
+.nav
+{
+	text-transform: uppercase;
+	min-height: 28px;
+	display:block;
+	border-bottom: 2px solid;
+	border-color: #cccccc;
+	font-weight: bold;
+}
+
+.nav:first-child
+{
+	border-top:2px solid;
+	border-color: #cccccc;
+}
+
+.nav:hover
+{
+	background-color: #cccccc;
+}
+
+a.nav_link
+{
+	min-height: 28px;
+	display: block;
+	color: white;
+	text-decoration: none;
+}
+
+a.nav_link:hover
+{
+	display: block;
+	color: #2e2e2e;
+	text-decoration: none;
+}
+
+#page
+{
+	width: 820px;
+	min-height: 900px;
+	float: left;
+	background-color: #eeeeee;
+}
+
+#search_inputs
+{
+	min-height: 48px;
+	background-color: #dddddd;
+	border-bottom: 2px solid;
+	border-color: #cccccc;
+}
+
+#main_content
+{
+	min-height: 800px;
+}
+
+
