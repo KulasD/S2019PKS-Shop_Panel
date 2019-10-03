@@ -36,6 +36,7 @@
 				{
 					$_SESSION['zalogowany'] = true;
 					$_SESSION['id'] = $wiersz['id'];
+					$_SESSION['login'] = $wiersz['login'];
 					$_SESSION['imie'] = $wiersz['imie'];
 					$_SESSION['nazwisko'] = $wiersz['nazwisko'];
 					$_SESSION['uprawnienia'] = $wiersz['uprawnienia'];
