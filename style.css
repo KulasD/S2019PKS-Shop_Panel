@@ -148,7 +148,8 @@ input.search_input
 
 input.search_input:focus
 {
-	background-color: #49B8ff;
+	/*background-color: #49B8ff;*/
+	background-color: #82b8ff;
 	color: #0574ff;
 }
 
