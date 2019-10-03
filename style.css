@@ -70,6 +70,13 @@ body
 	color: white;
 }
 
+#log_out > a:hover
+{
+	text-decoration: none;
+	color: #0574FF;
+	/*background-color: #82b8ff;*/
+}
+
 #nav
 {
 	min-height: 700px;
@@ -94,7 +101,7 @@ body
 
 .nav:hover
 {
-	background-color: #cccccc;
+	background-color: #82b8ff;
 }
 
 a.nav_link
@@ -109,7 +116,7 @@ a.nav_link
 a.nav_link:hover
 {
 	display: block;
-	color: #2e2e2e;
+	color: #0574FF;
 	text-decoration: none;
 }
 
