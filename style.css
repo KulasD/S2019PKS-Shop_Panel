@@ -22,18 +22,18 @@ body
 #left_bar
 {
 	width: 170px;
-	min-height: 890px;
+	min-height: 900px;
 	float: left;
 	background-color: #0574ff;
 	background-image: url("img/tlo.png");
 	background-blend-mode: screen;
 	color: white;
-	padding:5px;
 }
 
 #top_left_bar
 {
-	min-height: 100px;
+	min-height: 95px;
+	padding: 5px 5px 0px 5px;
 }
 
 #logo
@@ -41,6 +41,7 @@ body
 	background-color: rgba(255, 255, 255, 0.2);
 	height: 30px;
 	padding: 4px 0px;
+	margin-top: 2px;
 	font-size: 26px;
 	text-align: center;
 	border-radius: 10px;
@@ -49,7 +50,7 @@ body
 #namer
 {
 	height: 28px;
-	padding-top: 34px;
+	padding-top: 26px;
 	font-size:20px;
 }
 
@@ -84,15 +85,25 @@ body
 
 .nav
 {
+	padding: 0px 5px;
 	text-transform: uppercase;
 	height: 28px;
 	display:block;
-	border-bottom: 2px solid;
-	border-color: #cccccc;
 	font-weight: bold;
 }
 
+.nav_border
+{
+	border-bottom: 2px solid;
+	border-color: #cccccc;
+}
+
 .nav:first-child
+{
+	height: 26px;
+}
+
+.nav_border:first-child
 {
 	height: 26px;
 	border-top: 2px solid;
@@ -122,7 +133,7 @@ a.nav_link:hover
 
 #page
 {
-	width: 820px;
+	width: 830px;
 	min-height: 900px;
 	float: left;
 	background-color: #eeeeee;
@@ -140,7 +151,7 @@ div#search_inputs
 
 input.search_input
 {
-	margin-left: 30px;
+	margin-left: 20px;
 	float: left;
 	width: 200px;
 	background-color: #efefef;
@@ -184,6 +195,83 @@ input.search_button:hover
 #main_content
 {
 	height: 800px;
+}
+
+#panel_admin
+{
+	height: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #0574FF;
+	margin: 10px 20px;
+}
+
+#panel_admin_border
+{
+	margin-right: 17px;
+	border-bottom: 2px solid;
+	border-color: #cccccc;
+}
+
+.half_width
+{
+	margin-top: 10px;
+	font-size: 14px;
+	width: 49%;
+	float: left;
+}
+
+.info_span
+{
+	font-size: 16px;
+	font-weight: bold;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.bordered_div
+{
+	margin-left: 20px;
+	padding: 10px;
+	border: 2px solid;
+	border-color: #cccccc;
+	border-radius: 5px;
+}
+
+#wykres_box
+{
+	min-height: 290px;
+	margin-bottom: 10px;
+	border-bottom: 2px dashed;
+	border-color: #cccccc;
+}
+
+#wykres_span
+{
+	margin-left: 5px;
+	display: block;
+}
+
+#wykres
+{
+	
+}
+
+#produkty_start
+{
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.bordered_div_full
+{
+	margin-left: 20px;
+	margin-right: 17px;
+	padding: 10px;
+	border: 2px solid;
+	border-color: #cccccc;
+	border-radius: 5px;
 }
 
 
