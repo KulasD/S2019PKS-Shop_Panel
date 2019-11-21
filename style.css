@@ -11,18 +11,22 @@ body
 #container
 {
 	background-color: white;
-	width: 1000px;
+	width: 80%;
+	min-height: 900px;
 	margin-left: auto;
 	margin-right: auto;
 	-webkit-box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
 	-moz-box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
 	box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
+	background-color: #0574ff;
+	background-image: url("img/tlo.png");
+	background-blend-mode: screen;
 }
 
 #left_bar
 {
-	width: 170px;
-	min-height: 900px;
+	width: 12%;
+	height: 100%;
 	float: left;
 	background-color: #0574ff;
 	background-image: url("img/tlo.png");
@@ -80,7 +84,7 @@ body
 
 #nav
 {
-	min-height: 700px;
+	height: 100%;
 }
 
 .nav
@@ -133,10 +137,11 @@ a.nav_link:hover
 
 #page
 {
-	width: 830px;
-	min-height: 900px;
+	width: 88%;
+	min-height: 890px;
 	float: left;
 	background-color: #eeeeee;
+	padding-bottom: 10px;
 }
 
 div#search_inputs
@@ -187,6 +192,7 @@ input.search_button
 
 input.search_button:hover
 {
+	cursor: pointer;
 	background: #82b8ff;
 	background: linear-gradient(to top, #82b8ff 1%,#18a5f2 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82b8ff', endColorstr='#18a5f2',GradientType=0 );
@@ -194,7 +200,7 @@ input.search_button:hover
 
 #main_content
 {
-	height: 800px;
+	height: 100%;
 }
 
 #panel_admin
@@ -253,9 +259,10 @@ input.search_button:hover
 	display: block;
 }
 
-#wykres
+div#wykres
 {
-	
+	width: 100%;
+	height: 290px;
 }
 
 #produkty_start
@@ -274,4 +281,263 @@ input.search_button:hover
 	border-radius: 5px;
 }
 
+#buttons_div{
+	margin-bottom: 10px;
+}
 
+.button{
+	color: white;
+	background-color: #999999;
+	border: 0px;
+	text-transform: uppercase;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+.button:hover{
+	background-color: #0574FF;
+	cursor: pointer;
+}
+
+.red_button{
+	color: white;
+	background-color: red;
+	border: 0px;
+	text-transform: uppercase;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+.red_button:hover{
+	background-color: white;
+	color: red;
+	cursor: pointer;
+}
+
+.button_clicked{
+	color: white;
+	background-color: #0574FF;
+	border: 0px;
+	text-transform: uppercase;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+/*Tu są style do dane_zamowienie.php*/
+.bordered_div_no_padding
+{
+	margin-left: 20px;
+	margin-right: 20px;
+	border: 2px solid;
+	border-color: #cccccc;
+	border-radius: 5px;
+}
+
+.row{
+	min-height: 30px;
+	display:flex;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom:2px solid;
+	border-color: #cccccc;
+}
+
+.row:last-child{
+	border: 0px;
+}
+
+.tx{
+	width: 100%;
+	color: #666;
+	border: 2px solid;
+	border-color: #cccccc;
+	border-radius: 2px;
+	font-size: 12px;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	outline: none;
+}
+
+.tx:focus
+{
+	/*background-color: #49B8ff;*/
+	background-color: #82b8ff;
+	color: #0574ff;
+	border-color: #0574ff;
+}
+
+.half_row{
+	margin-left: 10px;
+	width: 80%;
+}
+
+.half_row_right{
+	margin-right: 10px;
+	width: 100%;
+}
+
+.kontakt{
+	display:flex;
+}
+
+.kontakt_h_l{
+	width: 20%;
+}
+
+.areatx{
+	width: 100%;
+	resize: vertical;
+}
+
+.center_holder{
+	padding: 20px;
+	text-align: center;
+}
+
+.hr1{
+	margin-left: 20px;
+	width: 3%;
+}
+
+.hr2{
+	margin-left: 20px;
+	width: 10%;
+}
+
+.hr3{
+	margin-left: 20px;
+	width: 35%;
+}
+
+.hr4{
+	margin-left: 20px;
+	width: 5%;
+}
+
+.hr5{
+	margin-left: 20px;
+	width: 5%;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/*zamowienia_lista.php style*/
+
+.flex_box_space{
+	display: flex;
+	justify-content: space-between;
+}
+
+.button_green{
+	color: white;
+	background-color: #009900;
+	border: 0px;
+	text-transform: uppercase;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+.button_green:hover{
+	background-color: #0574FF;
+	cursor: pointer;
+}
+
+.to_right{
+
+}
+
+.center_holder_no_padding{
+	text-align: center;
+}
+
+.hr_z1{
+	margin-left: 20px;
+	width: 10%;
+}
+
+.hr_z2{
+	margin-left: 20px;
+	width: 7%;
+}
+
+.hr_z3{
+	margin-left: 20px;
+	width: 10%;
+}
+
+.hr_z4{
+	margin-left: 20px;
+	width: 35%;
+}
+
+.flex_box{
+	display: flex;
+}
+
+.f_z{
+	width: 20%;
+}
+
+.n_z{
+	width: 80%;
+}
+
+.hr_z5{
+	margin-left: 20px;
+	width: 8%;
+}
+
+.hr_z6{
+	margin-left: 20px;
+	width: 30%;
+}
+
+/*klienci_lista.php style*/
+
+.one_line_span{
+	display: block;
+}
+
+.click_me_span{
+	color: #0574FF;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.red_click_me_span{
+	color: red;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.hr_k1{
+	margin-left: 20px;
+	width: 12%;
+}
+
+.hr_k2{
+	margin-left: 20px;
+	width: 30%;
+}
+
+.hr_k3{
+	margin-left: 20px;
+	width: 30%;
+}
+
+.hr_k4{
+	margin-left: 20px;
+	width: 20%;
+}
+
+.hr_k5{
+	margin-left: 20px;
+	width: 30%;
+}
+
+.s_d_b{
+	margin:2px;
+}

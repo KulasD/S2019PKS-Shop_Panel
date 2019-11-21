@@ -22,7 +22,7 @@
 		$polaczenie->query("SET CHARSET utf8");
 		$polaczenie->query("SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 		if ($rezultat = @$polaczenie->query(
-		sprintf("SELECT id_zamowienie FROM zamowienie_info")))
+		sprintf("SELECT id_zamowienie FROM zamowienie_informacje")))
 		{
 			$ile_zamowien = $rezultat->num_rows;
 		}
@@ -111,9 +111,9 @@
       var data = new google.visualization.DataTable(<?php echo $jsonTable; ?>);
 	  var options = {
 			legend: {position: 'none'},
-			width: 363,
-			height: 290,
-			chartArea: {left: 40, top: 10, right: 0, width: '90%', height: '85%'},
+			//width: 363,
+			//height: 290,
+			chartArea: {left: 40, top: 10, right: 0, width: '90%', height: '80%'},
 			backgroundColor: '#eeeeee',
 	  };
 
@@ -157,11 +157,11 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="text" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
+				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
 				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="text" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
+				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
 				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="text" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
+				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
 				<input class="search_button" type="submit" value="&#xe801" />
 			</div>
 			<div id="main_content">
@@ -215,6 +215,12 @@
 				<div id="produkty_start">
 					<span class="info_span">Produkty</span>
 					<div class="bordered_div_full">
+					<div id="buttons_div">
+						<button type="button" class="button_clicked">Ostatnio dodane</button>
+						<button type="button" class="button">Najczęściej oglądane</button>
+						<button type="button" class="button">Do zamówienia</button>
+						<button type="button" class="button">Ostatnie opinie</button>
+					</div>
 					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
 					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
 					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
