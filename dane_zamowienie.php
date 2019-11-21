@@ -121,11 +121,16 @@
 					$data = $data->format('d/m/Y');
 					$dostawa  = "".$zamowienie[0]['dostawa']."";
 					$dostawa_ = explode(",", $dostawa);
+					$cena_zamowienia = "".$zamowienie[0]['cena_zamowienia']."";
+					$cena_zamowienia = number_format((float)$cena_zamowienia, 2, '.', '');
+
+
+					
 					if($dostawa_[1] == '') {$dostawa_[1] = "0";};
 					?>
 						<div class="row"><div class="half_row">Data zamówienia:</div>				<div class="half_row_right"><span id="data"><?php echo "".$data."";?></span></div></div>
 						
-						<div class="row"><div class="half_row">Wartość zamówienia:</div>			<div class="half_row_right"><span id="wartosc"><?php echo "".$zamowienie[0]['cena_zamowienia']."";?> zł</span></div></div>
+						<div class="row"><div class="half_row">Wartość zamówienia:</div>			<div class="half_row_right"><span id="wartosc"><?php echo "".$cena_zamowienia."";?> zł</span></div></div>
 						
 						<div class="row"><div class="half_row">Sposób płatności:</div>				<div class="half_row_right"><span id="platnosc"><?php echo "".$zamowienie[0]['platnosc']."";?></span></div></div>
 						
@@ -163,7 +168,7 @@
 						
 						<?php 
 						$faktura  = "".$zamowienie[0]['faktura']."";
-						if($faktura != '') {$faktura_ = explode(",", $faktura); $fa = true;} else {$faktura_ = array(); $fa=false;};
+						if($faktura != '') {$faktura_ = explode(",", $faktura); $fa = true;} else {for($f=0;$f<5;$f++) {$faktura_[$f] = '';} $fa=false;};
 						$dane  = "".$zamowienie[0]['dane_odbiorcy']."";
 						$dane_ = explode(",", $dane);
 						?>
@@ -192,7 +197,7 @@
 							while ($r = $resu->fetch_array(MYSQLI_ASSOC)) {
 								$procent = $r['rabat'];
 							}
-						} else {$procent = "Brak rabatu"; $rrab = false;};
+						} else {$procent = 'Brak rabatu'; $rrab = false;};
 						?>
 						<div class="row"><div class="half_row">Naliczony rabat [%]:</div>						<div class="half_row_right"><span id="rabat"><?php echo "".$procent."";?></span></div></div>
 						
@@ -214,6 +219,8 @@
 							<?php 
 							$h=0;
 							$suma_p = 0;
+							$dostawa_c =$dostawa_[1];
+							$dostawa_c = number_format((float)$dostawa_c, 2, '.', '');
 							for($t=0;$t<count($przedmioty);$t++)
 							{
 								$localization = "".$przedmioty[$t][1]['lokalizacja']."";
@@ -222,7 +229,9 @@
 								$ilosc = "".$przedmioty[$t][0]['quantity']."";
 								$cena = "".$przedmioty[$t][0]['price_one_quan']."";
 								$sum = (int)$ilosc * (int)$cena;
+								$sum = number_format((float)$sum, 2, '.', '');
 								$suma_p = $suma_p + $sum;
+								$suma_ = number_format((float)$suma_p, 2, '.', '');
 							echo "<div class='row'>
 								<div class='hr1'>".$h."</div>	<div class='hr2'><img src='../lepsza/category/".$localization."/".$src."'/></div> 	<div class='hr3'>".$nazwa."</div>	<div class='hr4'><span >".$ilosc."</span></div>	<div class='hr5'><span >".$sum." zł</span></div>
 							</div>";
@@ -233,21 +242,24 @@
 								<div class="hr2">Wartość produktów:				</div><div class="hr3"><span id="wartosc"><?php echo "".$suma_p.""?> zł</span></div>
 							</div>
 							<div class="row">
-								<div class="hr2">Koszt dostawy:				</div><div class="hr3"><span id="koszt_dostawy"><?php echo "".$dostawa_[1]."";?> zł</span></div>
+								<div class="hr2">Koszt dostawy:				</div><div class="hr3"><span id="koszt_dostawy"><?php echo "".$dostawa_c."";?> zł</span></div>
 							</div>
 							<?php 
 							$suma = (int)$dostawa + $suma_p;
+							$vat = "".$zamowienie[0]['vat23']."";
+							$vat = number_format((float)$vat, 2, '.', '');
 							if($rrab == true) {
-								$suma_rabat = ((int)$dostawa + $suma) * (int)$procent;
+								$suma_rabat = $suma * ((int)$procent * 0.01);
+								$suma_rabat = number_format((float)$suma_rabat, 2, '.', '');
 								echo"<div class='row'>
 								<div class='hr2'>Rabat				</div><div class='hr3'><span id='rabat'>".$suma_rabat." zł</span></div>
 							</div>";}
 							?>
 							<div class="row">
-								<div class="hr2">VAT:				</div><div class="hr3"><span id="VAT"><?php echo "".$zamowienie[0]['vat23']."";?> zł</span></div>
+								<div class="hr2">VAT:				</div><div class="hr3"><span id="VAT"><?php echo "".$vat."";?> zł</span></div>
 							</div>
 							<div class="row">
-								<div class="hr2">Razem:				</div><div class="hr3"><span id="do_zaplaty"><?php echo "".$suma."";?> zł</span></div>
+								<div class="hr2">Razem:				</div><div class="hr3"><span id="do_zaplaty"><?php echo "".$cena_zamowienia."";?> zł</span></div>
 							</div>
 						</div>
 					</div>
