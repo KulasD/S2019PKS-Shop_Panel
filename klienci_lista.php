@@ -13,7 +13,6 @@
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$rows = array();
 	$query = "SELECT * FROM uzytkownicy ORDER BY id_user ASC ";
 	$result = mysqli_query($con,$query);
 ?>
