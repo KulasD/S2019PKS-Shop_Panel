@@ -16,6 +16,28 @@
 	$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie ASC ";
 	$result = mysqli_query($con,$query);
 
+
+
+
+
+
+
+
+
+
+
+
+
+// ZABLOKOWAC PRZEJSCIE DO EDYCJI GDY ZAMOWIENIE ZOSTALO ZREALIZOWANE!
+
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -100,7 +122,7 @@
 										echo "							<div class='row'>
 								<div class='hr_z1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
-									<div><button type='button' class='button'>EDYTUJ</button></div>
+									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>
 									<span id='status_1' style='".$z."'>".$r['status']."</span>
 								</div>	
 								<div class='hr_z2'>".$data."</div>";
@@ -162,5 +184,11 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script type="text/javascript">
+function go(nr)
+{
+	window.location.href = "dane_zamowienie.php?id="+nr;
+}
+</script>
 </body>
 </html>
