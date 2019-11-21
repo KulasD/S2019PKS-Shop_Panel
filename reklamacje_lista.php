@@ -9,7 +9,14 @@
 	}
 	
 ?>
+<?php
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$query = "SELECT * FROM reklamacje ORDER BY id_rek ASC ";
+	$result = mysqli_query($con,$query);
 
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -85,58 +92,56 @@
 								<div class="hr_k4">DATA ZGŁOSZENIA</div>	
 								<div class="hr_k5">DZIAŁANIA</div>
 							</div>
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">1</span>
-									<span class="one_line_span">status</span>
-									<span class="one_line_span click_me_span">20/20020</span>
+							<?php
+								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+									$data_z = $r['data_reklamacji'];
+									$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $data_z);
+									$data = $data->format('d/m/Y');
+									echo "<div class='row'>
+								<div class='hr_k1'>
+									<span class='one_line_span'>".$r['id_rek']."</span>
+									<span class='one_line_span'>".$r['status']."</span>
+									<span class='one_line_span click_me_span'>".$r['id_zamowienie']."</span>
 								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span click_me_span">Teodory Kopra</span>
-									<span class="one_line_span click_me_span">tajny_email@firma.com</span>
+								<div class='hr_k2'>
+									<span class='one_line_span click_me_span'>".$r['name_surname']."</span>
+									<span class='one_line_span click_me_span'>".$r['email']."</span>
 								</div> 	
-								<div class="hr_k3">
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC PÓŁ RDZENIA !
+								<div class='hr_k3'>
+									<div class='flex_box'>";
+									$id_zamow_p = $r['id_zamow_p'];
+									$q = "SELECT id_produktu FROM zamowienie_przedmiot WHERE id_zamow_p = '$id_zamow_p' ";
+									$res = mysqli_query($con,$q);
+									while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
+										$id_produktu = $rrr['id_produktu'];
+									}
+									
+									$przed = mysqli_connect("localhost","root","","przedmioty");
+									mysqli_query($przed, "SET CHARSET utf8");
+									mysqli_query($przed, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");	
+									$qu = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
+									$res = mysqli_query($przed,$qu);
+									while ($re = $res->fetch_array(MYSQLI_ASSOC)) {
+										$localization = $re['lokalizacja'];
+										$src = $re['zdjecie'];
+												echo "<div class='f_z'>
+															<img src='../lepsza/category/".$localization."/".$src."'/>
+														</div>";
+									}
+										echo "
+										<div id='produkt_1' class='n_z'>
+											".$r['name_product']."
 										</div>
 									</div>
 								</div>	
-								<div class="hr_k4">20.20.20</div>	
-								<div class="hr_k5">
-									<div class="s_d_b"><button type="button" class="button">EDYTUJ</button></div>
-									<div class="s_d_b"><button type="button" class="red_button">USUŃ</button></div>
+								<div class='hr_k4'>".$data."</div>	
+								<div class='hr_k5'>
+									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
+									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">2</span>
-									<span class="one_line_span">status</span>
-									<span class="one_line_span click_me_span">20/20120</span>
-								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span click_me_span">NONAME 00_00-00</span>
-									<span class="one_line_span click_me_span">tajny-emai-lol@firma.com</span>
-								</div> 	
-								<div class="hr_k3">
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC PÓŁ RDZENIA !
-										</div>
-									</div>
-								</div>	
-								<div class="hr_k4">20.20.20</div>	
-								<div class="hr_k5">
-									<div class="s_d_b"><button type="button" class="button">EDYTUJ</button></div>
-									<div class="s_d_b"><button type="button" class="red_button">USUŃ</button></div>
-								</div>
-							</div>
+							</div>";
+								}	
+							?>
 						</div>
 					</div>
 			</div>
