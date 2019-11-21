@@ -73,7 +73,7 @@
 					<div id="panel_admin">
 						<div class="flex_box_space">
 							<div>KODY RABATOWE</div>
-							<div><button type="button" class="button_green">NOWY KOD RABATOWY</button></div>
+							<div><a href='rabat.php'><button type="button" class="button_green">NOWY KOD RABATOWY</button></a></div>
 						</div>
 					</div>
 				</div>
