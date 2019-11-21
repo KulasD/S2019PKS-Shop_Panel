@@ -9,7 +9,13 @@
 	}
 	
 ?>
-
+<?php
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$query = "SELECT * FROM kod_rabatowy ORDER BY id_kod ASC ";
+	$result = mysqli_query($con,$query);
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -81,41 +87,32 @@
 									<span class="one_line_span">KOD RABATOWY</span>
 								</div> 	
 								<div class="hr_k3">STATUS</div>	
-								<div class="hr_k4">WYGASA</div>	
+								<div class="hr_k4">DATA DODANIA</div>	
 								<div class="hr_k5">DZIAŁANIA</div>	
 							</div>
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">1</span>
+							<?php
+								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+									$data_z = $r['data_dodania'];
+									$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $data_z);
+									$data = $data->format('d/m/Y');
+								echo "<div class='row'>
+								<div class='hr_k1'>
+									<span class='one_line_span'>".$r['id_kod']."</span>
 								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span">BlAcK-FrIdAy-SaLe</span>
+								<div class='hr_k2'>
+									<span class='one_line_span'>".$r['kod'].", ".$r['rabat']."%</span>
 								</div> 	
-								<div class="hr_k3">
-									aktywny
+								<div class='hr_k3'>
+									".$r['status']."
 								</div>		
-								<div class="hr_k4">20.20.20</div>
-								<div class="hr_k5">
-									<div class="s_d_b"><button type="button" class="button">EDYTUJ</button></div>
-									<div class="s_d_b"><button type="button" class="red_button">USUŃ</button></div>
+								<div class='hr_k4'>".$data."</div>
+								<div class='hr_k5'>
+									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
+									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">2</span>
-								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span">ŚwIęTy-MiKoŁaJ-2K20</span>
-								</div> 	
-								<div class="hr_k3">
-									aktywny
-								</div>		
-								<div class="hr_k4">20.20.20</div>
-								<div class="hr_k5">
-									<div class="s_d_b"><button type="button" class="button">EDYTUJ</button></div>
-									<div class="s_d_b"><button type="button" class="red_button">USUŃ</button></div>
-								</div>
-							</div>
+							</div>";
+								}
+							?>
 						</div>
 					</div>
 			</div>
