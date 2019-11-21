@@ -9,7 +9,14 @@
 	}
 	
 ?>
-
+<?php
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$rows = array();
+	$query = "SELECT * FROM uzytkownicy ORDER BY id_user ASC ";
+	$result = mysqli_query($con,$query);
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -84,40 +91,30 @@
 								<div class="hr_k4">OSTATNIE LOGOWANIE</div>	
 								<div class="hr_k5">DZIAŁANIA</div>
 							</div>
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">1</span>
-									<span class="one_line_span">aktywne</span>
+							
+							<?php 
+							$x = 1;
+								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+									echo "<div class='row'>
+								<div class='hr_k1'>
+									<span class='one_line_span'>".$x."</span>
+									<span class='one_line_span'>aktywne</span>
 								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span click_me_span">Teodory Kopra</span>
-									<span class="one_line_span">Bobrowniki</span>
+								<div class='hr_k2'>
+									<span class='one_line_span click_me_span'>".$r['name']." ".$r['surname']."</span>
+									<span class='one_line_span'>".$r['adres']." ".$r['kod_pocztowy']." ".$r['miejscowosc']."</span>
 								</div> 	
-								<div class="hr_k3 click_me_span">tajny_email@firma.com</div>	
-								<div class="hr_k4">NEVER</div>	
-								<div class="hr_k5">
-									<span class="one_line_span click_me_span">szczegóły i edycja danych</span>
-									<span class="one_line_span click_me_span">zmień hasło</span>
-									<span class="one_line_span red_click_me_span">zablokuj konto</span>
+								<div class='hr_k3 click_me_span'>".$r['email']."</div>	
+								<div class='hr_k4'>No info</div>	
+								<div class='hr_k5'>
+									<span class='one_line_span click_me_span'>szczegóły i edycja danych</span>
+									<span class='one_line_span click_me_span'>zmień hasło</span>
+									<span class='one_line_span red_click_me_span'>zablokuj konto</span>
 								</div>
-							</div>
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">2</span>
-									<span class="one_line_span">aktywne</span>
-								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span click_me_span">NONAME 00_00-00</span>
-									<span class="one_line_span">Bobrowniki</span>
-								</div> 	
-								<div class="hr_k3 click_me_span">tajny-emai-lol@firma.com</div>	
-								<div class="hr_k4">NEVER</div>	
-								<div class="hr_k5">
-									<span class="one_line_span click_me_span">szczegóły i edycja danych</span>
-									<span class="one_line_span click_me_span">zmień hasło</span>
-									<span class="one_line_span red_click_me_span">zablokuj konto</span>
-								</div>
-							</div>
+							</div>";
+							$x++;
+								}
+							?>
 						</div>
 					</div>
 			</div>
