@@ -9,7 +9,15 @@
 	}
 	
 ?>
+<?php
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$rows = array();
+	$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie ASC ";
+	$result = mysqli_query($con,$query);
 
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -72,86 +80,83 @@
 						<div class="bordered_div_no_padding">
 							<div class="row">
 								<div class="hr_z1">NUMER I STATUS ZAMÓWIENIA</div>	<div class="hr_z2">DATA</div> 	<div class="hr_z3">KLIENT</div>	<div class="hr_z4">PRODUKTY</div>	<div class="hr_z5">WARTOŚĆ</div>	<div class="hr_z6">INFORMACJE DODATKOWE</div>
-							</div>
-							<div class="row">
-								<div class="hr_z1">
-									<span id="id_1">31/2019</span>
-									<div><button type="button" class="button">EDYTUJ</button></div>
-									<span id="status_1">status</span>
+							</div>				
+							<?php
+									while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+										$id_zamowienie=$r['id_zamowienie'];
+										$data_z = $r['data_zamowienia'];
+										$status = $r['status'];
+									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
+										$z = "color: #04A1EE !important";
+									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)') {
+										$z = "color: gray !important";
+									} else if($status == 'Zamówienie anulowane') {
+										$z = "color: #CC0000 !important";
+									}
+										else if($status == 'W trakcie realizacji') {
+										$z = "color: #CC0000 !important";
+									}
+										$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $data_z);
+										$data = $data->format('d/m/Y');
+										echo "							<div class='row'>
+								<div class='hr_z1'>
+									<span id='id_1'>Nr. ".$id_zamowienie."</span>
+									<div><button type='button' class='button'>EDYTUJ</button></div>
+									<span id='status_1' style='".$z."'>".$r['status']."</span>
 								</div>	
-								<div class="hr_z2">29/10/2019</div> 	
-								<div class="hr_z3">Janusz23</div>	
-								<div class="hr_z4">
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC PÓŁ RDZENIA !
-										</div>
-									</div>
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC ĆWIERĆ RDZENIA !
-										</div>
-									</div>
+								<div class='hr_z2'>".$data."</div>";
+								
+								$id_user=$r['id_user'];
+								$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
+								$re_u = mysqli_query($con,$qu_u);
+								while ($rr_u = $re_u->fetch_array(MYSQLI_ASSOC)) {
+										$name = $rr_u['name'];	
+										$surname = $rr_u['surname'];	
+								}
+								echo "
+								<div class='hr_z3'>".$name." ".$surname."</div>	
+								<div class='hr_z4'>";
+								$qu = "SELECT * FROM zamowienie_przedmiot WHERE id_zamowienie = '$id_zamowienie' ";
+										$re = mysqli_query($con,$qu);
+										while ($rr = $re->fetch_array(MYSQLI_ASSOC)) {
+											$przed = mysqli_connect("localhost","root","","przedmioty");
+											mysqli_query($przed, "SET CHARSET utf8");
+											mysqli_query($przed, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");	
+											$id_produktu = $rr['id_produktu'];
+											$q = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
+											$res = mysqli_query($przed,$q);
+											while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
+												$localization = $rrr['lokalizacja'];
+												$src = $rrr['zdjecie'];
+												echo "<div class='flex_box'>
+														<div class='f_z'>
+														<img src='../lepsza/category/".$localization."/".$src."'/>
+														</div>
+														<div id='produkt_1' class='n_z'>
+														".$rrr['pelna_nazwa']."
+														</div>
+														</div>";
+											}
+										}
+									echo "
 								</div>
-								<div class="hr_z5">
-									1000zł
+								<div class='hr_z5'>
+									".$r['cena_zamowienia']." zł
 								</div>	
-								<div class="hr_z6">
-									<div id="dostawa">Kurier dpd</div>
-									<div id="platnosc">Płatność elektroniczna</div>
-									<div id="dokument">Dokument sprzedaży: faktura</div>
+								<div class='hr_z6'>
+									<div id='dostawa'>".$r['dostawa']." zł</div>
+									<div id='platnosc'>".$r['platnosc']."</div>";
+									if($r['faktura'] != '') { 
+									echo "<div id='dokument'>Dokument sprzedaży: faktura</div>"; } else {
+										echo "<div id='dokument'>Dokument sprzedaży: paragon</div>";
+									}
+									echo "
 								</div>
-							</div>
-							
-							<div class="row">
-								<div class="hr_z1">
-									<span id="id_1">31/2019</span>
-									<div><button type="button" class="button">EDYTUJ</button></div>
-									<span id="status_1">status</span>
-								</div>	
-								<div class="hr_z2">29/10/2019</div> 	
-								<div class="hr_z3">Janusz23</div>	
-								<div class="hr_z4">
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC PÓŁ RDZENIA !
-										</div>
-									</div>
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC ĆWIERĆ RDZENIA !
-										</div>
-									</div>
-									<div class="flex_box">
-										<div class="f_z">
-											<img src="./img/oops.png"/>
-										</div>
-										<div id="produkt_1" class="n_z">
-											Gostek który strzela się w łeb ! HIT ! PROC ĆWIERĆ RDZENIA !
-										</div>
-									</div>
-								</div>
-								<div class="hr_z5">
-									1000zł
-								</div>	
-								<div class="hr_z6">
-									<div id="dostawa">Kurier dpd</div>
-									<div id="platnosc">Płatność elektroniczna</div>
-									<div id="dokument">Dokument sprzedaży: faktura</div>
-								</div>
-							</div>
+							</div>";
+
+									}
+
+							?>
 						</div>
 					</div>
 			</div>
