@@ -140,7 +140,7 @@
 									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 								</div>
 							</div>";
-								}	
+								};	
 							?>
 						</div>
 					</div>
