@@ -11,7 +11,7 @@ body
 #container
 {
 	background-color: white;
-	width: 80%;
+	width: 100%;
 	min-height: 900px;
 	margin-left: auto;
 	margin-right: auto;
@@ -209,7 +209,25 @@ input.search_button:hover
 	font-size: 24px;
 	font-weight: bold;
 	color: #0574FF;
-	margin: 10px 20px;
+	margin: 15px 0 15px 20px;
+}
+
+#panel_admin_x,#panel_admin_r
+{
+	height: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #0574FF;
+	margin: 15px 0 15px 20px;
+	width: 70%;
+	float:left;
+}
+#panel_admin_r
+{
+	float:right;
+	width: 20%;
+	margin: 0px;
+	margin: 15px 15px 15px 0;
 }
 
 #panel_admin_border
@@ -492,7 +510,11 @@ img {
 
 .hr_z6{
 	margin-left: 20px;
-	width: 30%;
+	width: 15%;
+}
+.hr_z7{
+	margin-left: 20px;
+	width: 15%;
 }
 
 /*klienci_lista.php style*/
@@ -540,4 +562,57 @@ img {
 
 .s_d_b{
 	margin:2px;
+}
+
+.zaplataB {
+	box-shadow:inset 0px 1px 0px 0px #caefab;
+	background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+	background-color:#77d42a;
+	border-radius:6px;
+	border:1px solid #268a16;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #aade7c;
+	float:right;
+}
+.zaplataB:hover{
+	background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+	background-color:#5cb811;
+}
+.zaplataB:active, .zaplataBN:active  {
+	position:relative;
+	top:1px;
+}
+
+.zaplataBN{
+	box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+	background-color:#fe1a00;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #b23e35;
+	float:right;
+}
+.zaplataBN:hover {
+	background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+	background-color:#ce0100;
+}
+
+.zbnp 
+{
+	float:none !important;
 }
