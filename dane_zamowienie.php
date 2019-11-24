@@ -16,42 +16,59 @@
 	{
 	$id_zamowienie = $_GET['id'];
 	} else {
-	$id_zamowienie = 0; }
+	header('Location: zamowienia_lista.php');exit();}
 
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$conA = mysqli_connect("localhost","root","","administracja");
+	mysqli_query($conA, "SET CHARSET utf8");
+	mysqli_query($conA, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	$query = "SELECT * FROM zamowienie_informacje WHERE id_zamowienie = '$id_zamowienie' ";
 	$result = mysqli_query($con,$query);
 	$zamowienie = array();
 	$uzytkownik = array();
 	$przedmioty = array();
+	$pracownicy = array();
 	$x = 0;
-	while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
-		$id_zamowienie=$r['id_zamowienie'];
-		$zamowienie[] = $r;
-		$id_user=$r['id_user'];
-		$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
-		$re_u = mysqli_query($con,$qu_u);
-			while ($rr_u = $re_u->fetch_array(MYSQLI_ASSOC)) {
-			$uzytkownik[] = $rr_u;
+	$qu_pracownik = "SELECT * FROM kadra ORDER BY id ASC";
+	$r_p= mysqli_query($conA,$qu_pracownik);
+	while ($rp = $r_p->fetch_array(MYSQLI_ASSOC)) {
+			$pracownicy[]=$rp;
+	};
+	$ile_ = $result ->num_rows;
+	if($ile_ > 0) {
+
+		while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+			$id_zamowienie=$r['id_zamowienie'];
+			$zamowienie[] = $r;
+			$id_user=$r['id_user'];
+			$id_pracownik_zamowienie = $r['id_pracownik'];
+			$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
+			$re_u = mysqli_query($con,$qu_u);
+				while ($rr_u = $re_u->fetch_array(MYSQLI_ASSOC)) {
+				$uzytkownik[] = $rr_u;
+			}
+			$qu = "SELECT * FROM zamowienie_przedmiot WHERE id_zamowienie = '$id_zamowienie' ";
+			$re = mysqli_query($con,$qu);
+			while ($rr = $re->fetch_array(MYSQLI_ASSOC)) {
+				$przedmioty[$x][0] = $rr;
+				$przed = mysqli_connect("localhost","root","","przedmioty");
+				mysqli_query($przed, "SET CHARSET utf8");
+				mysqli_query($przed, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");	
+				$id_produktu = $rr['id_produktu'];
+				$q = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
+				$res = mysqli_query($przed,$q);
+				while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
+					$przedmioty[$x][1] = $rrr;
+				}
+				$x++;
+			}
 		}
-		$qu = "SELECT * FROM zamowienie_przedmiot WHERE id_zamowienie = '$id_zamowienie' ";
-		$re = mysqli_query($con,$qu);
-		while ($rr = $re->fetch_array(MYSQLI_ASSOC)) {
-		$przedmioty[$x][0] = $rr;
-		$przed = mysqli_connect("localhost","root","","przedmioty");
-		mysqli_query($przed, "SET CHARSET utf8");
-		mysqli_query($przed, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");	
-		$id_produktu = $rr['id_produktu'];
-		$q = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
-		$res = mysqli_query($przed,$q);
-		while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
-			$przedmioty[$x][1] = $rrr;
-		}
-		$x++;
+	} else {
+		header('Location: zamowienia_lista.php');
+		exit();
 	}
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -108,9 +125,16 @@
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
-					<div id="panel_admin">
+					<div id="panel_admin_x">
 						Zamówienie nr <?php echo "".$id_zamowienie."";?>
 					</div>
+					<?php 
+					$status_zaplaty = "".$zamowienie[0]['status_zaplaty']."";
+					if($status_zaplaty == "Zapłacono") {
+						echo "<div id='panel_admin_r'><button class='zaplataB'>Zapłacono</button></div>";
+					} else {echo "<div id='panel_admin_r'><button class='zaplataBN'>Niezapłacono</button></div>";}
+					?>
+					<div style="clear:both;"></div>
 				</div>
 				<div class="half_width">
 					<span class="info_span">Dane podstawowe</span>
@@ -123,9 +147,6 @@
 					$dostawa_ = explode(",", $dostawa);
 					$cena_zamowienia = "".$zamowienie[0]['cena_zamowienia']."";
 					$cena_zamowienia = number_format((float)$cena_zamowienia, 2, '.', '');
-
-
-					
 					if($dostawa_[1] == '') {$dostawa_[1] = "0";};
 					?>
 						<div class="row"><div class="half_row">Data zamówienia:</div>				<div class="half_row_right"><span id="data"><?php echo "".$data."";?></span></div></div>
@@ -140,7 +161,19 @@
 						
 						<div class="row"><div class="half_row">Aktualny status zamówienia:</div>	<div class="half_row_right"><span id="status"><?php echo "".$zamowienie[0]['status']."";?></span></div></div>
 						
-						<div class="row"><div class="half_row">Opiekun zamówienia:</div>		<div class="half_row_right"><select class="tx" id="opiekun"><option> Dawid </option></select></div></div>
+						<div class="row"><div class="half_row">Opiekun zamówienia:</div>		<div class="half_row_right"><select class="tx" id="opiekun"><?php
+						for($s=0;$s<count($pracownicy);$s++)
+						{
+							$pracownik = "".$pracownicy[$s]['id']."";
+							if($pracownik == $id_pracownik_zamowienie) 
+							{
+								echo "<option selected>".$pracownicy[$s]['login']."</option>";
+							} else {
+								echo "<option>".$pracownicy[$s]['login']."</option>";
+							}
+						}
+						
+						?></select></div></div>
 						
 						<div class="row"><div class="half_row">Termin dostawy:</div>			<div class="half_row_right"><input class="tx" type="text" name="termin" value="<?php echo "".$zamowienie[0]['szacowana_data_dostawy']."";?>"/></div></div>
 						
@@ -150,10 +183,33 @@
 						
 					</div>
 				</div>
+				
+						<?php 
+						$faktura  = "".$zamowienie[0]['faktura']."";
+						$klient = "Klient INDYWIDUALNY:";
+						if($faktura != '') {
+							$faktura_ = explode(",", $faktura); $fa = true;
+							if(strlen($faktura_[1]) == 10)
+							{
+								$nazwa_p = "".$faktura_[0]."";
+								$nip_p = "".$faktura_[1]."";
+								$klient = "Klient FIRMA:";
+							} else {
+								$nazwa_p = "".$faktura_[0]." ".$faktura_[1]."";
+								$nip_p = "";
+								$klient = "Klient INDYWIDUALNY:";
+							}
+						} else {
+							for($f=0;$f<5;$f++) {$faktura_[$f] = '';} $fa=false;
+						};
+						$dane  = "".$zamowienie[0]['dane_odbiorcy']."";
+						$dane_ = explode(",", $dane);
+						?>
+						
 				<div class="half_width">
 					<span class="info_span">Dane klienta</span>
 					<div class="bordered_div_no_padding">
-						<div class="row"><div class="half_row">Klient:</div>								<div class="half_row_right"><span id="klient"><b>Nick: </b><?php echo "".$uzytkownik[0]['nick'].",  <b>Imię i nazwisko: </b>".$uzytkownik[0]['name']." ".$uzytkownik[0]['surname']."";?></span></div></div>
+						<div class="row"><div class="half_row"><?php echo"".$klient."";?></div>								<div class="half_row_right"><span id="klient"><b>Nick: </b><?php echo "".$uzytkownik[0]['nick'].",  <b>Imię i nazwisko: </b>".$uzytkownik[0]['name']." ".$uzytkownik[0]['surname']."";?></span></div></div>
 						<?php 
 						$adres  = "".$zamowienie[0]['adres']."";
 						$adres_ = explode(",", $adres);
@@ -166,20 +222,14 @@
 						
 						<div class="row"><div class="half_row"></div>										<div class="half_row_right"><input class="tx" style="width:29%; margin-right:1%;" type="text" name="kod_pocztowy" value="<?php echo "".$adres_[4]."";?>"/><input class="tx" style="width:70%" type="text" name="miejscowosc" value="<?php echo "".$adres_[5]."";?>"/></div></div>
 						
-						<?php 
-						$faktura  = "".$zamowienie[0]['faktura']."";
-						if($faktura != '') {$faktura_ = explode(",", $faktura); $fa = true;} else {for($f=0;$f<5;$f++) {$faktura_[$f] = '';} $fa=false;};
-						$dane  = "".$zamowienie[0]['dane_odbiorcy']."";
-						$dane_ = explode(",", $dane);
-						?>
-						
-						<div class="row" style="border:0px"><div class="half_row">Dane do faktury:</div>	<div class="half_row_right"><input class="tx" type="text" name="faktura_imie" value="<?php echo "".$faktura_[0]." ".$faktura_[1]."";?>" /></div></div>
+
+						<div class="row" style="border:0px"><div class="half_row">Dane do faktury:</div>	<div class="half_row_right"><input class="tx" type="text" name="faktura_imie" value="<?php echo "".$nazwa_p."";?>" /></div></div>
 						
 						<div class="row" style="border:0px"><div class="half_row"></div>					<div class="half_row_right"><input class="tx" type="text" name="faktura_nazwa_adres" value="<?php echo "".$faktura_[2]."";?>"/></div></div>
 						
 						<div class="row" style="border:0px"><div class="half_row"></div>										<div class="half_row_right"><input class="tx" style="width:29%; margin-right:1%;" type="text" name="faktura_kod_pocztowy" value="<?php echo "".$faktura_[3]."";?>"/><input class="tx" style="width:70%" type="text" name="faktura_miejscowosc" value="<?php echo "".$faktura_[4]."";?>"/></div></div>
 						
-						<div class="row"><div class="half_row"></div>										<div class="half_row_right">NIP:<input class="tx" style="width:70%; margin-left:5px;" type="text" name="faktura_nip" value="<?php echo "".$adres_[2]."";?>"/></div></div>
+						<div class="row"><div class="half_row"></div>										<div class="half_row_right">NIP:<input class="tx" style="width:70%; margin-left:5px;" type="text" name="faktura_nip" value="<?php echo "".$nip_p."";?>"/></div></div>
 						
 						<div class="row" style="border:0px"><div class="half_row">Kontakt:</div>			<div class="half_row_right kontakt"><div class="kontakt_h_l">Telefon:</div><input class="tx" style="width:60%;" type="text" name="telefon" value="<?php echo "".$dane_[2]."";?>"/></div></div>
 						
@@ -187,7 +237,6 @@
 						
 						<div class="row"><div class="half_row">Wybrany dokument:</div>						<div class="half_row_right"><input type="radio" value="paragon" name="dokument" <?php if($fa == false) {echo "checked";}?>>paragon <input type="radio" value="faktura" name="dokument" <?php if($fa == true) {echo "checked";}?>>faktura </div></div>
 						
-						<div class="row"><div class="half_row">Zapłacono:</div>								<div class="half_row_right"><input class="tx" style="width:30%;" type="number" name="zaplacono"/></div></div>
 						<?php 
 						$rabat =  "".$zamowienie[0]['rabat']."";
 						if($rabat != '') {
