@@ -100,13 +100,14 @@
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">
-								<div class="hr_z1">NUMER I STATUS ZAMÓWIENIA</div>	<div class="hr_z2">DATA</div> 	<div class="hr_z3">KLIENT</div>	<div class="hr_z4">PRODUKTY</div>	<div class="hr_z5">WARTOŚĆ</div>	<div class="hr_z6">INFORMACJE DODATKOWE</div>
+								<div class="hr_z1">NUMER I STATUS ZAMÓWIENIA</div>	<div class="hr_z2">DATA</div> 	<div class="hr_z3">KLIENT</div>	<div class="hr_z4">PRODUKTY</div>	<div class="hr_z5">WARTOŚĆ</div>	<div class="hr_z6">INFORMACJE DODATKOWE</div><div class="hr_z7">STATUS ZAPŁATY</div>
 							</div>				
 							<?php
 									while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 										$id_zamowienie=$r['id_zamowienie'];
 										$data_z = $r['data_zamowienia'];
 										$status = $r['status'];
+										$status_zaplaty = $r['status_zaplaty'];
 									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
 										$z = "color: #04A1EE !important";
 									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)') {
@@ -159,10 +160,12 @@
 														</div>";
 											}
 										}
+									$cena = (int)$r['cena_zamowienia'];
+									$cena = number_format((float)$cena, 2, '.', '');
 									echo "
 								</div>
 								<div class='hr_z5'>
-									".$r['cena_zamowienia']." zł
+									".$cena." zł
 								</div>	
 								<div class='hr_z6'>
 									<div id='dostawa'>".$r['dostawa']." zł</div>
@@ -172,6 +175,10 @@
 										echo "<div id='dokument'>Dokument sprzedaży: paragon</div>";
 									}
 									echo "
+								</div>
+								<div class='hr_z7'>";
+								if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+								echo "
 								</div>
 							</div>";
 
@@ -184,10 +191,19 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 function go(nr)
 {
-	window.location.href = "dane_zamowienie.php?id="+nr;
+	$.ajax({
+		url: 'select_p.php',
+		type: 'POST',
+		dataType: 'json', 
+		data: {n:nr},
+		success: function(data) {
+			if(data == "Ok") {window.location.href = "dane_zamowienie.php?id="+nr; } else {alert("Inny pracownik już zajmuje się tym zamówieniem"); }
+		}
+	});	
 }
 </script>
 </body>
