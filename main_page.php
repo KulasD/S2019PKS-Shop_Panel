@@ -54,37 +54,59 @@
 			$ile_produktow_dostepnych = $rezultat->num_rows;
 		}
 	}
+
+	// Wszystkie produkty wykres
+		$con = mysqli_connect("localhost","root","","user");
+		mysqli_query($con, "SET CHARSET utf8");
+		mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+		$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie ASC ";
+		$result = mysqli_query($con,$query);
+		$rows = array();
+		while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+			$rows[] = $r;
+		}	
+		$data_aktualna = date('d-m-Y', strtotime('-30 days'));
+		$data_aktualna = strtotime($data_aktualna);
+		$zamowienia_under_30 = array();
+		$zamowienia_suma = array();
+		$h=0;
+		for($q=30;$q>=0;$q--)
+		{
+			$zamowienia_suma[$h][0] = date('d-m-Y', strtotime('-'.$q.' days'));
+			$zamowienia_suma[$h][1] = 0;
+			$h++;
+		};
+		$j=0;
+		for($i=0;$i<count($rows);$i++)
+		{
+			$jakas_data = "".$rows[$i]['data_zamowienia']."";
+			$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $jakas_data);
+			$data = $data->format('d-m-Y');
+			$rows[$i]['data_zamowienia'] = $data;
+			$data_check = strtotime($data);
+			if($data_aktualna <= $data_check) {
+				$zamowienia_under_30[$j] = $rows[$i];
+				$j++;
+			}; 
+		}
+		for($t=0;$t<count($zamowienia_under_30);$t++)
+		{
+			for($r=0;$r<count($zamowienia_suma);$r++)
+			{
+				$xx = "".$zamowienia_under_30[$t]['data_zamowienia']."";
+				$yy = "".$zamowienia_suma[$r][0]."";
+				$x = strtotime($xx);
+				$y = strtotime($yy);
+				if( $x == $y )
+				{
+					$zamowienia_suma[$r][1]++;
+				}
+			}
+		}
 	$polaczenie->close();
 
 
 ?>
-
-<?php
-	// tworzenie wykresu
-	$tabelson = array();
-	$tabelson['cols'] = array(
-		array(
-			'label' => 'dzień',
-			'type' => 'string'
-		),
-		array(
-			'label' => 'sprzedano',
-			'type' => 'number'
-		)
-	);
-	$a=0;
-	while ($a<30){
-		$a=$a+1;
-		$rowssss = array();
-		$rowssss[] = array ( "v" => '2019.10.'.$a); 	// powinna się wpisywać data
-		$rowssss[] = array ( "v" => $a*100);	// powinna się wpisywać liczba zamowień
-		$rows[] = array ( "c" => $rowssss);	// push takiego jednego wpisu do tabeli
-	}
-	$tabelson['rows'] = $rows;
-	$jsonTable = json_encode($tabelson);
-
-?>
-
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -94,35 +116,9 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
-	<!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-   
-    // Load the Visualization API.
-    google.load('visualization', '1', {'packages':['corechart']});
-     
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawChart);
-     
-    function drawChart() {
-         
-      // Create our data table out of JSON data loaded from server.
-      var data = new google.visualization.DataTable(<?php echo $jsonTable; ?>);
-	  var options = {
-			legend: {position: 'none'},
-			//width: 363,
-			//height: 290,
-			chartArea: {left: 40, top: 10, right: 0, width: '90%', height: '80%'},
-			backgroundColor: '#eeeeee',
-	  };
-
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.LineChart(document.getElementById('wykres'));
-      chart.draw(data, options);
-    }
-
-    </script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 
 <body>
@@ -174,8 +170,7 @@
 					<span class="info_span">Sprzedaż i statystyki</span>
 					<div class="bordered_div">
 						<div id="wykres_box">
-							<span id="wykres_span">Ilość zamówień w ciągu ostatnich 30 dni.</span>
-							<div id="wykres"></div>
+							<div id="wykres"><div id="chart-"></div></div>
 							<!--TU MA BYĆ WYKRES SPRZEDAŻY!-->
 						</div>
 						Ilość złożonych zamówień: <?php echo $ile_zamowien ?><br />
@@ -237,5 +232,40 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script>
+var chartT = new Highcharts.Chart({
+  chart:{ renderTo : 'chart-' },
+  title: { text: 'Ilość zamówień w ciągu ostatnich 30 dni.' },
+  series: [{
+    showInLegend: false,
+    data: []
+  }],
+  plotOptions: {
+    line: { animation: false,
+      dataLabels: { enabled: true }
+    },
+    series: { color: '#059e8a' }
+  },
+  xAxis: { 
+   title: { text: 'Dzień' },
+    dateTimeLabelFormats: { second: '%D' }
+  },
+  yAxis: {
+    title: { text: 'ilość' }
+  },
+  credits: { enabled: false }
+});
+ $(document).ready(function() {
+var table = <?php echo json_encode($zamowienia_suma); ?>;
+for(t=0;t<table.length;t++)
+	{
+		var x = table[t][0];
+		var y = Number(table[t][1]);
+		chartT.series[0].addPoint([x, y], true, false, true);
+		chartT.series[0].update({name:"Ilość zamówień"}, false);
+		chartT.redraw();
+	}
+});
+</script>
 </body>
 </html>
