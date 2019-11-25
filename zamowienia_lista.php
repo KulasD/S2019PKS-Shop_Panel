@@ -118,15 +118,13 @@
 										else if($status == 'W trakcie realizacji') {
 										$z = "color: #CC0000 !important";
 									}
-										$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $data_z);
-										$data = $data->format('d/m/Y');
 										echo "							<div class='row'>
 								<div class='hr_z1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
 									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>
 									<span id='status_1' style='".$z."'>".$r['status']."</span>
 								</div>	
-								<div class='hr_z2'>".$data."</div>";
+								<div class='hr_z2'>".$data_z."</div>";
 								
 								$id_user=$r['id_user'];
 								$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
