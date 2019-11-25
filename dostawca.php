@@ -9,13 +9,7 @@
 	}
 	
 ?>
-<?php
-	$con = mysqli_connect("localhost","root","","administracja");
-	mysqli_query($con, "SET CHARSET utf8");
-	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM dostawcy ORDER BY id ASC ";
-	$result = mysqli_query($con,$query);
-?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -71,57 +65,69 @@
 			<div id="main_content">
 				<div id="panel_admin_border">
 					<div id="panel_admin">
-						<div class="flex_box_space">
-							<div>DOSTAWCY TOWARÓW</div>
-							<div><a href='dostawca.php'><button type="button" class="button_green">NOWY DOSTAWCA</button></a></div>
-						</div>
+						DOSTAWCA
 					</div>
 				</div>
 					<div id="produkty_start">
-						<div class="bordered_div_no_padding">
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">ID</span>
-									<span class="one_line_span">STATUS</span>
-								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span">NAZWA</span>
-									<span class="one_line_span">NIP</span>
-									<span class="one_line_span">REGON</span>
-								</div> 	
-								<div class="hr_k3">DANE KONTAKTOWE</div>	
-								<div class="hr_k4">ADRES</div>	
-								<div class="hr_k5">DZIAŁANIA</div>	
+						<div class="half_width">
+							<div class="bordered_div_no_padding">
+								<div class="row">
+									<div class="half_row">
+										<span class="one_line_span">NAZWA:</span>
+									</div> 	
+									<div class="half_row_right">
+										<input class="tx" type="text" name="nazwa" value=""/>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="half_row">
+										<span class="one_line_span">NIP:</span>
+									</div> 	
+									<div class="half_row_right">
+										<input class="tx" type="text" name="nip" value=""/>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="half_row">
+										<span class="one_line_span">REGON:</span>
+									</div> 	
+									<div class="half_row_right">
+										<input class="tx" type="text" name="regon" value=""/>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="half_row">
+										<span class="one_line_span">TELEFON:</span>
+									</div> 	
+									<div class="half_row_right">
+										<input class="tx" type="text" name="telefon" value=""/>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="half_row">
+										<span class="one_line_span">E-MAIL:</span>
+									</div> 	
+									<div class="half_row_right">
+										<input class="tx" type="text" name="email" value=""/>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="half_row">
+										<span class="one_line_span">ADRES:</span>
+									</div> 	
+									<div class="half_row_right">
+										<input class="tx" type="text" name="numer" value=""/>
+
+										<input class="tx" type="text" name="ulica" value=""/>
+
+										<input class="tx" type="text" name="kod_pocztowy" value=""  style="width:29%; margin-right:1%;"/><input class="tx" type="text" name="miejscowosc" value=""  style="width:70%"/>
+									</div>										
+								</div>
+								<div class="flex_box_space" style="margin:5px;">
+									<div></div>
+									<div><button type="button" class="button_green">ZAPISZ</button></div>
+								</div>
 							</div>
-							<?php
-							// PRZYCISK USUŃ BĘDZIE zmieniał status tego dostawcy na niekatywny i tworzył nowego dostawcę ze zmienionymi danymi
-							// PRZYCISK WYŁĄCZ BĘDZIE zmieniał status tego dostawcy na nieaktywny
-								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
-								echo "<div class='row'>
-								<div class='hr_k1'>
-									<span class='one_line_span'>".$r['id']."</span>
-									<span class='one_line_span'>".$r['status']."</span>
-								</div>	
-								<div class='hr_k2'>
-									<span class='one_line_span'>".$r['nazwa']."</span>
-									<span class='one_line_span'>".$r['nip']."</span>
-									<span class='one_line_span'>".$r['regon']."</span>
-								</div> 	
-								<div class='hr_k3'>
-									<span class='one_line_span'>".$r['email']."</span>
-									<span class='one_line_span'>".$r['telefon']."</span>
-								</div>		
-								<div class='hr_k4'>
-									<span class='one_line_span'>".$r['adres']."</span>
-									<span class='one_line_span'>".$r['miejscowosc']." ".$r['kod_pocztowy']."</span>
-								</div>
-								<div class='hr_k5'>
-									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
-									<div class='s_d_b'><button type='button' class='red_button'>WYŁĄCZ</button></div>
-								</div>
-							</div>";
-								}
-							?>
 						</div>
 					</div>
 			</div>
