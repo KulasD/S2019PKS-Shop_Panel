@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 02 Paź 2019, 17:22
+-- Czas generowania: 25 Lis 2019, 14:39
 -- Wersja serwera: 10.4.6-MariaDB
 -- Wersja PHP: 7.3.9
 
@@ -21,6 +21,32 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `administracja`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `dostawcy`
+--
+
+CREATE TABLE `dostawcy` (
+  `id` int(11) NOT NULL,
+  `nazwa` text COLLATE utf8_polish_ci NOT NULL,
+  `nip` bigint(10) NOT NULL,
+  `regon` int(9) NOT NULL,
+  `adres` text COLLATE utf8_polish_ci NOT NULL,
+  `kod_pocztowy` text COLLATE utf8_polish_ci NOT NULL,
+  `miejscowosc` text COLLATE utf8_polish_ci NOT NULL,
+  `email` text COLLATE utf8_polish_ci NOT NULL,
+  `telefon` int(9) NOT NULL,
+  `status` text COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `dostawcy`
+--
+
+INSERT INTO `dostawcy` (`id`, `nazwa`, `nip`, `regon`, `adres`, `kod_pocztowy`, `miejscowosc`, `email`, `telefon`, `status`) VALUES
+(1, 'Dostarczam_Towary', 9876543210, 987654321, 'Tarnów', '11-111', 'Tarnów', 'dostarczamy@towary.org', 987654321, 'aktywny');
 
 -- --------------------------------------------------------
 
@@ -49,6 +75,12 @@ INSERT INTO `kadra` (`id`, `login`, `haslo`, `imie`, `nazwisko`, `uprawnienia`) 
 --
 
 --
+-- Indeksy dla tabeli `dostawcy`
+--
+ALTER TABLE `dostawcy`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeksy dla tabeli `kadra`
 --
 ALTER TABLE `kadra`
@@ -57,6 +89,12 @@ ALTER TABLE `kadra`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT dla tabeli `dostawcy`
+--
+ALTER TABLE `dostawcy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `kadra`

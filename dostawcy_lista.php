@@ -10,10 +10,10 @@
 	
 ?>
 <?php
-	$con = mysqli_connect("localhost","root","","user");
+	$con = mysqli_connect("localhost","root","","administracja");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM kod_rabatowy ORDER BY id_kod ASC ";
+	$query = "SELECT * FROM dostawcy ORDER BY id ASC ";
 	$result = mysqli_query($con,$query);
 ?>
 <!DOCTYPE HTML>
@@ -72,8 +72,8 @@
 				<div id="panel_admin_border">
 					<div id="panel_admin">
 						<div class="flex_box_space">
-							<div>KODY RABATOWE</div>
-							<div><a href='rabat.php'><button type="button" class="button_green">NOWY KOD RABATOWY</button></a></div>
+							<div>DOSTAWCY TOWARÓW</div>
+							<div><a href='#'><button type="button" class="button_green">NOWY DOSTAWCA</button></a></div>
 						</div>
 					</div>
 				</div>
@@ -82,30 +82,37 @@
 							<div class="row">
 								<div class="hr_k1">
 									<span class="one_line_span">ID</span>
+									<span class="one_line_span">STATUS</span>
 								</div>	
 								<div class="hr_k2">
-									<span class="one_line_span">KOD RABATOWY</span>
+									<span class="one_line_span">NAZWA</span>
+									<span class="one_line_span">NIP</span>
+									<span class="one_line_span">REGON</span>
 								</div> 	
-								<div class="hr_k3">STATUS</div>	
-								<div class="hr_k4">DATA DODANIA</div>	
+								<div class="hr_k3">DANE KONTAKTOWE</div>	
+								<div class="hr_k4">ADRES</div>	
 								<div class="hr_k5">DZIAŁANIA</div>	
 							</div>
 							<?php
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
-									$data_z = $r['data_dodania'];
-									$data = DateTime::createFromFormat('Y-m-d H:i:s', $data_z);
-									$data = $data->format('d/m/Y');
 								echo "<div class='row'>
 								<div class='hr_k1'>
-									<span class='one_line_span'>".$r['id_kod']."</span>
+									<span class='one_line_span'>".$r['id']."</span>
+									<span class='one_line_span'>".$r['status']."</span>
 								</div>	
 								<div class='hr_k2'>
-									<span class='one_line_span'>".$r['kod'].", ".$r['rabat']."%</span>
+									<span class='one_line_span'>".$r['nazwa']."</span>
+									<span class='one_line_span'>".$r['nip']."</span>
+									<span class='one_line_span'>".$r['regon']."</span>
 								</div> 	
 								<div class='hr_k3'>
-									".$r['status']."
+									<span class='one_line_span'>".$r['email']."</span>
+									<span class='one_line_span'>".$r['telefon']."</span>
 								</div>		
-								<div class='hr_k4'>".$data."</div>
+								<div class='hr_k4'>
+									<span class='one_line_span'>".$r['adres']."</span>
+									<span class='one_line_span'>".$r['miejscowosc']." ".$r['kod_pocztowy']."</span>
+								</div>
 								<div class='hr_k5'>
 									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
 									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
