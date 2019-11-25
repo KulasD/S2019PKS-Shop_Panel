@@ -18,7 +18,7 @@ body
 	-webkit-box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
 	-moz-box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
 	box-shadow: 0px 0px 20px 0px rgba(153,153,153,1);
-	background-color: #0574ff;
+	background-color: #4d4d4d;
 	background-image: url("img/tlo.png");
 	background-blend-mode: screen;
 }
@@ -28,7 +28,7 @@ body
 	width: 12%;
 	height: 100%;
 	float: left;
-	background-color: #0574ff;
+	background-color: #4d4d4d;
 	background-image: url("img/tlo.png");
 	background-blend-mode: screen;
 	color: white;
@@ -73,13 +73,18 @@ body
 {
 	text-decoration: none;
 	color: white;
+	padding-left: 3px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 1px;
 }
 
 #log_out > a:hover
 {
 	text-decoration: none;
-	color: #0574FF;
-	/*background-color: #82b8ff;*/
+	color: white;
+	background-color: rgba(130, 184, 255, 0.6);
+	border-radius: 10px;
 }
 
 #nav
@@ -89,40 +94,41 @@ body
 
 .nav
 {
-	padding: 0px 5px;
+	padding-left: 25px;
 	text-transform: uppercase;
 	height: 28px;
 	display:block;
-	font-weight: bold;
+	margin: 0px 2px;
+}
+
+.nav:hover
+{
+	background-color: rgba(130, 184, 255, 0.6);
+	border-radius: 10px;
 }
 
 .nav_border
 {
 	border-bottom: 2px solid;
-	border-color: #cccccc;
+	border-color: rgba(204, 204, 204, 0.2);
+	padding: 5px 0px;
 }
 
-.nav:first-child
+/*.nav:first-child
 {
 	height: 26px;
-}
+}*/
 
 .nav_border:first-child
 {
 	height: 26px;
 	border-top: 2px solid;
-	border-color: #cccccc;
-}
-
-.nav:hover
-{
-	background-color: #82b8ff;
+	border-color: rgba(204, 204, 204, 0.2);
 }
 
 a.nav_link
 {
 	padding-top: 5px;
-	min-height: 23px;
 	display: block;
 	color: white;
 	text-decoration: none;
@@ -131,7 +137,7 @@ a.nav_link
 a.nav_link:hover
 {
 	display: block;
-	color: #0574FF;
+	color: white;
 	text-decoration: none;
 }
 
