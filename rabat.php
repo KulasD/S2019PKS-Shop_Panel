@@ -1,13 +1,32 @@
 <?php
-
 	session_start();
-	
 	if (!isset($_SESSION['zalogowany']))
 	{
 		header('Location: index.php');
 		exit();
 	}
-	
+?>
+<?php 
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$kod = ''; $status = ''; $procent = ''; $id_kod = '';
+	if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
+	{
+		$id_kod = $_GET['id'];
+		$query = "SELECT * FROM kod_rabatowy WHERE id_kod='$id_kod'";
+		$result = mysqli_query($con,$query);
+		$ile = $result->num_rows;
+		if($ile > 0 )
+		{
+			while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+				$kod = $r['kod'];
+				$status = $r['status'];
+				$procent= $r['rabat'];
+				$id_kod = $r['id_kod'];
+			}
+		}
+	}
 ?>
 
 <!DOCTYPE HTML>
@@ -72,25 +91,29 @@
 						<div class="bordered_div_no_padding">
 							<div class="row">
 								<div class="hr_k2">
-									<span class="one_line_span">KOD RABATOWY</span>
+									<span class="one_line_span">KOD RABATOWY (min 10 znaków)</span>
 								</div> 	
-								<div class="hr_k3">STATUS</div>	
-								<div class="hr_k4">WYGASA</div>	
+								<div class="hr_k3">STATUS</div>		
+								<div class="hr_k4">PROCENT</div>	
 								<div class="hr_k5">DZIAŁANIA</div>	
 							</div>
 							<div class="row">
 								<div class="hr_k2">
-									<input class="tx" type="text" name="rabat"/>
+									<input class="tx" type="text" id="rabat_in" value="<?php echo "".$kod.""; ?>"/>
 								</div> 	
 								<div class="hr_k3">
-									<select class="tx" id="status">
-										<option value="on">Aktywny</option>
-										<option value="off">Wygasł</option>
+									<select class="tx" id="status_in">
+									<?php 
+									if($status == "aktywny" || $status == '') { echo "<option value='aktywny' selected>Aktywny</option><option value='nieaktywny'>Wygasł</option>";} else {echo "<option value='aktywny'>Aktywny</option><option value='nieaktywny' selected>Wygasł</option>";
+									}
+									?>
 									</select>
 								</div>		
-								<div class="hr_k4"><input class="tx" type="text" name="wygasa"/></div>
+								<div class="hr_k4">
+									<input class="tx" type="text" id="procent_in" maxlength="2" value="<?php echo "".$procent.""; ?>"/>
+								</div> 	
 								<div class="hr_k5">
-									<div class="s_d_b"><button type="button" class="button">ZAPISZ</button></div>
+									<div class="s_d_b"><button class="button" onclick="add('<?php echo "".$id_kod.""; ?>')">ZAPISZ</button></div>
 								</div>
 							</div>
 						</div>
@@ -99,5 +122,29 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+function add(nr)
+{
+	var st = document.getElementById("status_in");
+	var s = st.options[st.selectedIndex].value;
+	var k = document.getElementById("rabat_in").value;
+	var p = document.getElementById("procent_in").value;
+	p = Number(p);
+	console.log(k.length);
+	if((k.length <= 9) || ((p/1) != p) ) {alert('Popraw kod rabatowy lub Procent.');} else {
+		$.ajax({
+			url: 'add_r.php',
+			type: 'POST',
+			dataType: 'json', 
+			data: {s:s,k:k,p:p,i:nr},
+			success: function(data) {
+				if(data == "Ok") {alert("Kod rabatowy został dodany");} else {alert("Kod rabatowy został zedytowany.");}
+				window.location.href = "rabaty_lista.php";
+			}
+		});	
+	}
+}
+</script>
 </body>
 </html>
