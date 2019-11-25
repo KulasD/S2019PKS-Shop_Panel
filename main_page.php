@@ -59,7 +59,9 @@
 		$con = mysqli_connect("localhost","root","","user");
 		mysqli_query($con, "SET CHARSET utf8");
 		mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-		$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie ASC ";
+		$d_a = date('Y/m/d', strtotime('-30 days')); // dzisiejsza data minus 30 dni
+		$d_aa = date('Y/m/d'); // dzisiejsza data
+		$query = "SELECT * FROM zamowienie_informacje WHERE data_zamowienia BETWEEN '$d_a 00:00:00' and '$d_aa 23:59:59'"; // pobieranie danych od tej daty -30 dni do dzisiaj
 		$result = mysqli_query($con,$query);
 		$rows = array();
 		while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -80,7 +82,7 @@
 		for($i=0;$i<count($rows);$i++)
 		{
 			$jakas_data = "".$rows[$i]['data_zamowienia']."";
-			$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $jakas_data);
+			$data = \DateTime::createFromFormat('Y-m-d H:i:s', $jakas_data);
 			$data = $data->format('d-m-Y');
 			$rows[$i]['data_zamowienia'] = $data;
 			$data_check = strtotime($data);
