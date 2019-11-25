@@ -68,7 +68,8 @@ CREATE TABLE `kadra` (
 --
 
 INSERT INTO `kadra` (`id`, `login`, `haslo`, `imie`, `nazwisko`, `uprawnienia`) VALUES
-(1, 'admin', '$2y$10$ruAhiVCtWxX.ylVt5Ft3f.aYe.jxMxxtOfqzjB5fvK5l0xmLFewcS', 'Admin', 'Istrator', 'administrator');
+(1, 'admin', '$2y$10$ruAhiVCtWxX.ylVt5Ft3f.aYe.jxMxxtOfqzjB5fvK5l0xmLFewcS', 'Admin', 'Istrator', 'administrator'),
+(2, 'kwachu', '$2y$10$ruAhiVCtWxX.ylVt5Ft3f.aYe.jxMxxtOfqzjB5fvK5l0xmLFewcS', 'Kwachu', 'Kwachu', 'administrator');
 
 --
 -- Indeksy dla zrzutów tabel
