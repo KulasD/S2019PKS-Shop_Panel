@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
-
+	<script src="script.js"></script>
     </script>
 </head>
 
@@ -92,9 +92,6 @@
 							</div>
 							<?php
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
-									$data_z = $r['data_dodania'];
-									$data = DateTime::createFromFormat('Y-m-d H:i:s', $data_z);
-									$data = $data->format('d/m/Y');
 								echo "<div class='row'>
 								<div class='hr_k1'>
 									<span class='one_line_span'>".$r['id_kod']."</span>
@@ -105,10 +102,10 @@
 								<div class='hr_k3'>
 									".$r['status']."
 								</div>		
-								<div class='hr_k4'>".$data."</div>
+								<div class='hr_k4'>".$r['data_dodania']."</div>
 								<div class='hr_k5'>
-									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
-									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
+									<div class='s_d_b'><button class='button' onclick='g(".$r['id_kod'].")'>EDYTUJ</button></div>
+									<div class='s_d_b'><button class='red_button' onclick='deletekod(".$r['id_kod'].")'>USUŃ</button></div>
 								</div>
 							</div>";
 								}
@@ -119,5 +116,12 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+function g(nr)
+{
+	window.location.href = "rabat.php?id="+nr;
+}
+</script>
 </body>
 </html>
