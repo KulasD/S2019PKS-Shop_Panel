@@ -141,15 +141,13 @@
 					<div class="bordered_div_no_padding">
 					<?php 
 					$data_z = "".$zamowienie[0]['data_zamowienia']."";
-					$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $data_z);
-					$data = $data->format('d/m/Y');
 					$dostawa  = "".$zamowienie[0]['dostawa']."";
 					$dostawa_ = explode(",", $dostawa);
 					$cena_zamowienia = "".$zamowienie[0]['cena_zamowienia']."";
 					$cena_zamowienia = number_format((float)$cena_zamowienia, 2, '.', '');
 					if($dostawa_[1] == '') {$dostawa_[1] = "0";};
 					?>
-						<div class="row"><div class="half_row">Data zamówienia:</div>				<div class="half_row_right"><span id="data"><?php echo "".$data."";?></span></div></div>
+						<div class="row"><div class="half_row">Data zamówienia:</div>				<div class="half_row_right"><span id="data"><?php echo "".$data_z."";?></span></div></div>
 						
 						<div class="row"><div class="half_row">Wartość zamówienia:</div>			<div class="half_row_right"><span id="wartosc"><?php echo "".$cena_zamowienia."";?> zł</span></div></div>
 						
