@@ -95,8 +95,6 @@
 							<?php
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 									$data_z = $r['data_reklamacji'];
-									$data = \DateTime::createFromFormat('D M d Y H:i:s e+', $data_z);
-									$data = $data->format('d/m/Y');
 									echo "<div class='row'>
 								<div class='hr_k1'>
 									<span class='one_line_span'>".$r['id_rek']."</span>
@@ -134,7 +132,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class='hr_k4'>".$data."</div>	
+								<div class='hr_k4'>".$data_z."</div>	
 								<div class='hr_k5'>
 									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
 									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
