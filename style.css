@@ -475,30 +475,6 @@ img {
 
 }
 
-.mp_z1{
-	width: 10%;
-}
-
-.mp_z2{
-	width: 20%;
-}
-
-.mp_z3{
-	width: 13%;
-}
-
-.mp_z4{
-	width: 12%;
-}
-
-.mp_z5{
-	width: 40%;
-}
-
-.mp_z6{
-	width: 5%;
-}
-
 .center_holder_no_padding{
 	text-align: center;
 }
@@ -775,4 +751,65 @@ code span {
 #test123
 {
 	height: 40px;
+}
+
+/*main_page.php style paneli*/
+.mp_z1{
+	width: 10%;
+}
+
+.mp_z2{
+	width: 20%;
+}
+
+.mp_z3{
+	width: 13%;
+}
+
+.mp_z4{
+	width: 12%;
+}
+
+.mp_z5{
+	width: 40%;
+}
+
+.mp_z6{
+	width: 5%;
+}
+
+.text_UP{
+	text-transform: uppercase;
+}
+
+.mp_od1{
+	width: 10%;
+}
+
+.mp_od2{
+	width: 10%;
+}
+
+.mp_od3{
+	width: 35%;
+}
+
+.mp_od4{
+	width: 10%;
+}
+
+.mp_od5{
+	width: 10%;
+}
+
+.mp_od6{
+	width: 10%;
+}
+
+.mp_od7{
+	width: 10%;
+}
+
+.mp_od8{
+	width: 5%;
 }

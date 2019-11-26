@@ -116,6 +116,13 @@
 	$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie DESC LIMIT 10";
 	$result = mysqli_query($con,$query);
 ?>
+<?php
+	$con_p = mysqli_connect("localhost","root","","przedmioty");
+	mysqli_query($con_p, "SET CHARSET utf8");
+	mysqli_query($con_p, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$query_p = "SELECT * FROM przedmioty_ogolne_informacje ORDER BY id_produktu DESC LIMIT 5";
+	$result_p = mysqli_query($con_p,$query_p);
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -245,9 +252,8 @@
 											<button type='button' class='button' onclick='go(".$r['id_zamowienie'].")'><i class='icon-logout'></i></button>
 										</div>
 									</div>";
-
 								}
-
+							$con->close();
 							?>
 						</div>
 					</div>
@@ -256,22 +262,71 @@
 				<div id="produkty_start">
 					<span class="info_span">Produkty</span>
 					<div class="bordered_div_full">
-					<div id="buttons_div">
-						<button id="1" type="button" class="button_clicked" onclick="change(1)">Ostatnio dodane</button>
-						<button id="2" type="button" class="button" onclick="change(2)">Najczęściej oglądane</button>
-						<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>
-						<button id="4" type="button" class="button" onclick="change(4)">Ostatnie opinie</button>
-					</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
-					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
+						<div id="buttons_div">
+							<button id="1" type="button" class="button_clicked" onclick="change(1)">Ostatnio dodane</button>
+							<button id="2" type="button" class="button" onclick="change(2)">Najczęściej oglądane</button>
+							<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>
+							<button id="4" type="button" class="button" onclick="change(4)">Ostatnie opinie</button>
+						</div>
+						<div class="row">
+							<div class="text_UP mp_od1">
+								Obrazek
+							</div>
+							<div class="text_UP mp_od2 center_holder_no_padding">
+								ID_produktu								
+							</div>
+							<div class="text_UP mp_od3">
+								Nazwa_produktu		
+							</div>
+							<div class="text_UP mp_od4">
+								cena		
+							</div>
+							<div class="text_UP mp_od5 center_holder_no_padding">
+								ilość odwiedzin
+							</div>
+							<div class="text_UP mp_od6 center_holder_no_padding">
+								ilość zakupień
+							</div>
+							<div class="text_UP mp_od7 center_holder_no_padding">
+								ilość na magazynie
+							</div>
+							<div class="text_UP mp_od8 center_holder_no_padding">
+								GO
+							</div>
+						</div>
+						<?php
+						while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
+							$localization = $r_p['lokalizacja'];
+							$src = $r_p['zdjecie'];
+							echo
+							"<div class='row'>
+								<div class='text_UP mp_od1'>
+									<img src='../lepsza/category/".$localization."/".$src."'/>
+								</div>
+								<div class='text_UP mp_od2 center_holder_no_padding'>
+									".$r_p['id_produktu']."								
+								</div>
+								<div class='text_UP mp_od3'>
+									".$r_p['pelna_nazwa']."		
+								</div>
+								<div class='text_UP mp_od4'>
+									".$r_p['cena']." zł		
+								</div>
+								<div class='text_UP mp_od5 center_holder_no_padding'>
+									".$r_p['ilosc_odwiedzin']."
+								</div>
+								<div class='text_UP mp_od6 center_holder_no_padding'>
+									".$r_p['ilosc_zakupien']."
+								</div>
+								<div class='text_UP mp_od7 center_holder_no_padding'>
+									".$r_p['sztuki']."
+								</div>
+								<div class='text_UP mp_od8 center_holder_no_padding'>
+									<button type='button' class='button'><i class='icon-logout'></i></button>
+								</div>
+							</div>";
+						}
+						?>
 					</div>
 				</div>
 			</div>
