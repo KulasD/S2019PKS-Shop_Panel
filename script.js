@@ -51,3 +51,47 @@ function deletekod(nr)
 		return false; }
 	alertObj.style.display = "block";
 }
+
+function go(nr)
+{
+	$.ajax({
+		url: 'select_p.php',
+		type: 'POST',
+		dataType: 'json', 
+		data: {n:nr},
+		success: function(data) {
+			if(data == "Ok") {window.location.href = "dane_zamowienie.php?id="+nr; } else {alert("Inny pracownik już zajmuje się tym zamówieniem"); }
+		}
+	});	
+}
+
+function save(nr,zap)
+{
+	var c = false;
+	console.log(zap);
+	if(zap != "Zapłacono") {
+		if (confirm('Klient nie zapłacił! Czy chcesz kontynuować?')) {
+			c = true;
+		} else {
+			c = false;
+		}
+	} else {
+		c = true;
+	}
+	if(c==true) {
+		var e = document.getElementById("opiekun");
+		var pracownik = e.options[e.selectedIndex].value;
+		var s = document.getElementById("status");
+		var status = s.options[s.selectedIndex].value;
+		var termin = $("#termin").val();
+		var nr_paczki = $("#nr_paczki").val();
+		var waga = $("#waga_paczki").val();
+		var komentarz_pracownika = $("#komentarz_pracownika").val();
+		$.ajax({
+			url: 'edit_z.php',
+			type: 'POST',
+			data: {i:nr,p:pracownik,s:status,t:termin,n:nr_paczki,w:waga,k:komentarz_pracownika},
+		});
+		window.location.reload(true);
+	}
+}
