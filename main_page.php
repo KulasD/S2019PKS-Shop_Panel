@@ -304,6 +304,7 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="script.js"></script>
 </head>
 
 <body>
@@ -384,7 +385,7 @@
 									$status_zaplaty = $r['status_zaplaty'];
 									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
 										$z = "color: #04A1EE !important";
-									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)') {
+									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy') {
 										$z = "color: gray !important";
 									} else if($status == 'Zamówienie anulowane') {
 										$z = "color: #CC0000 !important";
@@ -515,20 +516,6 @@ for(t=0;t<table.length;t++)
 });
 </script>
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript">
-function go(nr)
-{
-	$.ajax({
-		url: 'select_p.php',
-		type: 'POST',
-		dataType: 'json', 
-		data: {n:nr},
-		success: function(data) {
-			if(data == "Ok") {window.location.href = "dane_zamowienie.php?id="+nr; } else {alert("Inny pracownik już zajmuje się tym zamówieniem"); }
-		}
-	});	
-}
-</script>
 <script type="text/javascript">
 var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5">ocena</div><div class="text_UP mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">zakupień</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">GO</div></div>';
 var ostatnio_dodane = <?php echo json_encode($od); ?>;
