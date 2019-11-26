@@ -109,6 +109,13 @@
 
 
 ?>
+<?php
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie DESC LIMIT 10";
+	$result = mysqli_query($con,$query);
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -184,28 +191,65 @@
 				<div class="half_width">
 					<span class="info_span">Najnowsze zamówienia</span>
 					<div class="bordered_div">
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
-						<div>ID_zamowienia		Użytkownik		wartość		status_zamowienia		str</div>
+						<div style="min-height:485px;">
+							<div class="row">
+								<div class="mp_z1">ID</div>
+								<div class="mp_z2">Nazwa</div>
+								<div class="mp_z3">Wartość</div>
+								<div class="mp_z4">Data</div>
+								<div class="mp_z5">Status_zamówienia</div>
+								<div class="mp_z6">GO</div>
+							</div>
+							<?php
+								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+									$id_zamowienie=$r['id_zamowienie'];
+									$data_z = $r['data_zamowienia'];
+									$status = $r['status'];
+									$status_zaplaty = $r['status_zaplaty'];
+									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
+										$z = "color: #04A1EE !important";
+									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)') {
+										$z = "color: gray !important";
+									} else if($status == 'Zamówienie anulowane') {
+										$z = "color: #CC0000 !important";
+									}
+										else if($status == 'W trakcie realizacji') {
+										$z = "color: #CC0000 !important";
+									}
+									echo 
+									"<div class='row'>
+										<div class='mp_z1'>
+											Nr. ".$id_zamowienie."
+										</div>";
+										$id_user=$r['id_user'];
+										$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
+										$re_u = mysqli_query($con,$qu_u);
+										while ($rr_u = $re_u->fetch_array(MYSQLI_ASSOC)) {
+											$name = $rr_u['name'];	
+											$surname = $rr_u['surname'];	
+										}
+									echo 
+										"<div class='mp_z2'>
+											".$name." ".$surname."
+										</div>
+										<div class='mp_z3'>
+											".$r['cena_zamowienia']." zł
+										</div>
+										<div class='mp_z4'>
+											".$r['data_zamowienia']."
+										</div>
+										<div class='mp_z5'>
+											<span style='".$z."'>".$r['status']."</span>
+										</div>
+										<div class='mp_z6'>
+											<button type='button' class='button' onclick='go(".$r['id_zamowienie'].")'><i class='icon-logout'></i></button>
+										</div>
+									</div>";
+
+								}
+
+							?>
+						</div>
 					</div>
 				</div>
 				<div style="clear:both;"></div>
@@ -268,6 +312,21 @@ for(t=0;t<table.length;t++)
 		chartT.redraw();
 	}
 });
+</script>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+function go(nr)
+{
+	$.ajax({
+		url: 'select_p.php',
+		type: 'POST',
+		dataType: 'json', 
+		data: {n:nr},
+		success: function(data) {
+			if(data == "Ok") {window.location.href = "dane_zamowienie.php?id="+nr; } else {alert("Inny pracownik już zajmuje się tym zamówieniem"); }
+		}
+	});	
+}
 </script>
 </body>
 </html>

@@ -286,7 +286,8 @@ input.search_button:hover
 div#wykres
 {
 	width: 100%;
-	height: 290px;
+	min-height: 290px;
+	margin-bottom: 5px;
 }
 
 #produkty_start
@@ -472,6 +473,30 @@ img {
 
 .to_right{
 
+}
+
+.mp_z1{
+	width: 10%;
+}
+
+.mp_z2{
+	width: 20%;
+}
+
+.mp_z3{
+	width: 13%;
+}
+
+.mp_z4{
+	width: 12%;
+}
+
+.mp_z5{
+	width: 40%;
+}
+
+.mp_z6{
+	width: 5%;
 }
 
 .center_holder_no_padding{
