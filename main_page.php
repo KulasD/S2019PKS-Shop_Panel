@@ -120,6 +120,9 @@
 	$con_p = mysqli_connect("localhost","root","","przedmioty");
 	mysqli_query($con_p, "SET CHARSET utf8");
 	mysqli_query($con_p, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	
+	// OSTATNIO DODANE PRODUKTY -------------------------------------------------------------------------
+	
 	$query_p = "SELECT * FROM przedmioty_ogolne_informacje ORDER BY id_produktu DESC LIMIT 5";
 	$result_p = mysqli_query($con_p,$query_p);
 	$od = '';
@@ -153,6 +156,137 @@
 					".$r_p['sztuki']."
 				</div>
 				<div class='text_UP mp_od9 center_holder_no_padding'>
+					<button type='button' class='button'><i class='icon-logout'></i></button>
+				</div>
+			</div>";
+	}
+	
+	// NAJCZĘŚCIEJ OGLĄDANE PRODUKTY --------------------------------------------------------------------
+	
+	$query_p = "SELECT * FROM przedmioty_ogolne_informacje ORDER BY ilosc_odwiedzin DESC LIMIT 5";
+	$result_p = mysqli_query($con_p,$query_p);
+	$nd = '';
+	while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
+		$localization = $r_p['lokalizacja'];
+		$src = $r_p['zdjecie'];
+		$nd .= 
+			"<div class='row'>
+				<div class='text_UP mp_od1'>
+					<img src='../lepsza/category/".$localization."/".$src."'/>
+				</div>
+				<div class='text_UP mp_od2 center_holder_no_padding'>
+					".$r_p['id_produktu']."								
+				</div>
+				<div class='text_UP mp_od3'>
+					".$r_p['pelna_nazwa']."		
+				</div>
+				<div class='text_UP mp_od4'>
+					".$r_p['cena']." zł		
+				</div>
+				<div class='text_UP mp_od5'>
+					OCENA		
+				</div>
+				<div class='text_UP mp_od6 center_holder_no_padding'>
+					".$r_p['ilosc_odwiedzin']."
+				</div>
+				<div class='text_UP mp_od7 center_holder_no_padding'>
+					".$r_p['ilosc_zakupien']."
+				</div>
+				<div class='text_UP mp_od8 center_holder_no_padding'>
+					".$r_p['sztuki']."
+				</div>
+				<div class='text_UP mp_od9 center_holder_no_padding'>
+					<button type='button' class='button'><i class='icon-logout'></i></button>
+				</div>
+			</div>";
+	}
+	
+	// PRODUKTY DO ZAMÓWIENIA ---------------------------------------------------------------------------
+	
+	$query_p = "SELECT * FROM przedmioty_ogolne_informacje WHERE sztuki<=5 ORDER BY sztuki ASC";
+	$result_p = mysqli_query($con_p,$query_p);
+	$dz = '';
+	$yes_or_no = "no";
+	if($result_p->num_rows==0){
+		$dz .= 
+		"<div class='center_holder_no_padding' style='min-height:100px; position:relative;'>
+			<div class='iwtbic'>
+				BRAK PRODUKTÓW Z NISKIM STANEM MAGAZYNOWYM (5 lub mniej sztuk).
+			</div>
+		</div>";
+		$yes_or_no = "yes";
+	}
+	else{
+		$yes_or_no = "no";
+		while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
+			$localization = $r_p['lokalizacja'];
+			$src = $r_p['zdjecie'];
+			$dz .= 
+				"<div class='row'>
+					<div class='text_UP mp_od1'>
+						<img src='../lepsza/category/".$localization."/".$src."'/>
+					</div>
+					<div class='text_UP mp_od2 center_holder_no_padding'>
+						".$r_p['id_produktu']."								
+					</div>
+					<div class='text_UP mp_od3'>
+						".$r_p['pelna_nazwa']."		
+					</div>
+					<div class='text_UP mp_od4'>
+						".$r_p['cena']." zł		
+					</div>
+					<div class='text_UP mp_od5'>
+						OCENA		
+					</div>
+					<div class='text_UP mp_od6 center_holder_no_padding'>
+						".$r_p['ilosc_odwiedzin']."
+					</div>
+					<div class='text_UP mp_od7 center_holder_no_padding'>
+						".$r_p['ilosc_zakupien']."
+					</div>
+					<div class='text_UP mp_od8 center_holder_no_padding'>
+						".$r_p['sztuki']."
+					</div>
+					<div class='text_UP mp_od9 center_holder_no_padding'>
+						<button type='button' class='button'><i class='icon-logout'></i></button>
+					</div>
+				</div>";
+		}
+	}
+	
+	// OSTATNIE OPINIE ----------------------------------------------------------------------------------
+	
+	$query_p = "SELECT * FROM opinie_produktu ORDER BY id_opinia DESC LIMIT 5";
+	$result_p = mysqli_query($con_p,$query_p);
+	$oo = '';
+	while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
+		$id_produkt_opinia = $r_p['id_produktu'];
+		$query_p_o = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu='$id_produkt_opinia'";
+		$result_p_o = mysqli_query($con_p,$query_p_o);
+		$r_p_o = $result_p_o->fetch_array(MYSQLI_ASSOC);
+		$localization = $r_p_o['lokalizacja'];
+		$src = $r_p_o['zdjecie'];
+		$oo .= 
+			"<div class='row'>
+				<div class='text_UP mp_oo1'>
+					<img src='../lepsza/category/".$localization."/".$src."'/>
+				</div>
+				<div class='text_UP mp_oo2 center_holder_no_padding'>
+					".$r_p['id_produktu']."							
+				</div>
+				<div class='text_UP mp_oo3'>
+					".$r_p_o['pelna_nazwa']."
+				</div>
+				<div class='text_UP mp_oo4'>
+					".$r_p['imie_uzytkownika']."	
+				</div>
+				<div class='text_UP mp_oo5'>
+					".$r_p['ocena']."		
+				</div>
+				<div class='text_UP mp_oo6'>
+					".$r_p['opinia']."
+				</div>
+				<div class='text_UP mp_oo7'>
 					<button type='button' class='button'><i class='icon-logout'></i></button>
 				</div>
 			</div>";
@@ -398,6 +532,11 @@ function go(nr)
 <script type="text/javascript">
 var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5">ocena</div><div class="text_UP mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">zakupień</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">GO</div></div>';
 var ostatnio_dodane = <?php echo json_encode($od); ?>;
+var najczesciej_ogladane = <?php echo json_encode($nd); ?>;
+var do_zamowienia = <?php echo json_encode($dz); ?>;
+var yes_or_no = <?php echo json_encode($yes_or_no); ?>;
+var ostatnie_opinie = <?php echo json_encode($oo); ?>;
+var naglowek_4 = "<div class='row'><div class='text_UP mp_oo1'>OBRAZEK</div><div class='text_UP mp_oo2 center_holder_no_padding'>ID PRODUKTU</div><div class='text_UP mp_oo3'>NAZWA PRODUKTU</div><div class='text_UP mp_oo4'>OCENIAJĄCY</div><div class='text_UP mp_oo5'>OCENA</div><div class='text_UP mp_oo6'>TREŚĆ OPINII</div><div class='text_UP mp_oo7'>GO</div></div>";
 function change(id)
 {
 	document.getElementsByClassName('button_clicked')[0].classList.add('button');
@@ -407,6 +546,23 @@ function change(id)
 	if(id==1){
 		document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
 		document.getElementById("produkty_box").innerHTML = ostatnio_dodane;
+	}
+	else if(id==2){
+		document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
+		document.getElementById("produkty_box").innerHTML = najczesciej_ogladane;
+	}
+	else if(id==3){
+		if(yes_or_no=="no"){
+			document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
+		}
+		else{
+			document.getElementById("produkty_naglowek").innerHTML = "";
+		}
+		document.getElementById("produkty_box").innerHTML = do_zamowienia;
+	}
+	else if(id==4){
+		document.getElementById("produkty_naglowek").innerHTML = naglowek_4;
+		document.getElementById("produkty_box").innerHTML = ostatnie_opinie;
 	}
 }
 </script>

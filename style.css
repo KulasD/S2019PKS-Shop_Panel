@@ -754,6 +754,7 @@ code span {
 }
 
 /*main_page.php style paneli*/
+
 .mp_z1{
 	width: 10%;
 }
@@ -781,6 +782,8 @@ code span {
 .text_UP{
 	text-transform: uppercase;
 }
+
+/* ostatnio dodane, najczęściej oglądane i do zamówienia */
 
 .mp_od1{
 	width: 10%;
@@ -815,5 +818,46 @@ code span {
 }
 
 .mp_od9{
+	width: 5%;
+}
+
+/* I WANT TO BE IN CENTER */
+
+.iwtbic{
+	font-weight: bold;
+	color: green;
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.mp_oo1{
+	width: 10%;
+}
+
+.mp_oo2{
+	width: 10%;
+}
+
+.mp_oo3{
+	width: 35%;
+}
+
+.mp_oo4{
+	width: 10%;
+}
+
+.mp_oo5{
+	width: 6%;
+}
+
+.mp_oo6{
+	width: 24%;
+}
+
+.mp_oo7{
 	width: 5%;
 }
