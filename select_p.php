@@ -15,6 +15,8 @@
 		echo json_encode("Ok");
 	} else if($id_pracownik == $check) {
 		echo json_encode("Ok");
+	} else if($_SESSION['id'] == '1'){
+		echo json_encode("Ok");
 	} else {
 		echo json_encode("No");
 	}
