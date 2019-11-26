@@ -17,7 +17,7 @@
 	$id_zamowienie = $_GET['id'];
 	} else {
 	header('Location: zamowienia_lista.php');exit();}
-
+	
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
@@ -44,6 +44,9 @@
 			$zamowienie[] = $r;
 			$id_user=$r['id_user'];
 			$id_pracownik_zamowienie = $r['id_pracownik'];
+			if($id_pracownik_zamowienie  != $_SESSION['id'] && $_SESSION['id']  != '1') {
+				header('Location: zamowienia_lista.php');exit();
+			};
 			$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
 			$re_u = mysqli_query($con,$qu_u);
 				while ($rr_u = $re_u->fetch_array(MYSQLI_ASSOC)) {
@@ -80,7 +83,7 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
-
+<script src="script.js"></script>
     </script>
 </head>
 
@@ -157,27 +160,53 @@
 						
 						<div class="row"><div class="half_row">Koszt dostawy:</div>					<div class="half_row_right"><span id="koszt_dostawy"><?php echo "".$dostawa_[1]."";?> zł</span></div></div>
 						
-						<div class="row"><div class="half_row">Aktualny status zamówienia:</div>	<div class="half_row_right"><span id="status"><?php echo "".$zamowienie[0]['status']."";?></span></div></div>
+						<div class="row"><div class="half_row">Aktualny status zamówienia:</div>	<div class="half_row_right"><select class="tx" id="status"><?php 
+						
+						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie anulowane"];
+						for($a=0;$a<count($table);$a++)
+						{
+							$sta = "".$zamowienie[0]['status']."";
+							if($sta == $table[$a]) {
+								echo "<option selected value='".$sta."'>".$sta."</option> ";
+							} else {
+								echo "<option value='".$table[$a]."'>".$table[$a]."</option> ";
+							}
+						}
+						?>
+						
+						</select></div></div>
 						
 						<div class="row"><div class="half_row">Opiekun zamówienia:</div>		<div class="half_row_right"><select class="tx" id="opiekun"><?php
+						
+						if($_SESSION['id'] == '1') { 
 						for($s=0;$s<count($pracownicy);$s++)
-						{
-							$pracownik = "".$pracownicy[$s]['id']."";
-							if($pracownik == $id_pracownik_zamowienie) 
 							{
-								echo "<option selected>".$pracownicy[$s]['login']."</option>";
-							} else {
-								echo "<option>".$pracownicy[$s]['login']."</option>";
+								$pracownik = "".$pracownicy[$s]['id']."";
+								if($pracownik == $id_pracownik_zamowienie) 
+								{
+									echo "<option selected value='".$pracownicy[$s]['id']."'>".$pracownicy[$s]['login']."</option>";
+								} else {
+									echo "<option value='".$pracownicy[$s]['id']."'>".$pracownicy[$s]['login']."</option>";
+								}
 							}
+						} else {
+							for($s=0;$s<count($pracownicy);$s++)
+								{
+									$pracownik = "".$pracownicy[$s]['id']."";
+									if($pracownik == $id_pracownik_zamowienie) 
+									{
+										echo "<option selected value='".$pracownicy[$s]['id']."'>".$pracownicy[$s]['login']."</option>";
+									}
+								}
 						}
 						
 						?></select></div></div>
 						
-						<div class="row"><div class="half_row">Termin dostawy:</div>			<div class="half_row_right"><input class="tx" type="text" name="termin" value="<?php echo "".$zamowienie[0]['szacowana_data_dostawy']."";?>"/></div></div>
+						<div class="row"><div class="half_row">Termin dostawy:</div>			<div class="half_row_right"><input class="tx" type="text" id="termin" value="<?php echo "".$zamowienie[0]['szacowana_data_dostawy']."";?>"/></div></div>
 						
-						<div class="row"><div class="half_row">Numer paczki:</div>				<div class="half_row_right"><input class="tx" type="text" name="nr_paczki"/></div></div>
+						<div class="row"><div class="half_row">Numer paczki:</div>				<div class="half_row_right"><input class="tx" type="text" id="nr_paczki"value="<?php echo "".$zamowienie[0]['nr_paczki']."";?>"/></div></div>
 						
-						<div class="row"><div class="half_row">Waga przesyłki:</div>			<div class="half_row_right"><input class="tx" type="text" name="waga_paczki"/></div></div>
+						<div class="row"><div class="half_row">Waga przesyłki:</div>			<div class="half_row_right"><input class="tx" type="text" id="waga_paczki"value="<?php echo "".$zamowienie[0]['waga_paczki']."";?>"/></div></div>
 						
 					</div>
 				</div>
@@ -250,13 +279,13 @@
 						
 						<div class="row"><div class="half_row">Komentarz klienta:</div>						<div class="half_row_right"><span id="komentarz_klienta"><?php echo "".$zamowienie[0]['info_sprzedawca']."";?></span></div></div>
 						
-						<div class="row"><div class="half_row">Komentarz wysyłany do klienta:</div>			<div class="half_row_right"><textarea class="areatx tx" rows="4"></textarea></div></div>
+						<div class="row"><div class="half_row">Komentarz wysyłany do klienta:</div>			<div class="half_row_right"><textarea class="areatx tx" rows="4" id="komentarz_pracownika"><?php echo "".$zamowienie[0]['komentarz_pracownik']."";?></textarea></div></div>
 						
 					</div>
 				</div>
 				<div style="clear:both;"></div>
 					<div class="center_holder">
-						<button type="button" class="button">Zapisz zmiany</button>
+						<button type="button" class="button" onclick="save('<?php echo "".$id_zamowienie.""; ?>','<?php echo "".$status_zaplaty.""; ?>')">Zapisz zmiany</button>
 					</div>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
@@ -314,5 +343,6 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 </body>
 </html>
