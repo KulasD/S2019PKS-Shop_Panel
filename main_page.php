@@ -122,6 +122,38 @@
 	mysqli_query($con_p, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	$query_p = "SELECT * FROM przedmioty_ogolne_informacje ORDER BY id_produktu DESC LIMIT 5";
 	$result_p = mysqli_query($con_p,$query_p);
+	$testowanie = '';
+	while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
+		$localization = $r_p['lokalizacja'];
+		$src = $r_p['zdjecie'];
+		$testowanie .= 
+			"<div class='row'>
+				<div class='text_UP mp_od1'>
+					<img src='../lepsza/category/".$localization."/".$src."'/>
+				</div>
+				<div class='text_UP mp_od2 center_holder_no_padding'>
+					".$r_p['id_produktu']."								
+				</div>
+				<div class='text_UP mp_od3'>
+					".$r_p['pelna_nazwa']."		
+				</div>
+				<div class='text_UP mp_od4'>
+					".$r_p['cena']." zł		
+				</div>
+				<div class='text_UP mp_od5 center_holder_no_padding'>
+					".$r_p['ilosc_odwiedzin']."
+				</div>
+				<div class='text_UP mp_od6 center_holder_no_padding'>
+					".$r_p['ilosc_zakupien']."
+				</div>
+				<div class='text_UP mp_od7 center_holder_no_padding'>
+					".$r_p['sztuki']."
+				</div>
+				<div class='text_UP mp_od8 center_holder_no_padding'>
+					<button type='button' class='button'><i class='icon-logout'></i></button>
+				</div>
+			</div>";
+	}
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -294,39 +326,11 @@
 								GO
 							</div>
 						</div>
+						<div id="testowanie">
 						<?php
-						while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
-							$localization = $r_p['lokalizacja'];
-							$src = $r_p['zdjecie'];
-							echo
-							"<div class='row'>
-								<div class='text_UP mp_od1'>
-									<img src='../lepsza/category/".$localization."/".$src."'/>
-								</div>
-								<div class='text_UP mp_od2 center_holder_no_padding'>
-									".$r_p['id_produktu']."								
-								</div>
-								<div class='text_UP mp_od3'>
-									".$r_p['pelna_nazwa']."		
-								</div>
-								<div class='text_UP mp_od4'>
-									".$r_p['cena']." zł		
-								</div>
-								<div class='text_UP mp_od5 center_holder_no_padding'>
-									".$r_p['ilosc_odwiedzin']."
-								</div>
-								<div class='text_UP mp_od6 center_holder_no_padding'>
-									".$r_p['ilosc_zakupien']."
-								</div>
-								<div class='text_UP mp_od7 center_holder_no_padding'>
-									".$r_p['sztuki']."
-								</div>
-								<div class='text_UP mp_od8 center_holder_no_padding'>
-									<button type='button' class='button'><i class='icon-logout'></i></button>
-								</div>
-							</div>";
-						}
+						echo $testowanie;
 						?>
+						</div>
 					</div>
 				</div>
 			</div>
