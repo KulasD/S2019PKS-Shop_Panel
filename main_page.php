@@ -388,12 +388,16 @@ function go(nr)
 }
 </script>
 <script type="text/javascript">
+var ostatnio_dodane = <?php echo json_encode($testowanie); ?>;
 function change(id)
 {
 	document.getElementsByClassName('button_clicked')[0].classList.add('button');
 	document.getElementsByClassName('button_clicked')[0].classList.remove('button_clicked');
     document.getElementById(id).classList.add('button_clicked');
     document.getElementById(id).classList.remove('button');
+	if(id==1){
+		document.getElementById("testowanie").innerHTML = ostatnio_dodane;
+	}
 }
 </script>
 </body>
