@@ -110,7 +110,7 @@
 										$status_zaplaty = $r['status_zaplaty'];
 									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
 										$z = "color: #04A1EE !important";
-									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)') {
+									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy') {
 										$z = "color: gray !important";
 									} else if($status == 'Zamówienie anulowane') {
 										$z = "color: #CC0000 !important";
