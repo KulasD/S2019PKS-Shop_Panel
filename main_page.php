@@ -122,11 +122,11 @@
 	mysqli_query($con_p, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	$query_p = "SELECT * FROM przedmioty_ogolne_informacje ORDER BY id_produktu DESC LIMIT 5";
 	$result_p = mysqli_query($con_p,$query_p);
-	$testowanie = '';
+	$od = '';
 	while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
 		$localization = $r_p['lokalizacja'];
 		$src = $r_p['zdjecie'];
-		$testowanie .= 
+		$od .= 
 			"<div class='row'>
 				<div class='text_UP mp_od1'>
 					<img src='../lepsza/category/".$localization."/".$src."'/>
@@ -140,16 +140,19 @@
 				<div class='text_UP mp_od4'>
 					".$r_p['cena']." zł		
 				</div>
-				<div class='text_UP mp_od5 center_holder_no_padding'>
-					".$r_p['ilosc_odwiedzin']."
+				<div class='text_UP mp_od5'>
+					OCENA		
 				</div>
 				<div class='text_UP mp_od6 center_holder_no_padding'>
-					".$r_p['ilosc_zakupien']."
+					".$r_p['ilosc_odwiedzin']."
 				</div>
 				<div class='text_UP mp_od7 center_holder_no_padding'>
-					".$r_p['sztuki']."
+					".$r_p['ilosc_zakupien']."
 				</div>
 				<div class='text_UP mp_od8 center_holder_no_padding'>
+					".$r_p['sztuki']."
+				</div>
+				<div class='text_UP mp_od9 center_holder_no_padding'>
 					<button type='button' class='button'><i class='icon-logout'></i></button>
 				</div>
 			</div>";
@@ -300,36 +303,41 @@
 							<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>
 							<button id="4" type="button" class="button" onclick="change(4)">Ostatnie opinie</button>
 						</div>
-						<div class="row">
-							<div class="text_UP mp_od1">
-								Obrazek
-							</div>
-							<div class="text_UP mp_od2 center_holder_no_padding">
-								ID_produktu								
-							</div>
-							<div class="text_UP mp_od3">
-								Nazwa_produktu		
-							</div>
-							<div class="text_UP mp_od4">
-								cena		
-							</div>
-							<div class="text_UP mp_od5 center_holder_no_padding">
-								ilość odwiedzin
-							</div>
-							<div class="text_UP mp_od6 center_holder_no_padding">
-								ilość zakupień
-							</div>
-							<div class="text_UP mp_od7 center_holder_no_padding">
-								ilość na magazynie
-							</div>
-							<div class="text_UP mp_od8 center_holder_no_padding">
-								GO
+						<div id="produkty_naglowek">
+							<div class="row">
+								<div class="text_UP mp_od1">
+									Obrazek
+								</div>
+								<div class="text_UP mp_od2 center_holder_no_padding">
+									ID_produktu								
+								</div>
+								<div class="text_UP mp_od3">
+									Nazwa_produktu		
+								</div>
+								<div class="text_UP mp_od4">
+									cena		
+								</div>
+								<div class="text_UP mp_od5">
+									ocena		
+								</div>
+								<div class="text_UP mp_od6 center_holder_no_padding">
+									wejść
+								</div>
+								<div class="text_UP mp_od7 center_holder_no_padding">
+									zakupień
+								</div>
+								<div class="text_UP mp_od8 center_holder_no_padding">
+									magazyn
+								</div>
+								<div class="text_UP mp_od9 center_holder_no_padding">
+									GO
+								</div>
 							</div>
 						</div>
-						<div id="testowanie">
-						<?php
-						echo $testowanie;
-						?>
+						<div id="produkty_box">
+							<?php
+								echo $od;
+							?>
 						</div>
 					</div>
 				</div>
@@ -388,7 +396,8 @@ function go(nr)
 }
 </script>
 <script type="text/javascript">
-var ostatnio_dodane = <?php echo json_encode($testowanie); ?>;
+var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5">ocena</div><div class="text_UP mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">zakupień</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">GO</div></div>';
+var ostatnio_dodane = <?php echo json_encode($od); ?>;
 function change(id)
 {
 	document.getElementsByClassName('button_clicked')[0].classList.add('button');
@@ -396,7 +405,8 @@ function change(id)
     document.getElementById(id).classList.add('button_clicked');
     document.getElementById(id).classList.remove('button');
 	if(id==1){
-		document.getElementById("testowanie").innerHTML = ostatnio_dodane;
+		document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
+		document.getElementById("produkty_box").innerHTML = ostatnio_dodane;
 	}
 }
 </script>
