@@ -257,10 +257,10 @@
 					<span class="info_span">Produkty</span>
 					<div class="bordered_div_full">
 					<div id="buttons_div">
-						<button type="button" class="button_clicked">Ostatnio dodane</button>
-						<button type="button" class="button">Najczęściej oglądane</button>
-						<button type="button" class="button">Do zamówienia</button>
-						<button type="button" class="button">Ostatnie opinie</button>
+						<button id="1" type="button" class="button_clicked" onclick="change(1)">Ostatnio dodane</button>
+						<button id="2" type="button" class="button" onclick="change(2)">Najczęściej oglądane</button>
+						<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>
+						<button id="4" type="button" class="button" onclick="change(4)">Ostatnie opinie</button>
 					</div>
 					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
 					<div>Obrazek		ID_produktu		Nazwa_produktu		cena		ilość_na_magazynie</div>
@@ -326,6 +326,15 @@ function go(nr)
 			if(data == "Ok") {window.location.href = "dane_zamowienie.php?id="+nr; } else {alert("Inny pracownik już zajmuje się tym zamówieniem"); }
 		}
 	});	
+}
+</script>
+<script type="text/javascript">
+function change(id)
+{
+	document.getElementsByClassName('button_clicked')[0].classList.add('button');
+	document.getElementsByClassName('button_clicked')[0].classList.remove('button_clicked');
+    document.getElementById(id).classList.add('button_clicked');
+    document.getElementById(id).classList.remove('button');
 }
 </script>
 </body>
