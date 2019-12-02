@@ -92,6 +92,8 @@ function save(nr,zap)
 			type: 'POST',
 			data: {i:nr,p:pracownik,s:status,t:termin,n:nr_paczki,w:waga,k:komentarz_pracownika},
 		});
-		window.location.reload(true);
+		setTimeout(function() {
+			window.location.reload(true);
+		}, 1000)
 	}
 }
