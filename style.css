@@ -402,6 +402,16 @@ div#wykres
 	width: 100%;
 }
 
+.half_row2{
+	margin-left: 30px;
+	width: 80%;
+}
+
+.half_row_right2{
+	margin-right: 30px;
+	width: 100%;
+}
+
 .kontakt{
 	display:flex;
 }
@@ -501,6 +511,20 @@ img {
 
 .flex_box{
 	display: flex;
+}
+
+.flex_box_padding{
+	display: flex;
+	padding: 5px 0px;
+}
+
+.margin_box_left{
+	margin-left:10px;
+	margin-right:30px;
+}
+.margin_box_right{
+	margin-left:30px;
+	margin-right:10px;
 }
 
 .f_z{
