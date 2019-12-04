@@ -279,7 +279,11 @@
 						
 						<div class="row"><div class="half_row">Komentarz klienta:</div>						<div class="half_row_right"><span id="komentarz_klienta"><?php echo "".$zamowienie[0]['info_sprzedawca']."";?></span></div></div>
 						
-						<div class="row"><div class="half_row">Komentarz wysyłany do klienta:</div>			<div class="half_row_right"><textarea class="areatx tx" rows="4" id="komentarz_pracownika"><?php echo "".$zamowienie[0]['komentarz_pracownik']."";?></textarea></div></div>
+						<div class="row" style="border:0px;"><div class="half_row">Komentarz wysyłany do klienta:</div>			<div class="half_row_right"><textarea class="areatx tx" rows="4" id="komentarz_pracownika"><?php echo "".$zamowienie[0]['komentarz_pracownik']."";?></textarea></div></div>
+						<div class="flex_box_space" style="border:0px; margin-bottom:10px; margin-right:10px;">
+							<div></div>
+							<div><a href='#'><button type="button" class="button_green">Wyślij</button></a></div>
+						</div>
 						
 					</div>
 				</div>
@@ -290,7 +294,24 @@
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">
-								<div class="hr1">LP</div>	<div class="hr2">ZDJĘCIE</div> 	<div class="hr3">NAZWA</div>	<div class="hr4">ILOŚĆ</div>	<div class="hr5">WARTOŚĆ</div>
+								<div class="hru1">
+									LP
+								</div>	
+								<div class="hru2">
+									ZDJĘCIE
+								</div> 	
+								<div class="hru3">
+									NAZWA
+								</div>	
+								<div class="hru4">
+									ILOŚĆ
+								</div>	
+								<div class="hru5">
+									CENA JEDN.
+								</div>	
+								<div class="hru6">
+									WARTOŚĆ
+								</div>
 							</div>
 							<?php 
 							$h=0;
@@ -309,7 +330,7 @@
 								$suma_p = $suma_p + $sum;
 								$suma_ = number_format((float)$suma_p, 2, '.', '');
 							echo "<div class='row'>
-								<div class='hr1'>".$h."</div>	<div class='hr2'><img src='../lepsza/category/".$localization."/".$src."'/></div> 	<div class='hr3'>".$nazwa."</div>	<div class='hr4'><span >".$ilosc."</span></div>	<div class='hr5'><span >".$sum." zł</span></div>
+								<div class='hru1'>".$h."</div>	<div class='hru2'><img src='../lepsza/category/".$localization."/".$src."'/></div> 	<div class='hru3'>".$nazwa."</div>	<div class='hru4'><span >".$ilosc."</span></div>	<div class='hru5'><span >".$cena." zł</span></div>	<div class='hru6'><span >".$sum." zł</span></div>
 							</div>";
 							$h++;
 							}
