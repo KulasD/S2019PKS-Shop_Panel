@@ -243,6 +243,15 @@ input.search_button:hover
 	border-color: #cccccc;
 }
 
+.topic
+{
+	min-height: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #0574FF;
+	margin: 15px 0 15px 20px;
+}
+
 .half_width
 {
 	margin-top: 10px;
@@ -384,13 +393,12 @@ div#wykres
 	margin: 2px 0px;
 }
 
-.tx:focus
+/*.tx:focus
 {
-	/*background-color: #49B8ff;*/
 	background-color: #82b8ff;
 	color: #0574ff;
 	border-color: #0574ff;
-}
+}*/
 
 .half_row{
 	margin-left: 10px;
@@ -940,4 +948,62 @@ code span {
 
 .zgl_list6{
 	width: 11%;
+}
+
+/* zgloszenie.php custom */
+
+.avatar_box{
+	width: 8%;
+}
+
+.message_box{
+	width: 59%;
+	margin-left: 3%;
+}
+
+/* non_bordered_div */
+
+.n_b_d
+{
+	width:100%;
+	margin-left: 20px;
+	margin-right: 17px;
+	padding: 12px;
+}
+
+/* margin_bottom_message */
+
+.m_b_m{
+	margin-bottom: 40px;
+}
+
+.message{
+	font-size: 18px;
+}
+
+.user_message{
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.upper_message_box{
+	margin-bottom: 10px;
+	background-color: #999999;
+	color: white;
+	padding: 8px;
+	border-radius: 5px;
+}
+
+.relative{
+	position: relative;
+
+}
+
+.absolute{
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-100%, -50%);
 }
