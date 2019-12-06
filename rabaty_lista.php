@@ -90,6 +90,15 @@
 								<div class="hr_k4">DATA DODANIA</div>	
 								<div class="hr_k5">DZIAŁANIA</div>	
 							</div>
+							
+							
+							
+							
+							ZABLOKOWAĆ EDYTOWANIE PROCENTÓW, czemu? bo jak ktoś zamówi powiedzmy za 1000 zł z rabatem 20% czyli 800zł, pracownik zmieni na 10% i klient będzie chciał zwrócic przedmiot z rabatem, a rabat się zmienił i trzebabędzie mu zwróicić 900 a nie 800.
+							
+							
+							
+							
 							<?php
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 								echo "<div class='row'>
