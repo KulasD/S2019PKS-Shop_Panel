@@ -99,11 +99,11 @@
 								<div class='hr_k1'>
 									<span class='one_line_span'>".$r['id_rek']."</span>
 									<span class='one_line_span'>".$r['status']."</span>
-									<span class='one_line_span click_me_span'>".$r['id_zamowienie']."</span>
+									<span class='one_line_span'>".$r['id_zamowienie']."</span>
 								</div>	
 								<div class='hr_k2'>
-									<span class='one_line_span click_me_span'>".$r['name_surname']."</span>
-									<span class='one_line_span click_me_span'>".$r['email']."</span>
+									<span class='one_line_span'>".$r['name_surname']."</span>
+									<span class='one_line_span'>".$r['email']."</span>
 								</div> 	
 								<div class='hr_k3'>
 									<div class='flex_box'>";
@@ -134,7 +134,7 @@
 								</div>	
 								<div class='hr_k4'>".$data_z."</div>	
 								<div class='hr_k5'>
-									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
+									<div class='s_d_b'><button type='button' class='button' onclick='go_rek(".$r['id_rek'].")'>EDYTUJ</button></div>
 									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 								</div>
 							</div>";
@@ -146,5 +146,11 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script>
+function go_rek(nr)
+{
+	window.location.href = "dane_reklamacja.php?id="+nr; 
+}
+</script>
 </body>
 </html>
