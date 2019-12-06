@@ -338,7 +338,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 									</div>				
 									<div class="half_row_right2">
 										<select id="status_zwrotu" class="tx"><?php 
-										$table_status = ['W trakcie realizacji','Produkt otrzymany, w trakcie sprawdzania','Zwrot dokonany'];
+										$table_status = ['Sklep czeka na produkt','W trakcie realizacji','Produkt otrzymany, w trakcie sprawdzania','Zwrot dokonany','Zwrot anulowany','Zwrot anulowany, towar odesłany do klienta'];
 											for($q = 0; $q<count($table_status);$q++)
 											{
 												if($table_status[$q] == $rows[0]['status']) {
