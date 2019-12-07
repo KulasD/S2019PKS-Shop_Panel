@@ -22,6 +22,11 @@ if ( isset( $_GET['a'] ) && !empty( $_GET['a'] ) )
 	$query = "SELECT * FROM zgloszenie_klienta WHERE id_zgloszenie='$id_zgloszenia'";
 	$result = mysqli_query($con,$query);
 	$r = $result->fetch_array(MYSQLI_ASSOC);
+	$status = $r['status'];
+	if($status == 'Nieprzeczytane')
+	{
+		$con->query("UPDATE zgloszenie_klienta SET status='Przeczytane' WHERE id_zgloszenie='$id_zgloszenia'");
+	}
 	$topic = $r['temat'];
 	$opis = $r['opis'];
 	$_SESSION['id_zgloszenia'] = $id_zgloszenia;
