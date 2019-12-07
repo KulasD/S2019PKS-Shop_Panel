@@ -380,6 +380,13 @@ div#wykres
 	border: 0px;
 }
 
+.row_no_border{
+	min-height: 30px;
+	display:flex;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
 .tx{
 	width: 100%;
 	color: #666;
@@ -1011,4 +1018,16 @@ code span {
 
 .green_span {
 	color:green;
+}
+
+.margin_right{
+	margin-right: 10px;
+}
+
+.margin_left{
+	margin-left: 10px;
+}
+
+.center_form{
+	margin-top: 8px;
 }
