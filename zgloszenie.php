@@ -10,6 +10,27 @@
 	
 ?>
 
+<?php
+if ( isset( $_GET['a'] ) && !empty( $_GET['a'] ) )
+	{
+	$id_zgloszenia = $_GET['a'];
+	} else {
+	header('Location: zgloszenia_lista.php');exit();};
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$query = "SELECT * FROM zgloszenie_klienta WHERE id_zgloszenie='$id_zgloszenia'";
+	$result = mysqli_query($con,$query);
+	$r = $result->fetch_array(MYSQLI_ASSOC);
+	$topic = $r['temat'];
+	$opis = $r['opis'];
+	$_SESSION['id_zgloszenia'] = $id_zgloszenia;
+	
+	$query_korespondencja = "SELECT * FROM korespondencja WHERE id_zgloszenie='$id_zgloszenia'";
+	$result_korespondencja = mysqli_query($con,$query_korespondencja);
+	
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -65,7 +86,7 @@
 			<div id="main_content">
 				<div id="panel_admin_border">
 					<div class="topic">
-						<span id="temat">TEMAT ZGŁOSZENIA</span>
+						<span id="temat"><?php echo $topic; ?></span>
 					</div>
 				</div>
 					<div id="produkty_start">
@@ -77,56 +98,79 @@
 								<div class="message_box">
 									<div class="upper_message_box flex_box_space">
 										<span id="imie_i_nazwisko" class="user_message">
-											Domestos S
+											<?php echo $r['imie']." ".$r['nazwisko']; ?>
 										</span>
 										<div class="relative">
 										<span id="message_date" class="absolute">
-											2/2/2
+											<?php echo $r['data']; ?>
 										</span>
 										</div>
 									</div>
 									<span id="message" class="message">
-										Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem pr&oacute;bnej książki. Pięć wiek&oacute;w p&oacute;źniej zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym r&oacute;żne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druk&oacute;w na komputerach osobistych, jak Aldus PageMaker
+										<?php echo $r['opis']; ?>
 									</span>
 								</div>
 							</div>
 						</div>
-						<div class="n_b_d m_b_m"> <!-- wiadomość -->
-							<div class="flex_box">
-								<div class="avatar_box">
-									<img src="./img/kseshop-kontakt.png"/>
-								</div>
-								<div class="message_box">
-									<div class="upper_message_box flex_box_space">
-										<span id="imie_i_nazwisko" class="user_message">
-											ADMIN
-										</span>
-										<div class="relative">
-										<span id="message_date" class="absolute">
-											2/2/2
-										</span>
+						<?php
+							while ($r_kores = $result_korespondencja->fetch_array(MYSQLI_ASSOC)) {
+								if ($r_kores['id_pracownik']>0){
+									$pracownik = $r_kores['id_pracownik'];
+									$avatar = "kseshop-kontakt";
+									$con_admin = mysqli_connect("localhost","root","","administracja");
+									mysqli_query($con_admin, "SET CHARSET utf8");
+									mysqli_query($con_admin, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+									$query_admin = "SELECT * FROM kadra WHERE id='$pracownik'";
+									$result_admin = mysqli_query($con_admin,$query_admin);
+									$r_admin = $result_admin->fetch_array(MYSQLI_ASSOC);
+									$name = $r_admin['imie']." ".$r_admin['nazwisko'];
+								}
+								else {
+									$avatar = "men";
+									$name = $r['imie']." ".$r['nazwisko'];
+								};
+								echo "
+									<div class='n_b_d m_b_m'> <!-- wiadomość -->
+										<div class='flex_box'>
+											<div class='avatar_box'>
+												<img src='./img/".$avatar.".png'/>
+											</div>
+											<div class='message_box'>
+												<div class='upper_message_box flex_box_space'>
+													<span id='imie_i_nazwisko' class='user_message'>
+														".$name."
+													</span>
+													<div class='relative'>
+													<span id='message_date' class='absolute'>
+														".$r_kores['data']."
+													</span>
+													</div>
+												</div>
+												<span id='message' class='message'>
+													".$r_kores['wiadomosc']."
+												</span>
+											</div>
 										</div>
 									</div>
-									<span id="message" class="message">
-										Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem pr&oacute;bnej książki. Pięć wiek&oacute;w p&oacute;źniej zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym r&oacute;żne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druk&oacute;w na komputerach osobistych, jak Aldus PageMaker
-									</span>
-								</div>
-							</div>
-						</div>
+								";
+							}
+						?>
+						<form action="send_message.php" method="post">
 						<div class="n_b_d m_b_m">				<!-- div od wiadomości do wysłania i przycisku wyślij -->
 							<div class="flex_box">
 								<div class="avatar_box"></div> 	<!-- ta linijka to tylko placeholder -->
 								<div class="message_box">
-									<textarea class="areatx tx" rows="6"></textarea>
+									<textarea class="areatx tx" rows="6" name="tresc"></textarea>
 								</div>
 							</div>
 							<div class="flex_box">
 								<div class="avatar_box"></div> 	<!-- ta linijka to tylko placeholder -->
 								<div class="message_box">
-									<button type="button" class="button_green" style="margin-left:45%;">Wyślij</button>
+									<button type="submit" class="button_green" style="margin-left:45%;">Wyślij</button>
 								</div>
 							</div>
 						</div>
+						</form>
 					</div>
 			</div>
 		</div>

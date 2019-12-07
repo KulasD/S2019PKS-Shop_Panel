@@ -1006,4 +1006,9 @@ code span {
     left: 50%;
     margin-right: -50%;
     transform: translate(-100%, -50%);
+	white-space: nowrap;
+}
+
+.green_span {
+	color:green;
 }

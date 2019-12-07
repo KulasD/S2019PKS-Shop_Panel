@@ -9,7 +9,13 @@
 	}
 	
 ?>
-
+<?php
+	$con = mysqli_connect("localhost","root","","user");
+	mysqli_query($con, "SET CHARSET utf8");
+	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	$query = "SELECT * FROM zgloszenie_klienta ORDER BY data DESC";
+	$result = mysqli_query($con,$query);
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -87,37 +93,55 @@
 								<div class="zgl_list5">DATA ZGŁOSZENIA</div>	
 								<div class="zgl_list6">DZIAŁANIA</div>
 							</div>
-							<div class="row">
-								<div class="zgl_list1">
-									<span class="one_line_span">1</span>
-									<span class="one_line_span">nowy/przeczytany/odpowiedź wysłana</span>
-									<span class="one_line_span">data ostatniej wiadomości</span>
-								</div>	
-								<div class="zgl_list2">
-									<span class="one_line_span click_me_span">Teodory Kopra</span>
-									<span class="one_line_span click_me_span">tajny_email@firma.com</span>
-									<span class="one_line_span click_me_span">600 600 600</span>
-								</div> 	
-								<div class="zgl_list3">
-									KATEGORIA
-								</div>	
-								<div class="zgl_list4">
-									TEMAT
-								</div>
-								<div class="zgl_list5">
-									2019-09-17 21:32:47
-								</div>	
-								<div class="zgl_list6">
-									<div class="s_d_b"><button type="button" class="button">CZYTAJ</button></div>
-									<div class="s_d_b"><button type="button" class="red_button">USUŃ</button></div>
-									<div class="s_d_b"><button type="button" class="red_button">ZABLOKUJ SPAM</button></div>
-								</div>
-							</div>
+							<?php
+							while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+								$id_zgloszenie = $r['id_zgloszenie'];
+								$query_korespondencja = "SELECT * FROM korespondencja WHERE id_zgloszenie='$id_zgloszenie'";
+								$result_korespondencja = mysqli_query($con,$query_korespondencja);
+								$r_korespondencja = $result_korespondencja->fetch_array(MYSQLI_ASSOC);
+								echo "
+									<div class='row'>
+										<div class='zgl_list1'>
+											<span class='one_line_span'>".$id_zgloszenie."</span>
+											<span class='one_line_span'>nowy/przeczytany/odpowiedź wysłana</span>
+											<span class='one_line_span green_span'>".$r_korespondencja['data']."</span>
+										</div>	
+										<div class='zgl_list2'>
+											<span class='one_line_span click_me_span'>".$r['imie']." ".$r['nazwisko']."</span>
+											<span class='one_line_span click_me_span'>".$r['email']."</span>
+											<span class='one_line_span click_me_span'>".$r['nr_telefonu']."</span>
+										</div> 	
+										<div class='zgl_list3'>
+											".$r['kategoria']."
+										</div>	
+										<div class='zgl_list4'>
+											".$r['temat']."
+										</div>
+										<div class='zgl_list5'>
+											".$r['data']."
+										</div>	
+										<div class='zgl_list6'>
+											<div class='s_d_b'><button type='button' class='button' onclick='zgloszenie(".$id_zgloszenie.")'>CZYTAJ</button></div>
+											<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
+											<div class='s_d_b'><button type='button' class='red_button'>ZABLOKUJ SPAM</button></div>
+										</div>
+									</div>
+								";
+							}
+							?>
+							
 						</div>
 					</div>
 			</div>
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+function zgloszenie(nr)
+{
+	window.location.href = "zgloszenie.php?a="+nr; 
+}
+</script>
 </body>
 </html>
