@@ -108,9 +108,11 @@
 										$data_z = $r['data_zamowienia'];
 										$status = $r['status'];
 										$status_zaplaty = $r['status_zaplaty'];
-									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
+										$id_pracownik = $r['id_pracownik'];
+										if($id_pracownik == '0') {$color = '#BBBBBB';} else {$color = '';};
+									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie' || $status == 'Zamówienie zrealizowane po reklamacji') {
 										$z = "color: #04A1EE !important";
-									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy') {
+									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie zrealizowane (reklamacja w toku)' ||$status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy') {
 										$z = "color: gray !important";
 									} else if($status == 'Zamówienie anulowane') {
 										$z = "color: #CC0000 !important";
@@ -118,7 +120,7 @@
 										else if($status == 'W trakcie realizacji') {
 										$z = "color: #CC0000 !important";
 									}
-										echo "							<div class='row'>
+										echo "<div class='row' style='background-color:".$color."';>
 								<div class='hr_z1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
 									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>
