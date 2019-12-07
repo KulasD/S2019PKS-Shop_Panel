@@ -25,8 +25,7 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
-
-    </script>
+	<script src="script.js"></script>
 </head>
 
 <body>
@@ -80,7 +79,7 @@
 								<div class="zgl_list1">
 									<span class="one_line_span">ID</span>
 									<span class="one_line_span">STATUS</span>
-									<span class="one_line_span">DATA ODPOWIEDZI</span>
+									<span class="one_line_span">DATA PIERWSZEJ ODPOWIEDZI</span>
 								</div>	
 								<div class="zgl_list2">
 									<span class="one_line_span">IMIĘ I NAZWISKO</span>
@@ -95,21 +94,26 @@
 							</div>
 							<?php
 							while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+								$blokada = $r['blokada'];
+								$status = $r['status'];
+								if($blokada == '') {
+								if($status == 'Nieprzeczytane') {$color = '#BBBBBB'; } else if($status == 'Przeczytane') {$color=''; } else {$color='#ABEFB3';};
+								} else {$color = "#F59696";};
 								$id_zgloszenie = $r['id_zgloszenie'];
 								$query_korespondencja = "SELECT * FROM korespondencja WHERE id_zgloszenie='$id_zgloszenie'";
 								$result_korespondencja = mysqli_query($con,$query_korespondencja);
 								$r_korespondencja = $result_korespondencja->fetch_array(MYSQLI_ASSOC);
 								echo "
-									<div class='row'>
+									<div class='row' style='background-color:".$color."';>
 										<div class='zgl_list1'>
 											<span class='one_line_span'>".$id_zgloszenie."</span>
-											<span class='one_line_span'>nowy/przeczytany/odpowiedź wysłana</span>
+											<span class='one_line_span'>".$r['status']."</span>
 											<span class='one_line_span green_span'>".$r_korespondencja['data']."</span>
 										</div>	
 										<div class='zgl_list2'>
-											<span class='one_line_span click_me_span'>".$r['imie']." ".$r['nazwisko']."</span>
-											<span class='one_line_span click_me_span'>".$r['email']."</span>
-											<span class='one_line_span click_me_span'>".$r['nr_telefonu']."</span>
+											<span class='one_line_span '>".$r['imie']." ".$r['nazwisko']."</span>
+											<span class='one_line_span '>".$r['email']."</span>
+											<span class='one_line_span '>".$r['nr_telefonu']."</span>
 										</div> 	
 										<div class='zgl_list3'>
 											".$r['kategoria']."
@@ -122,8 +126,8 @@
 										</div>	
 										<div class='zgl_list6'>
 											<div class='s_d_b'><button type='button' class='button' onclick='zgloszenie(".$id_zgloszenie.")'>CZYTAJ</button></div>
-											<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
-											<div class='s_d_b'><button type='button' class='red_button'>ZABLOKUJ SPAM</button></div>
+											<div class='s_d_b'><button type='button' class='red_button' onclick='delete_z(".$id_zgloszenie.")'>USUŃ</button></div>
+											<div class='s_d_b'><button type='button' class='red_button' onclick='add_block(".$id_zgloszenie.")'>ZABLOKUJ SPAM</button></div>
 										</div>
 									</div>
 								";
