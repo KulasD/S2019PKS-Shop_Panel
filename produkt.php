@@ -172,30 +172,41 @@
 								<input type="number" class="tx" name="sztuki"/>
 							</div>
 						</div>
-						<div class="row">
-							<div class="half_row">
-								Parametr 1 (producent):
-							</div>				
-							<div class="half_row_right">
-								<input type="text" class="tx" name="parametr1"/>
-							</div>
-						</div>
-						<div class="row">
-							<div class="half_row">
-								Parametr 2:
-							</div>				
-							<div class="half_row_right">
-								<input type="text" class="tx" name="parametr2"/>
-							</div>
-						</div>
-						<div class="row">
-							<div class="half_row">
-								Parametr 3:
-							</div>				
-							<div class="half_row_right">
-								<input type="text" class="tx" name="parametr3"/>
-							</div>
-						</div>
+						<?php
+							if((isset($_SESSION['kat'])))
+							{
+								if($_SESSION['kat'] == 'pc' || $_SESSION['kat'] == 'playstation3' || $_SESSION['kat'] == 'playstation4' || $_SESSION['kat'] == 'xboxone') {
+									$g = "gry_filtry";
+								} else {
+									$g = "".$_SESSION['kat']."_filtry";
+								}								
+								$query = "SELECT * FROM $g";
+								$result = mysqli_query($con,$query);
+								$filtry = array();
+								while($r = $result->fetch_array(MYSQLI_ASSOC)){
+									$filtry[] = $r;
+									$x = array_keys($r);
+								}
+								for($q=1;$q<count($x);$q++)
+								{
+									if($x[$q] == "p".$q) {} else {
+									echo "<div class='row'>
+								<div class='half_row'>
+									".$x[$q]."
+								</div>				
+								<div class='half_row_right'>
+									<select id='parametr".$q."' name='parametr".$q."' class='tx'>";
+									for($t=0; $t < count($filtry); $t++)
+									{
+										if($filtry[$t][$x[$q]] == '') {} else {
+										echo "<option>".$filtry[$t][$x[$q]]."</option>";}
+									}
+									echo" </select>
+								</div>
+									</div>"; }
+								}
+							}
+						?>						
 						<div class="row">
 							<div class="half_row">
 								Zdjęcie główne:
