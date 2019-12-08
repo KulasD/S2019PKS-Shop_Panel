@@ -159,7 +159,7 @@
 							<div class="half_row_right">
 								<div class="flex_box relative">
 									<div class="margin_right center_form">brutto: </div>
-									<div><input type="number" class="tx" name="cena_brutto"/></div>  
+									<div><input type="number" class="tx" name="cena_brutto" step="0.01"/></div>  
 									<div class="margin_left center_form">zł</div>
 								</div>
 							</div>
