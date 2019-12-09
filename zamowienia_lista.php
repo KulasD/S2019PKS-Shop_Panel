@@ -143,11 +143,10 @@
 											$q = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
 											$res = mysqli_query($przed,$q);
 											while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
-												$localization = $rrr['lokalizacja'];
 												$src = $rrr['zdjecie'];
 												echo "<div class='flex_box'>
 														<div class='f_z'>
-														<img src='../lepsza/category/".$localization."/".$src."'/>
+														<img src='../lepsza/category/produkty/".$src."'/>
 														</div>
 														<div id='produkt_1' class='n_z'>
 														".$rrr['pelna_nazwa']."
