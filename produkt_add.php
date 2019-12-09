@@ -38,11 +38,9 @@
 	//echo $parametr3;
 	$kategoria = $_SESSION['kat'];
 	//echo $kategoria;
-	$lokalizacja = $_SESSION['lok'];
-	//echo $lokalizacja;
-	$src = "img/".basename( $_FILES['main_zdj']['name']);
+	$src = "img/".$kategoria."/".basename( $_FILES['main_zdj']['name']);
 	
-	$query_ogolne = ("INSERT INTO przedmioty_ogolne_informacje VALUES (NULL, '$nazwa','$pelna_nazwa', '$cena', '$sztuki', '0', '$src', '$parametr1', '$parametr2', '$parametr3', '0', '$kategoria', '$lokalizacja')");
+	$query_ogolne = ("INSERT INTO przedmioty_ogolne_informacje VALUES (NULL, '$nazwa','$pelna_nazwa', '$cena', '$sztuki', '0', '$src', '$parametr1', '$parametr2', '$parametr3', '0', '$kategoria')");
 	mysqli_query($con,$query_ogolne);
 	
 	//------------------------------------------------------ KATEGORIA_FULL
@@ -77,19 +75,19 @@
 	
 	if($n1 == '' || $o1 == '') {$z1 = false;} else {
 	$z1 = true;
-	$src1 = "img/".basename( $_FILES['zdj1']['name']);
+	$src1 = "img/".$kategoria."/".basename( $_FILES['zdj1']['name']);
 	$query_opis1 = ("INSERT INTO opis_przedmiotu VALUES (NULL, '$id','$n1', '$o1', '$src1')");
 	mysqli_query($con,$query_opis1);}
 	
 	if($n2 == '' || $o2 == '') {$z2 = false;} else {
 	$z2 = true;
-	$src2 = "img/".basename( $_FILES['zdj2']['name']);
+	$src2 = "img/".$kategoria."/".basename( $_FILES['zdj2']['name']);
 	$query_opis2 = ("INSERT INTO opis_przedmiotu VALUES (NULL, '$id','$n2', '$o2', '$src2')");
 	mysqli_query($con,$query_opis2); }
 	
 	if($n3 == '' || $o3 == '') {$z3 = false;} else {
 	$z3 = true;
-	$src3 = "img/".basename( $_FILES['zdj3']['name']);
+	$src3 = "img/".$kategoria."/".basename( $_FILES['zdj3']['name']);
 	$query_opis3 = ("INSERT INTO opis_przedmiotu VALUES (NULL, '$id','$n3', '$o3', '$src3')");
 	mysqli_query($con,$query_opis3); }
 	
@@ -111,7 +109,7 @@
 	//------------------------------------------------------ PEWNIE SIE TO DA ZROBIC W FUNKCJI JAKIEJS ALE DODAJE SIE I TAK TYLKO 4 ZDJECIA MAX WIEC NIE PRZERABIAM
 	//------------------------------------------------------ ZDJECIE GLOWNE
 	
-	$target_dir = "../lepsza/category/".$lokalizacja."/img/";
+	$target_dir = "../lepsza/category/produkty/img/".$kategoria."/";
 	$target_file = $target_dir . basename($_FILES['main_zdj']['name']);
 	$uploadOk = 1;
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
