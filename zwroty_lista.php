@@ -157,12 +157,11 @@
 									</div><div class='hr_k3'>";
 									for($s=0;$s<count($order_all[$d]);$s++)
 									{
-										$localization = "".$order_all[$d][$s]['lokalizacja']."";
 										$src = "".$order_all[$d][$s]['zdjecie']."";
 										echo "
 										<div class='flex_box'>
 											<div class='f_z'>
-												<img src='../lepsza/category/".$localization."/".$src."'/>
+												<img src='../lepsza/category/produkty/".$src."'/>
 											</div>
 											<div id='produkt_1' class='n_z'>
 												".$order_all[$d][$s]['pelna_nazwa']." <br />
