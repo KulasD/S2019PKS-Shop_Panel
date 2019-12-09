@@ -212,3 +212,5 @@ function save(nr,zap)
 function go_to_klient(id){
 	window.location.href = "dane_klient.php?kent="+id; 
 }
+
+	

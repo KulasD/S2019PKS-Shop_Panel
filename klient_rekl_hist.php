@@ -11,6 +11,14 @@
 ?>
 
 <?php
+	if (isset($_GET['move_next'])){
+		$skipper = $_GET['move_next'];
+	}
+	else {
+		$skipper = 0;
+	}
+	$limiter = 10;
+	
 	if (isset($_SESSION['id_u'])){
 		$yes = true;
 		$wybraniec = $_SESSION['id_u'];
@@ -23,7 +31,7 @@
 	$result_user = mysqli_query($con,$query_user);
 	$r_user = $result_user->fetch_array(MYSQLI_ASSOC);
 	
-	$query_rekl = "SELECT * FROM reklamacje WHERE id_user='$wybraniec' ORDER BY id_rek DESC";
+	$query_rekl = "SELECT * FROM reklamacje WHERE id_user='$wybraniec' ORDER BY id_rek DESC LIMIT ".$limiter." OFFSET ".$skipper."";
 	$result_rekl = mysqli_query($con,$query_rekl);
 	
 	}
@@ -128,6 +136,10 @@
 								
 						echo "</div>";
 							?>
+								<div class="center_holder">
+									<button type="button" class="button" name="wstecz" onclick="back()">WSTECZ</button>
+									<button type="button" class="button" name="dalej" onclick="next()">DALEJ</button>
+								</div>
 			</div>
 		</div>
 		<div style="clear:both;"></div>
@@ -135,22 +147,18 @@
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
-	function zmiana_hasla(){
-		$('#nowe_haslo').prop("disabled", false);
-	}
-	
-	function zam_hist(){
-		window.location.href = "zam_hist.php";
-	}
-	
-	function rekl_hist(){
-		window.location.href = "rekl_hist.php";
-	}
-	
-	function zwroty_hist(){
-		window.location.href = "zwroty_hist.php";
-	}
-	
+var page=0;
+var current = <?php echo json_encode($skipper); ?>/1;
+function next(){
+	page = current + 10;
+	window.location.href = 'klient_rekl_hist.php?move_next='+page;
+}
+
+function back(){
+	page = current - 10;
+	if(page<0){page=0;}
+	window.location.href = 'klient_rekl_hist.php?move_next='+page;
+}
 </script>
 </body>
 </html>
