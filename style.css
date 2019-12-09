@@ -1041,3 +1041,25 @@ code span {
 .center_form{
 	margin-top: 8px;
 }
+
+/* dane_klienta.php custom */
+
+.zgl_k1{
+	width: 5%;
+}
+
+.zgl_k2{
+	width: 15%;
+}
+
+.zgl_k3{
+	width: 43%;
+}
+
+.zgl_k4{
+	width: 20%;
+}
+
+.zgl_k5{
+	width: 17%;
+}

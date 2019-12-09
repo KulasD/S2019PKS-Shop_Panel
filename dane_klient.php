@@ -18,6 +18,7 @@
 		$yes_zam = false;
 		$yes_rekl = false;
 		$yes_zwr = false;
+		$yes_zgl = false;
 
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
@@ -32,6 +33,10 @@
 	$_SESSION['kod_rejestracji'] = $r_user['kod_rejestracji'];
 	$_SESSION['kod_zmiany_hasla'] = $r_user['kod_zmiany_hasla'];
 	$_SESSION['ip_k'] = $r_user['ip'];
+	
+	$query_zgl = "SELECT * FROM zgloszenie_klienta WHERE id_user='$wybraniec' ORDER BY data DESC LIMIT 5";
+	$result_zgl = mysqli_query($con,$query_zgl);
+	if ($result_zgl->num_rows){$yes_zgl = true;}
 	
 	$query_zam = "SELECT * FROM zamowienie_informacje WHERE id_user='$wybraniec' ORDER BY id_zamowienie DESC LIMIT 2";
 	$result_zam = mysqli_query($con,$query_zam);
@@ -256,6 +261,50 @@
 					</div>
 				</form>
 				</div>
+				<div class="half_width">
+					<?php
+					if ($yes_zgl){
+					echo "
+					<span class='info_span'>Ostatnie zgłoszenia od tego klienta</span>
+						<div class='bordered_div_no_padding'> ";
+							while ($r = $result_zgl->fetch_array(MYSQLI_ASSOC)) {
+								$blokada = $r['blokada'];
+								$status = $r['status'];
+								if($blokada == '') {
+								if($status == 'Nieprzeczytane') {$color = '#BBBBBB'; } else if($status == 'Przeczytane') {$color=''; } else {$color='#ABEFB3';};
+								} else {$color = "#F59696";};
+								$id_zgloszenie = $r['id_zgloszenie'];
+								$query_korespondencja = "SELECT * FROM korespondencja WHERE id_zgloszenie='$id_zgloszenie'";
+								$result_korespondencja = mysqli_query($con,$query_korespondencja);
+								$r_korespondencja = $result_korespondencja->fetch_array(MYSQLI_ASSOC);
+								echo "
+									<div class='row' style='background-color:".$color."';>
+										<div class='zgl_k1'>
+											<span class='one_line_span'>".$id_zgloszenie."</span>
+											<span class='one_line_span'>".$r['status']."</span>
+											<span class='one_line_span green_span'>".$r_korespondencja['data']."</span>
+										</div>	
+										<div class='zgl_k2'>
+											".$r['kategoria']."
+										</div>	
+										<div class='zgl_k3'>
+											".$r['temat']."
+										</div>
+										<div class='zgl_k4'>
+											".$r['data']."
+										</div>	
+										<div class='zgl_k5'>
+											<div class='s_d_b'><button type='button' class='button' onclick='zgloszenie(".$id_zgloszenie.")'>CZYTAJ</button></div>
+											<div class='s_d_b'><button type='button' class='red_button' onclick='delete_z(".$id_zgloszenie.")'>USUŃ</button></div>
+											<div class='s_d_b'><button type='button' class='red_button' onclick='add_block(".$id_zgloszenie.")'>ZABLOKUJ SPAM</button></div>
+										</div>
+									</div>
+								";
+							}
+						echo "</div>";
+					}
+					?>
+				</div>
 				<div style="clear:both;"></div>
 				<?php
 								if ($yes_zam){
@@ -350,13 +399,6 @@
 							
 								echo "</div>";
 								}
-								else {
-							echo "<div class='center_holder_no_padding' style='min-height:100px; position:relative;'>
-									<div class='iwtbic'>
-										Klient nie ma zamówień.
-									</div>
-								</div>";
-								}
 								?>
 				<?php
 					if ($yes_rekl){
@@ -428,13 +470,6 @@
 								
 						echo "</div>";
 						}
-						else {
-							echo "<div class='center_holder_no_padding' style='min-height:100px; position:relative;'>
-									<div class='iwtbic'>
-										Klient nie ma reklamacji.
-									</div>
-								</div>";
-						}
 							?>
 							<?php
 							if ($yes_zwr){
@@ -494,13 +529,6 @@
 							
 						echo "</div>";
 						}	
-						else {
-							echo "<div class='center_holder_no_padding' style='min-height:100px; position:relative;'>
-									<div class='iwtbic'>
-										Klient nie ma zwrotów.
-									</div>
-								</div>";
-						}
 						?>
 			</div>
 		</div>
