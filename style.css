@@ -269,6 +269,16 @@ input.search_button:hover
 	display: block;
 }
 
+.info_span_bigger
+{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	display: block;
+}
+
 .bordered_div
 {
 	margin-left: 20px;

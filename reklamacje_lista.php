@@ -146,11 +146,12 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script type="text/javascript" src="script.js"></script>
 <script>
-function go_rek(nr)
+/* function go_rek(nr)
 {
 	window.location.href = "dane_reklamacja.php?id="+nr; 
-}
+} */
 </script>
 </body>
 </html>

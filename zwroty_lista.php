@@ -192,11 +192,12 @@
 		<div style="clear:both;"></div>
 	</div>
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
-function zwrot_go(nr)
+/* function zwrot_go(nr)
 {
 	window.location.href = "dane_zwrot.php?id="+nr; 
-}
+} */
 </script>
 </body>
 </html>

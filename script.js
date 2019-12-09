@@ -166,6 +166,16 @@ function go(nr)
 	});	
 }
 
+function go_rek(nr)
+{
+	window.location.href = "dane_reklamacja.php?id="+nr; 
+}
+
+function zwrot_go(nr)
+{
+	window.location.href = "dane_zwrot.php?id="+nr; 
+}
+
 function save(nr,zap)
 {
 	var c = false;

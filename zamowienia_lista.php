@@ -192,8 +192,9 @@
 		<div style="clear:both;"></div>
 	</div>
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
-function go(nr)
+/* function go(nr)
 {
 	$.ajax({
 		url: 'select_p.php',
@@ -204,7 +205,7 @@ function go(nr)
 			if(data == "Ok") {window.location.href = "dane_zamowienie.php?id="+nr; } else {alert("Inny pracownik już zajmuje się tym zamówieniem"); }
 		}
 	});	
-}
+} */
 </script>
 </body>
 </html>
