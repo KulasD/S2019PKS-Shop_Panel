@@ -622,6 +622,8 @@ img {
 	text-decoration: underline;
 }
 
+/* hr_k uzyte w reklamacje, zwroty i klienci lista*/
+
 .hr_k1{
 	margin-left: 20px;
 	width: 12%;
@@ -634,7 +636,7 @@ img {
 
 .hr_k3{
 	margin-left: 20px;
-	width: 30%;
+	width: 40%;
 }
 
 .hr_k4{
@@ -644,7 +646,7 @@ img {
 
 .hr_k5{
 	margin-left: 20px;
-	width: 30%;
+	width: 20%;
 }
 
 .s_d_b{
@@ -1062,4 +1064,30 @@ code span {
 
 .zgl_k5{
 	width: 17%;
+}
+
+.kd1{
+	margin-left: 1%;
+	width: 12%;
+}
+
+.kd2{
+	margin-left: 1%;
+	width: 30%;
+}
+
+.kd3{
+	margin-left: 1%;
+	width: 40%;
+}
+
+.kd4{
+	margin-left: 1%;
+	width: 20%;
+}
+
+.kd5{
+	margin-left: 1%;
+	margin-right: 1%;
+	width: 20%;
 }

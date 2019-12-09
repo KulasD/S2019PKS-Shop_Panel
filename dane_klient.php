@@ -312,7 +312,11 @@
 				<span class='info_span_bigger'>2 ostatnie zamówienia</span>
 					<div class='bordered_div_no_padding'>
 							<div class='row'>
-								<div class='hr_z1'>NUMER I STATUS ZAMÓWIENIA</div>	<div class='hr_z2'>DATA</div> 	<div class='hr_z3'>KLIENT</div>	<div class='hr_z4'>PRODUKTY</div>	<div class='hr_z5'>WARTOŚĆ</div>	<div class='hr_z6'>INFORMACJE DODATKOWE</div><div class='hr_z7'>STATUS ZAPŁATY</div>
+								<div class='kd1'>NUMER ZAMÓWIENIA</div>	
+								<div class='kd2'>STATUS</div> 	
+								<div class='kd3'>PRODUKTY</div>	
+								<div class='kd4'>DATA</div>	
+								<div class='kd5'>DZIAŁANIA</div>	
 							</div>	";			
 							
 									while ($r = $result_zam->fetch_array(MYSQLI_ASSOC)) {
@@ -333,23 +337,15 @@
 										$z = "color: #CC0000 !important";
 									}
 										echo "<div class='row' style='background-color:".$color."';>
-								<div class='hr_z1'>
+								<div class='kd1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
-									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>
-									<span id='status_1' style='".$z."'>".$r['status']."</span>
+									
 								</div>	
-								<div class='hr_z2'>".$data_z."</div>";
-								
-								$id_user=$r['id_user'];
-								$qu_u = "SELECT * FROM uzytkownicy WHERE id_user = '$id_user' ";
-								$re_u = mysqli_query($con,$qu_u);
-								while ($rr_u = $re_u->fetch_array(MYSQLI_ASSOC)) {
-										$name = $rr_u['name'];	
-										$surname = $rr_u['surname'];	
-								}
-								echo "
-								<div class='hr_z3'>".$name." ".$surname."</div>	
-								<div class='hr_z4'>";
+								<div class='kd2'>
+									<div><span id='status_1' style='".$z."'>".$r['status']."</span></div>";
+									if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+								echo "</div>
+								<div class='kd3'>";
 								$qu = "SELECT * FROM zamowienie_przedmiot WHERE id_zamowienie = '$id_zamowienie' ";
 										$re = mysqli_query($con,$qu);
 										while ($rr = $re->fetch_array(MYSQLI_ASSOC)) {
@@ -360,37 +356,14 @@
 											$q = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
 											$res = mysqli_query($przed,$q);
 											while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
-												$localization = $rrr['lokalizacja'];
-												$src = $rrr['zdjecie'];
-												echo "<div class='flex_box'>
-														<div class='f_z'>
-														<img src='../lepsza/category/".$localization."/".$src."'/>
-														</div>
-														<div id='produkt_1' class='n_z'>
-														".$rrr['pelna_nazwa']."
-														</div>
-														</div>";
+												echo "<span class='one_line_span'>".$rrr['pelna_nazwa']."</span>";
 											}
 										}
-									$cena = (int)$r['cena_zamowienia'];
-									$cena = number_format((float)$cena, 2, '.', '');
-									echo "
-								</div>
-								<div class='hr_z5'>
-									".$cena." zł
-								</div>	
-								<div class='hr_z6'>
-									<div id='dostawa'>".$r['dostawa']." zł</div>
-									<div id='platnosc'>".$r['platnosc']."</div>";
-									if($r['faktura'] != '') { 
-									echo "<div id='dokument'>Dokument sprzedaży: faktura</div>"; } else {
-										echo "<div id='dokument'>Dokument sprzedaży: paragon</div>";
-									}
-									echo "
-								</div>
-								<div class='hr_z7'>";
-								if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
 								echo "
+								</div>	
+								<div class='kd4'>".$data_z."</div>
+								<div class='kd5'>
+									<button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button>
 								</div>
 							</div>";
 
@@ -406,62 +379,31 @@
 				<span class='info_span_bigger'>2 ostatnie reklamacje</span>
 						<div class='bordered_div_no_padding'>
 							<div class='row'>
-								<div class='hr_k1'>
-									<span class='one_line_span'>ID</span>
-									<span class='one_line_span'>STATUS</span>
+								<div class='kd1'>
+									<span class='one_line_span'>ID REKLAMACJI</span>
 									<span class='one_line_span'>ID ZAMÓWIENIA</span>
-								</div>	
-								<div class='hr_k2'>
-									<span class='one_line_span'>IMIĘ I NAZWISKO</span>
-									<span class='one_line_span'>NAZWA FIRMY</span>
-									<span class='one_line_span'>ADRES E-MAIL</span>
-								</div> 	
-								<div class='hr_k3'>REKLAMOWANY PRODUKT</div>	
-								<div class='hr_k4'>DATA ZGŁOSZENIA</div>	
-								<div class='hr_k5'>DZIAŁANIA</div>
+								</div>		
+								<div class='kd2'>STATUS</div>	
+								<div class='kd3'>REKLAMOWANY PRODUKT</div>	
+								<div class='kd4'>DATA ZGŁOSZENIA</div>	
+								<div class='kd5'>DZIAŁANIA</div>
 							</div>";
 
 								while ($r = $result_rekl->fetch_array(MYSQLI_ASSOC)) {
 									$data_z = $r['data_reklamacji'];
 									echo "<div class='row'>
-								<div class='hr_k1'>
+								<div class='kd1'>
 									<span class='one_line_span'>".$r['id_rek']."</span>
-									<span class='one_line_span'>".$r['status']."</span>
 									<span class='one_line_span'>".$r['id_zamowienie']."</span>
 								</div>	
-								<div class='hr_k2'>
-									<span class='one_line_span'>".$r['name_surname']."</span>
-									<span class='one_line_span'>".$r['email']."</span>
-								</div> 	
-								<div class='hr_k3'>
-									<div class='flex_box'>";
-									$id_zamow_p = $r['id_zamow_p'];
-									$q = "SELECT id_produktu FROM zamowienie_przedmiot WHERE id_zamow_p = '$id_zamow_p' ";
-									$res = mysqli_query($con,$q);
-									while ($rrr = $res->fetch_array(MYSQLI_ASSOC)) {
-										$id_produktu = $rrr['id_produktu'];
-									}
-									
-									$przed = mysqli_connect("localhost","root","","przedmioty");
-									mysqli_query($przed, "SET CHARSET utf8");
-									mysqli_query($przed, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");	
-									$qu = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu = '$id_produktu' ";
-									$res = mysqli_query($przed,$qu);
-									while ($re = $res->fetch_array(MYSQLI_ASSOC)) {
-										$localization = $re['lokalizacja'];
-										$src = $re['zdjecie'];
-												echo "<div class='f_z'>
-															<img src='../lepsza/category/".$localization."/".$src."'/>
-														</div>";
-									}
-										echo "
-										<div id='produkt_1' class='n_z'>
-											".$r['name_product']."
-										</div>
-									</div>
+								<div class='kd2'>
+									<span class='one_line_span'>".$r['status']."</span>
 								</div>	
-								<div class='hr_k4'>".$data_z."</div>	
-								<div class='hr_k5'>
+								<div class='kd3'>
+									<span class='one_line_span'>".$r['name_product']."</span>
+								</div>	
+								<div class='kd4'>".$data_z."</div>	
+								<div class='kd5'>
 									<div class='s_d_b'><button type='button' class='button' onclick='go_rek(".$r['id_rek'].")'>EDYTUJ</button></div>
 									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 								</div>
@@ -477,50 +419,38 @@
 				<span class='info_span_bigger'>2 ostatnie zwroty</span>
 						<div class='bordered_div_no_padding'>
 							<div class='row'>
-								<div class='hr_k1'>
-									<span class='one_line_span'>STATUS</span>
+								<div class='kd1'>
 									<span class='one_line_span'>ID ZWROTU</span>
 								</div>	
-								<div class='hr_k2'>
-									<span class='one_line_span'>IMIĘ I NAZWISKO</span>
-									<span class='one_line_span'>NAZWA FIRMY</span>
-									<span class='one_line_span'>ADRES E-MAIL</span>
-								</div> 	
-								<div class='hr_k3'>ZWRACANY PRODUKT</div>
-								<div class='hr_k4'>DATA ZGŁOSZENIA</div>	
-								<div class='hr_k5'>DZIAŁANIA</div>
+								<div class='kd2'>STATUS</div>	
+								<div class='kd3'>ZWRACANY PRODUKT</div>
+								<div class='kd4'>DATA ZGŁOSZENIA</div>	
+								<div class='kd5'>DZIAŁANIA</div>
 							</div>";
 						
 							for($d=0;$d<count($rows);$d++)
 							{
 								echo "<div class='row'>
-									<div class='hr_k1'>
-										<span class=one_line_span>".$rows[$d]['status']."</span>
+									<div class='kd1'>
 										<span class='one_line_span '>".$rows[$d]['id_zwrot']."</span>
 									</div>	
-									<div class='hr_k2'>
-										<span class='one_line_span '>".$user[$d]['name']." ".$user[$d]['surname']."</span>
-										<span class='one_line_span'>".$user[$d]['email']."</span>
-									</div><div class='hr_k3'>";
+									<div class='kd2'>
+										<span class=one_line_span>".$rows[$d]['status']."</span>
+									</div>	
+									<div class='kd3'>";
 									for($s=0;$s<count($order_all[$d]);$s++)
 									{
-										$localization = "".$order_all[$d][$s]['lokalizacja']."";
-										$src = "".$order_all[$d][$s]['zdjecie']."";
 										echo "
 										<div class='flex_box'>
-											<div class='f_z'>
-												<img src='../lepsza/category/".$localization."/".$src."'/>
-											</div>
-											<div id='produkt_1' class='n_z'>
-												".$order_all[$d][$s]['pelna_nazwa']." <br />
-												<b>Sztuk: ".$order_all[$d][$s]['info']['ilosc']."</b>
-											</div>
+											<span class='one_line_span'>
+												<b>".$order_all[$d][$s]['info']['ilosc']."x</b> ".$order_all[$d][$s]['pelna_nazwa']."
+											</span>
 										</div>
 										";
 									};
 									echo "</div>
-									<div class='hr_k4'>".$rows[$d]['data_zwrotu']."</div>	
-									<div class='hr_k5'>
+									<div class='kd4'>".$rows[$d]['data_zwrotu']."</div>	
+									<div class='kd5'>
 										<div class='s_d_b'><button type='button' class='button' onclick='zwrot_go(".$rows[$d]['id_zwrot'].")'>EDYTUJ</button></div>
 										<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 									</div>
