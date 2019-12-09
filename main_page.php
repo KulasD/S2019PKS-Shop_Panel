@@ -127,12 +127,11 @@
 	$result_p = mysqli_query($con_p,$query_p);
 	$od = '';
 	while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
-		$localization = $r_p['lokalizacja'];
 		$src = $r_p['zdjecie'];
 		$od .= 
 			"<div class='row'>
 				<div class='text_UP mp_od1'>
-					<img src='../lepsza/category/".$localization."/".$src."'/>
+					<img src='../lepsza/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_od2 center_holder_no_padding'>
 					".$r_p['id_produktu']."								
@@ -167,12 +166,11 @@
 	$result_p = mysqli_query($con_p,$query_p);
 	$nd = '';
 	while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
-		$localization = $r_p['lokalizacja'];
 		$src = $r_p['zdjecie'];
 		$nd .= 
 			"<div class='row'>
 				<div class='text_UP mp_od1'>
-					<img src='../lepsza/category/".$localization."/".$src."'/>
+					<img src='../lepsza/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_od2 center_holder_no_padding'>
 					".$r_p['id_produktu']."								
@@ -219,12 +217,11 @@
 	else{
 		$yes_or_no = "no";
 		while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
-			$localization = $r_p['lokalizacja'];
 			$src = $r_p['zdjecie'];
 			$dz .= 
 				"<div class='row'>
 					<div class='text_UP mp_od1'>
-						<img src='../lepsza/category/".$localization."/".$src."'/>
+						<img src='../lepsza/category/produkty/".$src."'/>
 					</div>
 					<div class='text_UP mp_od2 center_holder_no_padding'>
 						".$r_p['id_produktu']."								
@@ -264,12 +261,11 @@
 		$query_p_o = "SELECT * FROM przedmioty_ogolne_informacje WHERE id_produktu='$id_produkt_opinia'";
 		$result_p_o = mysqli_query($con_p,$query_p_o);
 		$r_p_o = $result_p_o->fetch_array(MYSQLI_ASSOC);
-		$localization = $r_p_o['lokalizacja'];
 		$src = $r_p_o['zdjecie'];
 		$oo .= 
 			"<div class='row'>
 				<div class='text_UP mp_oo1'>
-					<img src='../lepsza/category/".$localization."/".$src."'/>
+					<img src='../lepsza/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_oo2 center_holder_no_padding'>
 					".$r_p['id_produktu']."							
