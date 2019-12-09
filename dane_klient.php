@@ -106,7 +106,8 @@
 	};
 	}
 	else {
-		
+		header('Location: main_page.php');
+		exit();
 	}
 
 ?>
@@ -309,7 +310,7 @@
 				<?php
 								if ($yes_zam){
 									echo "
-				<span class='info_span_bigger'>2 ostatnie zamówienia</span>
+				<div class='flex_box'><span class='info_span_bigger'>2 ostatnie zamówienia</span> <div><button type='button' class='button' onclick='zam_hist()' style='margin-top: 10px; margin-left: 5px;'>WIĘCEJ</button></div></div>
 					<div class='bordered_div_no_padding'>
 							<div class='row'>
 								<div class='kd1'>NUMER ZAMÓWIENIA</div>	
@@ -376,7 +377,7 @@
 				<?php
 					if ($yes_rekl){
 						echo "
-				<span class='info_span_bigger'>2 ostatnie reklamacje</span>
+				<div class='flex_box'><span class='info_span_bigger'>2 ostatnie reklamacje</span> <div><button type='button' class='button' onclick='rekl_hist()' style='margin-top: 10px; margin-left: 5px;'>WIĘCEJ</button></div></div>
 						<div class='bordered_div_no_padding'>
 							<div class='row'>
 								<div class='kd1'>
@@ -416,7 +417,7 @@
 							<?php
 							if ($yes_zwr){
 								echo "
-				<span class='info_span_bigger'>2 ostatnie zwroty</span>
+				<div class='flex_box'><span class='info_span_bigger'>2 ostatnie zwroty</span> <div><button type='button' class='button' onclick='zwroty_hist()' style='margin-top: 10px; margin-left: 5px;'>WIĘCEJ</button></div></div>
 						<div class='bordered_div_no_padding'>
 							<div class='row'>
 								<div class='kd1'>
@@ -470,6 +471,19 @@
 	function zmiana_hasla(){
 		$('#nowe_haslo').prop("disabled", false);
 	}
+	
+	function zam_hist(){
+		window.location.href = "klient_zam_hist.php";
+	}
+	
+	function rekl_hist(){
+		window.location.href = "klient_rekl_hist.php";
+	}
+	
+	function zwroty_hist(){
+		window.location.href = "klient_zwroty_hist.php";
+	}
+	
 </script>
 </body>
 </html>
