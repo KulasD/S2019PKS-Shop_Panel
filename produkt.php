@@ -111,28 +111,6 @@
 						</div>
 						<div class="row">
 							<div class="half_row">
-								Lokalizacja:
-							</div>				
-							<div class="half_row_right">
-								<select class="tx" id="lokalizacja" name="lokalizacja"  onchange="wybrano_lokalizacje(value);">
-									<option value="-1">wybierz lokalizacje</option>
-									<?php
-										$query = "SELECT DISTINCT lokalizacja FROM przedmioty_ogolne_informacje";
-										$result = mysqli_query($con,$query);
-										while($r = $result->fetch_array(MYSQLI_ASSOC)){
-											if ((isset($_SESSION['lok'])) && ($_SESSION['lok']==$r['lokalizacja'])){
-												echo "<option selected='selected' value='".$r['lokalizacja']."'>".$r['lokalizacja']."</option>";
-											}
-											else {
-												echo "<option value='".$r['lokalizacja']."'>".$r['lokalizacja']."</option>";
-											}
-										}
-									?>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="half_row">
 								Nazwa produktu:
 							</div>				
 							<div class="half_row_right">
@@ -386,19 +364,6 @@
 				url: 'produkt.php',
 				type: 'POST',
 				data: {kat},
-			});
-			setTimeout(function() {
-				window.location.reload(true);
-			}, 1000)
-			return false; 
-		}
-	}
-	function wybrano_lokalizacje(lok){
-		if(lok!=(-1)){
-			$.ajax({
-				url: 'produkt.php',
-				type: 'POST',
-				data: {lok},
 			});
 			setTimeout(function() {
 				window.location.reload(true);
