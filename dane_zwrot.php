@@ -425,7 +425,6 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 							for($t=0;$t<count($order_all[0]);$t++)
 							{
 								$id_przedmiot = "".$order_all[0][$t]['id_produktu']."";
-								$localization = "".$order_all[0][$t]['lokalizacja']."";
 								$src = "".$order_all[0][$t]['zdjecie']."";
 								$nazwa = "".$order_all[0][$t]['pelna_nazwa']."";
 								$ilosc = "".$order_all[0][$t]['info']['ilosc']."";
@@ -436,7 +435,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 								$suma_p = $suma_p + $sum;
 								$suma_ = number_format((float)$suma_p, 2, '.', '');
 							echo "<div class='row'>
-								<div class='hru1'>".$h."</div>	<div class='hru2'><img src='../lepsza/category/".$localization."/".$src."'/></div> 	<div class='hru3'>".$nazwa."</div>	<div class='hru4'><span >".$ilosc."</span></div>	<div class='hru5'><span >".$cena." zł</span></div>	<div class='hru6'><span >".$sum." zł</span></div>
+								<div class='hru1'>".$h."</div>	<div class='hru2'><img src='../lepsza/category/produkty/".$src."'/></div> 	<div class='hru3'>".$nazwa."</div>	<div class='hru4'><span >".$ilosc."</span></div>	<div class='hru5'><span >".$cena." zł</span></div>	<div class='hru6'><span >".$sum." zł</span></div>
 							</div>";
 							$h++;
 							}
