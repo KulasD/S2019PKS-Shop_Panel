@@ -110,12 +110,7 @@
 					//echo "Jesteś zalogowany jako: ".$_SESSION['uprawnienia'];
 				?>
 			</div>
-			<div id="nav">
-				<div class="nav_border"><div class="nav"><a href="main_page.php" class="nav_link">start</a></div></div>
-				<div class="nav_border"><div class="nav"><a href="#" class="nav_link">sprzedaż</a></div></div>
-				<div class="nav_border"><div class="nav"><a href="#" class="nav_link">asortyment</a></div></div>
-				<div class="nav_border"><div class="nav"><a href="#" class="nav_link">narzędzia</a></div></div>
-			</div>
+			<?php include('nav.php'); ?>
 		</div>
 		<div id="page">
 			<div id="search_inputs">

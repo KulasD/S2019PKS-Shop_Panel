@@ -52,12 +52,7 @@
 					//echo "Jesteś zalogowany jako: ".$_SESSION['uprawnienia'];
 				?>
 			</div>
-			<div id="nav">
-				<div class="nav_border"><div class="nav"><a href="main_page.php" class="nav_link">start</a></div></div>
-				<div class="nav_border"><div class="nav"><a href="#" class="nav_link">sprzedaż</a></div></div>
-				<div class="nav_border"><div class="nav"><a href="#" class="nav_link">asortyment</a></div></div>
-				<div class="nav_border"><div class="nav"><a href="#" class="nav_link">narzędzia</a></div></div>
-			</div>
+			<?php include('nav.php'); ?>
 		</div>
 		<div id="page">
 			<div id="search_inputs">
@@ -92,26 +87,23 @@
 							</div>
 							
 							<?php 
-							$x = 1;
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 									echo "<div class='row'>
 								<div class='hr_k1'>
-									<span class='one_line_span'>".$x."</span>
+									<span class='one_line_span'>".$r['id_user']."</span>
 									<span class='one_line_span'>aktywne</span>
 								</div>	
 								<div class='hr_k2'>
-									<span class='one_line_span click_me_span'>".$r['name']." ".$r['surname']."</span>
+									<span class='one_line_span'>".$r['name']." ".$r['surname']."</span>
 									<span class='one_line_span'>".$r['adres']." ".$r['kod_pocztowy']." ".$r['miejscowosc']."</span>
 								</div> 	
-								<div class='hr_k3 click_me_span'>".$r['email']."</div>	
+								<div class='hr_k3'>".$r['email']."</div>	
 								<div class='hr_k4'>No info</div>	
 								<div class='hr_k5'>
-									<span class='one_line_span click_me_span'>szczegóły i edycja danych</span>
-									<span class='one_line_span click_me_span'>zmień hasło</span>
+									<span class='one_line_span click_me_span' onclick='go_to_klient(".$r['id_user'].")'>szczegóły i edycja danych</span>
 									<span class='one_line_span red_click_me_span'>zablokuj konto</span>
 								</div>
 							</div>";
-							$x++;
 								}
 							?>
 						</div>
@@ -120,5 +112,6 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

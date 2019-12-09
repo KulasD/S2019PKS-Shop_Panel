@@ -208,3 +208,7 @@ function save(nr,zap)
 		}, 1000)
 	}
 }
+
+function go_to_klient(id){
+	window.location.href = "dane_klient.php?kent="+id; 
+}
