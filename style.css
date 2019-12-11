@@ -1091,3 +1091,25 @@ code span {
 	margin-right: 1%;
 	width: 20%;
 }
+
+/* platnosc_lista.php custom*/
+
+.platnosc_div{
+	width: 40%;
+}
+
+.p1{
+	margin-left: 1%;
+	width: 32%;
+}
+
+.p2{
+	margin-left: 1%;
+	width: 32%;
+}
+
+.p3{
+	margin-left: 1%;
+	margin-right: 1%;
+	width: 32%;
+}

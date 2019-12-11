@@ -7,5 +7,6 @@ echo "
 	<div class='nav_border'><div class='nav'><a href='klienci_lista.php' class='nav_link'>klienci</a></div></div>
 	<div class='nav_border'><div class='nav'><a href='#' class='nav_link'>produkty</a></div></div>
 	<div class='nav_border'><div class='nav'><a href='dostawcy_lista.php' class='nav_link'>dostawy</a></div></div>
+	<div class='nav_border'><div class='nav'><a href='platnosc_lista.php' class='nav_link'>płatność</a></div></div>
 </div>";
 ?>
