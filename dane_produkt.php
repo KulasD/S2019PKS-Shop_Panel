@@ -145,42 +145,55 @@
 								<input type="number" class="tx" name="sztuki" value="<?php echo $r_o['sztuki']; ?>"/>
 							</div>
 						</div>
-						<?php
-								if($kat == 'pc' || $kat == 'playstation3' || $kat == 'playstation4' || $kat == 'xboxone') {
-									$g = "gry_filtry";
-								} else {
-									$g = "".$kat."_filtry";
-								}								
-								$query = "SELECT * FROM $g";
+						<?php								
+								$query = "SELECT * FROM nazwy_filtrow WHERE kategoria='$kat'";
 								$result = mysqli_query($con,$query);
 								$filtry = array();
+								$filtry_full = array();
 								while($r = $result->fetch_array(MYSQLI_ASSOC)){
 									$filtry[] = $r;
 									$x = array_keys($r);
-								}
-								for($q=1;$q<count($x);$q++)
+									$id_f = $r['id_filtr'];
+									$query_fi = "SELECT * FROM filtry WHERE id_filtru='$id_f' ORDER BY id_f ASC";
+									$result_fi = mysqli_query($con,$query_fi);
+									while ($r_fi = $result_fi->fetch_array(MYSQLI_ASSOC)) {
+										$filtry_full[] = $r_fi;
+									};	
+								};
+								$qq = 1;
+								for($q=2;$q<count($x);$q++)
 								{
 									if($x[$q] == "p".$q) {} else {
 									echo "<div class='row'>
 								<div class='half_row'>
-									".$x[$q]."
+									".$filtry[0][$x[$q]]."
 								</div>				
 								<div class='half_row_right'>
-									<select id='parametr".$q."' name='parametr".$q."' class='tx'>";
-									for($t=0; $t < count($filtry); $t++)
+									<select id='parametr".$qq."' name='parametr".$qq."' class='tx'>";
+									for($t=0; $t < count($filtry_full); $t++)
 									{
-										if($filtry[$t][$x[$q]] == '') {} 
-										else if (($filtry[$t][$x[$q]]==$r_o['parametr_1']) || ($filtry[$t][$x[$q]]==$r_o['parametr_2']) || ($filtry[$t][$x[$q]]==$r_o['parametr_3'])){
-											echo "<option selected='selected' value='".$filtry[$t][$x[$q]]."'>".$filtry[$t][$x[$q]]."</option>";
-										}
+										if($filtry_full[$t][$x[$q]] == '') {} 
 										else {
-											echo "<option value='".$filtry[$t][$x[$q]]."'>".$filtry[$t][$x[$q]]."</option>";
-										}
+											$check = false; // Pomocnicza zmienna
+											for($j=1;$j<sizeof($filtry_full)-1;$j++) // Filtry_full mają dlugosc (aktualnie) 5, id,id_filtru, i trzy parametry. Potrzeba liczy tylko trzech parametrów a musi sie zaczynać od 1 bo nizej uzupełnia parametry_1, _2 ,_3 tak jak w bazie przedmioty_ogolne_informacje. No to trzeba start od 1 i end przy 4. 
+											{
+												$par = "parametr_$j";
+												if(($filtry_full[$t][$x[$q]] ==$r_o[$par])) // i tu twoje stare trzy ify robi się czyli jezeli się równa to selected
+												{
+													echo "<option selected value='".$filtry_full[$t][$x[$q]]."'>".$filtry_full[$t][$x[$q]]."</option>";
+													$check = true; // jeżeli sie zaznaczy daje pomocnicza na true zeby to nizej sie nie wykonało a jak bedzie false to sie wykona 
+												};
+											}
+											if($check == false ) { 
+												echo "<option value='".$filtry_full[$t][$x[$q]]."'>".$filtry_full[$t][$x[$q]]."</option>";
+											}
+										};
 										
 									}
 									echo" </select>
 								</div>
 									</div>"; }
+									$qq++;
 								}
 						?>						
 						<div class="row">
