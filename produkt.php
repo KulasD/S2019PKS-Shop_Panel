@@ -147,36 +147,43 @@
 						</div>
 						<?php
 							if((isset($_SESSION['kat'])))
-							{
-								if($_SESSION['kat'] == 'pc' || $_SESSION['kat'] == 'playstation3' || $_SESSION['kat'] == 'playstation4' || $_SESSION['kat'] == 'xboxone') {
-									$g = "gry_filtry";
-								} else {
-									$g = "".$_SESSION['kat']."_filtry";
-								}								
-								$query = "SELECT * FROM $g";
+							{			
+								$kat = $_SESSION['kat'];
+								$query = "SELECT * FROM nazwy_filtrow WHERE kategoria='$kat'";
 								$result = mysqli_query($con,$query);
 								$filtry = array();
+								$filtry_full = array();
 								while($r = $result->fetch_array(MYSQLI_ASSOC)){
 									$filtry[] = $r;
 									$x = array_keys($r);
-								}
-								for($q=1;$q<count($x);$q++)
+									$id_f = $r['id_filtr'];
+									$query_fi = "SELECT * FROM filtry WHERE id_filtru='$id_f' ORDER BY id_f ASC";
+									$result_fi = mysqli_query($con,$query_fi);
+									while ($r_fi = $result_fi->fetch_array(MYSQLI_ASSOC)) {
+										$filtry_full[] = $r_fi;
+									};	
+								};
+								$qq = 1;
+								for($q=2;$q<count($x);$q++)
 								{
 									if($x[$q] == "p".$q) {} else {
 									echo "<div class='row'>
 								<div class='half_row'>
-									".$x[$q]."
+									".$filtry[0][$x[$q]]."
 								</div>				
 								<div class='half_row_right'>
-									<select id='parametr".$q."' name='parametr".$q."' class='tx'>";
-									for($t=0; $t < count($filtry); $t++)
+									<select id='parametr".$qq."' name='parametr".$qq."' class='tx'>";
+									for($t=0; $t < count($filtry_full); $t++)
 									{
-										if($filtry[$t][$x[$q]] == '') {} else {
-										echo "<option>".$filtry[$t][$x[$q]]."</option>";}
+										if($filtry_full[$t][$x[$q]] == '') {} 
+										else {
+											echo "<option value='".$filtry_full[$t][$x[$q]]."'>".$filtry_full[$t][$x[$q]]."</option>";
+										}
 									}
 									echo" </select>
 								</div>
 									</div>"; }
+									$qq++;
 								}
 							}
 						?>						
