@@ -34,10 +34,15 @@
 	$_SESSION['kat'] = $kat;
 	$_SESSION['zdj_main'] = $r_o['zdjecie'];
 
-	$query = "SELECT * FROM ".$kat."_full WHERE id_produktu='$produkt'";
+	//$query = "SELECT * FROM ".$kat."_full WHERE id_produktu='$produkt'";
+	//$result = mysqli_query($con,$query);
+	//$r_f = $result->fetch_array();
+	//$_SESSION['id_full'] = $r_f['id_full'];
+	
+	$query = "SELECT * FROM specyfikacja_full WHERE id_produktu='$produkt'";
 	$result = mysqli_query($con,$query);
 	$r_f = $result->fetch_array();
-	$_SESSION['id_full'] = $r_f['id_full'];
+	$_SESSION['id_specyfikacja_f'] = $r_f['id_specyfikacja_f'];
 	
 	$query_op = "SELECT * FROM opis_przedmiotu WHERE id_produktu='$produkt'";
 	$result_op = mysqli_query($con,$query_op);
@@ -163,7 +168,7 @@
 								$qq = 1;
 								for($q=2;$q<count($x);$q++)
 								{
-									if($x[$q] == "p".$q) {} else {
+									if($filtry[0][$x[$q]] == '') {} else {
 									echo "<div class='row'>
 								<div class='half_row'>
 									".$filtry[0][$x[$q]]."
@@ -243,28 +248,36 @@
 					</div>
 				</div>
 				<?php
-						$query_atr = 	"SELECT `COLUMN_NAME` 
-										FROM `INFORMATION_SCHEMA`.`COLUMNS` 
-										WHERE `TABLE_NAME`='".$kat."_full' LIMIT 100 OFFSET 2;";
+						//	$query_atr = 	"SELECT `COLUMN_NAME` 
+							//FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+							//	WHERE `TABLE_NAME`='".$kat."_full' LIMIT 100 OFFSET 2;";
+						$query_atr = 	"SELECT * FROM specyfikacja_nazwy WHERE kategoria='".$_SESSION['kat']."';";			
 						$result_atr = mysqli_query($con,$query_atr);
-						
+						$specyfikacja = array();
+						while($r_atr = $result_atr->fetch_array(MYSQLI_ASSOC)){	
+							$specyfikacja[]= $r_atr;
+							$_SESSION['id_specyfik_update'] = $r_atr['id_specyfikacja'];
+						}
+						$specyfikacja_f = array_keys($specyfikacja[0]);
 						echo 	"<div class='half_width'>
 									<span class='info_span'>Szczegółowe dane produktu</span>
 										<div class='bordered_div_no_padding'>";
 						$licznik = 1;
-						$_SESSION['licznik_kat'] = $result_atr->num_rows;
-						while($r_atr = $result_atr->fetch_array(MYSQLI_ASSOC)){	
+						$_SESSION['licznik_kat_update'] = sizeof($specyfikacja_f);
+						for($u=2;$u<sizeof($specyfikacja[0]);$u++)
+						{
+							if($specyfikacja[0][$specyfikacja_f[$u]] == '') {} else {
 							echo 	"<div class='row'>
 										<div class='half_row'>
-											".$r_atr['COLUMN_NAME']."
+											".$specyfikacja[0][$specyfikacja_f[$u]]."
 										</div>				
 										<div class='half_row_right'>
-											<input type='text' class='tx' name='atr".$licznik."' value='".$r_f[$licznik+1]."'/>
+											<input type='text' class='tx' name='atr".$licznik."' value='".$r_f[$specyfikacja_f[$u]]."'/>
 										</div>
-									</div>";
-									$licznik++;
+									</div>";	
+							$licznik++;									
+							}									
 						}
-						
 						echo	"</div>
 								</div>";
 				?>
