@@ -166,13 +166,14 @@
 								$qq = 1;
 								for($q=2;$q<count($x);$q++)
 								{
-									if($x[$q] == "p".$q) {} else {
+									if($filtry[0][$x[$q]] == '') {} else {
 									echo "<div class='row'>
 								<div class='half_row'>
 									".$filtry[0][$x[$q]]."
 								</div>				
 								<div class='half_row_right'>
 									<select id='parametr".$qq."' name='parametr".$qq."' class='tx'>";
+									
 									for($t=0; $t < count($filtry_full); $t++)
 									{
 										if($filtry_full[$t][$x[$q]] == '') {} 
@@ -275,27 +276,35 @@
 				</div>
 				<?php
 					if (isset($_SESSION['kat'])){
-						$query_atr = 	"SELECT `COLUMN_NAME` 
-										FROM `INFORMATION_SCHEMA`.`COLUMNS` 
-										WHERE `TABLE_NAME`='".$_SESSION['kat']."_full' LIMIT 100 OFFSET 2;";
+						//$query_atr = 	"SELECT `ROW_NAME` 
+										//FROM `INFORMATION_SCHEMA`.`ROWS` 
+										//WHERE `TABLE_NAME`='specyfikacja_nazwy' LIMIT 100 OFFSET 2;";
+						$query_atr = 	"SELECT * FROM specyfikacja_nazwy WHERE kategoria='".$_SESSION['kat']."';";			
 						$result_atr = mysqli_query($con,$query_atr);
-						
+						$specyfikacja = array();
+						while($r_atr = $result_atr->fetch_array(MYSQLI_ASSOC)){	
+							$specyfikacja[]= $r_atr;
+							$_SESSION['id_specyfik'] = $r_atr['id_specyfikacja'];
+						}
+						$specyfikacja_f = array_keys($specyfikacja[0]);
 						echo 	"<div class='half_width'>
 									<span class='info_span'>Szczegółowe dane produktu</span>
 										<div class='bordered_div_no_padding'>";
 						$licznik = 1;
-						$_SESSION['licznik_kat'] = $result_atr->num_rows;
-						while($r_atr = $result_atr->fetch_array(MYSQLI_ASSOC)){	
+						$_SESSION['licznik_kat'] = sizeof($specyfikacja_f);
+						for($u=2;$u<sizeof($specyfikacja[0]);$u++)
+						{
+							if($specyfikacja[0][$specyfikacja_f[$u]] == '') {} else {
 							echo 	"<div class='row'>
 										<div class='half_row'>
-											".$r_atr['COLUMN_NAME']."
+											".$specyfikacja[0][$specyfikacja_f[$u]]."
 										</div>				
 										<div class='half_row_right'>
 											<input type='text' class='tx' name='atr".$licznik++."'/>
 										</div>
-									</div>";
+									</div>";		
+							}									
 						}
-						
 						echo	"</div>
 								</div>";
 					}
