@@ -44,22 +44,21 @@
 	mysqli_query($con,$query_ogolne);
 	
 	//------------------------------------------------------ KATEGORIA_FULL
-	
-	/* echo $_SESSION['licznik_kat']."<br>";
-	
-	for($t=1;$t<=$_SESSION['licznik_kat'];$t++){
-		echo $_POST['atr'.$t]."<br>";
-	} */
+	// Krótkie działanie. Specyfikacja_name (w produkty) pobiera się i ona ma 45 kolumn, czyli sesja licznik daje 45. Specyfikacja_full ma 46 kolumn, 1 to id, 2 to id specyfikacji z nazwami, 3 to id_produktu, i potem od s1 do s43. No wiec, dopisuje 3 rzeczy (czyli z 46 kolumn robi sie juz 43 więc trzeba odjąc od 45-2=43) i na dole robi sie twój for z art od art1 do art42, a niżej ifek który sprawdza czy jest ostatni czyli nr art43. Jeżeli jest to dopisze wartosc + ten nawias na koncu a jezeli nie ma to sam nawias. Dziala jbc testowane na akcesoria_komputerowe, tam jest 41, dopisane dwie i smiga, a potem usuniete
 	$atr = array();
-	$table = $kategoria."_full";
-	$sql = "INSERT INTO `$table` VALUES (NULL, '$id', ";
-	for($t=1;$t<$_SESSION['licznik_kat'];$t++){
-		$atr[] = $_POST['atr'.$t];
-		$sql = $sql."'".$_POST['atr'.$t]."', ";
+	$licznik = $_SESSION['licznik_kat']-2;
+	$sql = "INSERT INTO specyfikacja_full VALUES (NULL,'".$_SESSION['id_specyfik']."', '$id', ";
+	for($t=1;$t<$licznik;$t++){
+		if(isset($_POST['atr'.$t])) {
+		$sql = $sql."'".$_POST['atr'.$t]."', "; }
+		else { $sql = $sql."'', ";}
 	}
-	$sql = $sql."'".$_POST['atr'.$_SESSION['licznik_kat']]."')";
+	if(isset($_POST['atr'.$licznik])) {$sql = $sql."'".$_POST['atr'.$licznik]."') ";} else {
+		$sql = $sql."'')";
+	}
 	mysqli_query($con,$sql);
-	
+	unset($_SESSION['licznik_kat']);
+	unset($_SESSION['id_specyfik']);
 	//------------------------------------------------------ OPIS_PRZEDMIOTU
 	$n1 = ''; $o1 = ''; $n2 =''; $o2 = '';$n3 =''; $o3 = '';
 	$src1 = ''; $src2 = ''; $src3 = '';
@@ -69,10 +68,6 @@
 	$o2 = $_POST['o2'];
 	$n3 = $_POST['n3'];
 	$o3 = $_POST['o3'];
-	//echo $n1.$o1;
-	//echo $n2.$o2;
-	//echo $n3.$o3;
-	
 	if($n1 == '' || $o1 == '') {$z1 = false;} else {
 	$z1 = true;
 	$src1 = "img/".$kategoria."/".basename( $_FILES['zdj1']['name']);
@@ -249,7 +244,7 @@
 			}
 		}
 	}
-	
+
 	header("Location: dane_produkt.php?idp=".$id."");
 	exit();
 ?>
