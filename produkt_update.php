@@ -55,24 +55,36 @@
 		echo $_POST['atr'.$t]."<br>";
 	} */
 	
-	if(isset($_SESSION['id_full'])){
-		$full_id = $_SESSION['id_full'];
-		unset($_SESSION['id_full']);
+	if(isset($_SESSION['id_specyfikacja_f'])){
+		$full_id = $_SESSION['id_specyfikacja_f'];
+		unset($_SESSION['id_specyfikacja_f']);
 	}
-	
+	//	$table = $kategoria."_full";
+	//$sql = "UPDATE `$table` SET ";
+	//$query_atr = 	"SELECT `COLUMN_NAME` 
+				//	FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+				//	WHERE `TABLE_NAME`='".$kategoria."_full' LIMIT 100 OFFSET 2;";
+	//$result_atr = mysqli_query($con,$query_atr);
+	//for($t=1;$t<$_SESSION['licznik_kat'];$t++){
+	//	$r_atr = $result_atr->fetch_array(MYSQLI_ASSOC);
+	//	$sql = $sql."`".$r_atr['COLUMN_NAME']."`='".$_POST['atr'.$t]."', ";
+	//}
+	//$r_atr = $result_atr->fetch_array(MYSQLI_ASSOC);
+	//$sql = $sql."`".$r_atr['COLUMN_NAME']."`='".$_POST['atr'.$_SESSION['licznik_kat']]."' WHERE id_specyfikacja_f='$full_id'";
 
-	$table = $kategoria."_full";
-	$sql = "UPDATE `$table` SET ";
-	$query_atr = 	"SELECT `COLUMN_NAME` 
-					FROM `INFORMATION_SCHEMA`.`COLUMNS` 
-					WHERE `TABLE_NAME`='".$kategoria."_full' LIMIT 100 OFFSET 2;";
-	$result_atr = mysqli_query($con,$query_atr);
-	for($t=1;$t<$_SESSION['licznik_kat'];$t++){
-		$r_atr = $result_atr->fetch_array(MYSQLI_ASSOC);
-		$sql = $sql."`".$r_atr['COLUMN_NAME']."`='".$_POST['atr'.$t]."', ";
+	$licznik = $_SESSION['licznik_kat_update']-2;
+	$sql = "UPDATE `specyfikacja_full` SET ";
+	for($t=1;$t<$licznik;$t++){
+		if(isset($_POST['atr'.$t])) { 
+		$sql = $sql."`s".$t."`='".$_POST['atr'.$t]."', "; } else {
+		$sql = $sql."`s".$t."`='', ";
+		}
 	}
-	$r_atr = $result_atr->fetch_array(MYSQLI_ASSOC);
-	$sql = $sql."`".$r_atr['COLUMN_NAME']."`='".$_POST['atr'.$_SESSION['licznik_kat']]."' WHERE id_full='$full_id'";
+	if(isset($_POST['atr'.$licznik])) {
+		$sql = $sql."`s".$t."`='".$_POST['atr'.$licznik]."' WHERE id_specyfikacja_f='$full_id'";} else {
+		$sql = $sql."`s".$t."`='' WHERE id_specyfikacja_f='$full_id'";
+		}
+
 	mysqli_query($con,$sql);
 	
 	//------------------------------------------------------ OPIS_PRZEDMIOTU
