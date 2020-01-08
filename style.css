@@ -107,6 +107,21 @@ body
 	border-radius: 10px;
 }
 
+.nav_red
+{
+	padding-left: 25px;
+	text-transform: uppercase;
+	height: 28px;
+	display:block;
+	margin: 0px 2px;
+}
+
+.nav_red:hover
+{
+	background-color: rgba(255, 0, 0, 0.6);
+	border-radius: 10px;
+}
+
 .nav_border
 {
 	border-bottom: 2px solid;
@@ -135,6 +150,21 @@ a.nav_link
 }
 
 a.nav_link:hover
+{
+	display: block;
+	color: white;
+	text-decoration: none;
+}
+
+a.nav_link_red
+{
+	padding-top: 5px;
+	display: block;
+	color: red;
+	text-decoration: none;
+}
+
+a.nav_link_red:hover
 {
 	display: block;
 	color: white;
@@ -310,6 +340,12 @@ div#wykres
 }
 
 #produkty_start
+{
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.produkty_start
 {
 	margin-top: 10px;
 	font-size: 14px;
@@ -883,7 +919,7 @@ code span {
 }
 
 .mp_od5{
-	width: 6%;
+	width: 4%;
 }
 
 .mp_od6{
@@ -899,7 +935,7 @@ code span {
 }
 
 .mp_od9{
-	width: 5%;
+	width: 7%;
 }
 
 /* I WANT TO BE IN CENTER */
@@ -1095,21 +1131,84 @@ code span {
 /* platnosc_lista.php custom*/
 
 .platnosc_div{
-	width: 40%;
+	width: 50%;
 }
 
 .p1{
 	margin-left: 1%;
-	width: 32%;
+	width: 25%;
 }
 
 .p2{
 	margin-left: 1%;
-	width: 32%;
+	width: 30%;
 }
 
 .p3{
 	margin-left: 1%;
+	width: 25%;
+}
+
+.p4{
+	margin-left: 1%;
 	margin-right: 1%;
-	width: 32%;
+	width: 20%;
+}
+
+.dostawa_div{
+	width: 60%;
+}
+
+.d1{
+	margin-left: 1%;
+	width: 15%;
+}
+
+.d2{
+	margin-left: 1%;
+	width: 25%;
+}
+
+.d3{
+	margin-left: 1%;
+	width: 35%;
+}
+
+.d4{
+	margin-left: 1%;
+	width: 20%;
+}
+
+.d5{
+	margin-left: 1%;
+	margin-right: 1%;
+	width: 20%;
+}
+
+.dp1{
+	width: 10%;
+}
+
+.dp2{
+	width: 10%;
+}
+
+.dp3{
+	width: 35%;
+}
+
+.dp4{
+	width: 8%;
+}
+
+.dp5{
+	width: 10%;
+}
+
+.dp6{
+	width: 10%;
+}
+
+.dp7{
+	width: 17%;
 }

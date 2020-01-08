@@ -13,7 +13,7 @@
 	$con = mysqli_connect("localhost","root","","administracja");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM dostawcy ORDER BY id ASC ";
+	$query = "SELECT * FROM dostawcy ORDER BY status ";
 	$result = mysqli_query($con,$query);
 ?>
 <!DOCTYPE HTML>
@@ -56,12 +56,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -89,8 +84,6 @@
 								<div class="hr_k5">DZIAŁANIA</div>	
 							</div>
 							<?php
-							// PRZYCISK USUŃ BĘDZIE zmieniał status tego dostawcy na niekatywny i tworzył nowego dostawcę ze zmienionymi danymi
-							// PRZYCISK WYŁĄCZ BĘDZIE zmieniał status tego dostawcy na nieaktywny
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 								echo "<div class='row'>
 								<div class='hr_k1'>
@@ -111,8 +104,7 @@
 									<span class='one_line_span'>".$r['miejscowosc']." ".$r['kod_pocztowy']."</span>
 								</div>
 								<div class='hr_k5'>
-									<div class='s_d_b'><button type='button' class='button'>EDYTUJ</button></div>
-									<div class='s_d_b'><button type='button' class='red_button'>WYŁĄCZ</button></div>
+									<div class='s_d_b'><a href='dostawca.php?idd=".$r['id']."'><button type='button' class='button'>EDYTUJ</button></a></div>
 								</div>
 							</div>";
 								}

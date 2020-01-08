@@ -134,12 +134,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -323,6 +318,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 
 
 				<div style="clear:both;"></div>
+				<form action="zwrot_update.php" method="post">
 					<div id="produkty_start">
 						<span class="info_span">Obsługa zwrotu</span>
 						<div class="bordered_div_no_padding">
@@ -332,7 +328,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										Status zwrotu:
 									</div>				
 									<div class="half_row_right2">
-										<select id="status_zwrotu" class="tx"><?php 
+										<select id="status_zwrotu" class="tx" name="status"><?php 
 										$table_status = ['Sklep czeka na produkt','W trakcie realizacji','Produkt otrzymany, w trakcie sprawdzania','Zwrot dokonany','Zwrot anulowany','Zwrot anulowany, towar odesłany do klienta'];
 											for($q = 0; $q<count($table_status);$q++)
 											{
@@ -347,7 +343,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 								</div>
 								<div class="margin_box_left">
 									<span class="one_line_span">Wyposażenie otrzymanego towaru</span>
-									<textarea class="areatx tx" rows="4"></textarea>
+									<textarea class="areatx tx" rows="4" name="wyposazenie"></textarea>
 								</div>
 								
 							</div>
@@ -357,14 +353,14 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										Przyporządkowany pracownik:
 									</div>				
 									<div class="half_row_right">
-										<select id="pracownik" class="tx">
+										<select id="pracownik" class="tx" name="id_pracownika">
 										<option> Pracownik do zwrotów nr 1 </option>
 										</select>
 									</div>
 								</div>
 								<div class="margin_box_right">
 									<span class="one_line_span">Komentarz do klienta</span>
-									<textarea class="areatx tx" rows="4"></textarea>
+									<textarea class="areatx tx" rows="4" name="komentarz"></textarea>
 								</div>
 								<div class="margin_box_right" style="padding-bottom:5px;">
 									<div class="flex_box_space">
@@ -377,8 +373,9 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 						</div>
 					</div>
 					<div class="center_holder">
-						<button type="button" class="button">Zapisz zmiany</button>
+						<button type="submit" class="button" name="id_zwr" value="<?php echo "".$rows[0]['id_zwrot']."";?>">Zapisz zmiany</button>
 					</div>
+					</form>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">

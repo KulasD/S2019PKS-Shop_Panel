@@ -9,13 +9,6 @@
 	}
 	
 ?>
-<?php
-	$con = mysqli_connect("localhost","root","","user");
-	mysqli_query($con, "SET CHARSET utf8");
-	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM zgloszenie_klienta ORDER BY data DESC";
-	$result = mysqli_query($con,$query);
-?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -55,12 +48,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -88,6 +76,11 @@
 								<div class="zgl_list6">DZIAŁANIA</div>
 							</div>
 							<?php
+							$con = mysqli_connect("localhost","root","","user");
+							mysqli_query($con, "SET CHARSET utf8");
+							mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+							$query = "SELECT * FROM zgloszenie_klienta WHERE blokada NOT LIKE 'zablokowane' ORDER BY data DESC";
+							$result = mysqli_query($con,$query);
 							while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 								$blokada = $r['blokada'];
 								$status = $r['status'];

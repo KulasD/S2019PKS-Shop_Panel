@@ -10,36 +10,47 @@
 	
 ?>
 <?php
-	$con = mysqli_connect("localhost","root","","user");
-	mysqli_query($con, "SET CHARSET utf8");
-	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM zamowienie_informacje WHERE status NOT LIKE 'zamówienie zrealizowane%' AND status NOT LIKE 'zamówienie anulowane' ORDER BY id_zamowienie DESC ";
-	$result = mysqli_query($con,$query);
 
-
-
-
-
-
-
-
-
-
-
-
-
-// ZABLOKOWAC PRZEJSCIE DO EDYCJI GDY ZAMOWIENIE ZOSTALO ZREALIZOWANE!
-// ZROBIONE W $query -> SELECT wyswietla tylko te zamowienia ktore zostaly zakonczone
-// JESLI UZYTKOWNIK CHCE WYSWIETLIC ZAMOWIENIE KTORE ZOSTALO JUZ ZAMKNIETE TO MOZE UZYC WYSZUKIWARKI
-
-
-
-
-
-
-
-
-
+	if (!isset($_POST['search_req']))
+	{
+		header('Location: zamowienia_lista.php');
+		exit();
+	}
+	else{
+		$zamowienie = $_POST['search_req'];
+		$yes = false;
+		$con = mysqli_connect("localhost","root","","user");
+		mysqli_query($con, "SET CHARSET utf8");
+		mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+		
+		// SPRAWDZAMY ID
+		$query = "SELECT * FROM zamowienie_informacje WHERE id_zamowienie LIKE '$zamowienie' ORDER BY id_zamowienie DESC ";
+		$result_id = mysqli_query($con,$query);
+		if($result_id->num_rows>0){
+			$result = $result_id;
+			$yes = true;
+		}
+		else{
+			
+			//NIE MA TAKIEGO ID TO SPRAWDZAMY DATE
+			$query = "SELECT * FROM zamowienie_informacje WHERE data_zamowienia LIKE '%$zamowienie%' ORDER BY id_zamowienie DESC ";
+			$result_data = mysqli_query($con,$query);
+			if($result_data->num_rows>0){
+				$result = $result_data;
+				$yes = true;
+			}
+			else{
+				
+				//NIE MA PODOBNEJ DATY WIEC SPRAWDZAMY DANE ZAMAWIAJACEGO
+				$query = "SELECT * FROM zamowienie_informacje WHERE dane_zamawiajacego LIKE '%$zamowienie%' ORDER BY id_zamowienie DESC ";
+				$result_dane = mysqli_query($con,$query);
+				if($result_dane->num_rows>0){
+					$result = $result_dane;
+					$yes = true;
+				}
+			}
+		}
+	}
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -91,10 +102,13 @@
 				</div>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
-							<div class="row">
-								<div class="hr_z1">NUMER I STATUS ZAMÓWIENIA</div>	<div class="hr_z2">DATA</div> 	<div class="hr_z3">KLIENT</div>	<div class="hr_z4">PRODUKTY</div>	<div class="hr_z5">WARTOŚĆ</div>	<div class="hr_z6">INFORMACJE DODATKOWE</div><div class="hr_z7">STATUS ZAPŁATY</div>
-							</div>				
 							<?php
+								if($yes){
+							echo "
+							<div class='row'>
+								<div class='hr_z1'>NUMER I STATUS ZAMÓWIENIA</div>	<div class='hr_z2'>DATA</div> 	<div class='hr_z3'>KLIENT</div>	<div class='hr_z4'>PRODUKTY</div>	<div class='hr_z5'>WARTOŚĆ</div>	<div class='hr_z6'>INFORMACJE DODATKOWE</div><div class='hr_z7'>STATUS ZAPŁATY</div>
+							</div>	";			
+							
 									while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 										$id_zamowienie=$r['id_zamowienie'];
 										$data_z = $r['data_zamowienia'];
@@ -174,7 +188,10 @@
 							</div>";
 
 									}
-
+								}
+								else{
+									echo "Brak wyników do wyświetlenia.";
+								}
 							?>
 						</div>
 					</div>

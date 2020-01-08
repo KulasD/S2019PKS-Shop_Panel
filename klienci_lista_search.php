@@ -10,11 +10,46 @@
 	
 ?>
 <?php
-	$con = mysqli_connect("localhost","root","","user");
-	mysqli_query($con, "SET CHARSET utf8");
-	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM uzytkownicy ORDER BY id_user ASC ";
-	$result = mysqli_query($con,$query);
+	if (!isset($_POST['search_user']))
+	{
+		header('Location: klienci_lista.php');
+		exit();
+	}
+	else{
+		$klient = $_POST['search_user'];
+		$yes = false;
+		$con = mysqli_connect("localhost","root","","user");
+		mysqli_query($con, "SET CHARSET utf8");
+		mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+		
+		// SPRAWDZAMY ID
+		$query = "SELECT * FROM uzytkownicy WHERE id_user LIKE '$klient' ORDER BY id_user ASC ";
+		$result_id = mysqli_query($con,$query);
+		if($result_id->num_rows>0){
+			$result = $result_id;
+			$yes = true;
+		}
+		else{
+			
+			//NIE MA TAKIEGO ID TO IMIE
+			$query = "SELECT * FROM uzytkownicy WHERE name LIKE '%$klient%' ORDER BY id_user ASC ";
+			$result_imie = mysqli_query($con,$query);
+			if($result_imie->num_rows>0){
+				$result = $result_imie;
+				$yes = true;
+			}
+			else{
+				
+				//NIE MA PODOBNEGO IMIENIA WIEC SPRAWDZAMY NAZWISKO
+				$query = "SELECT * FROM uzytkownicy WHERE surname LIKE '%$klient%' ORDER BY id_user ASC ";
+				$result_nazwisko = mysqli_query($con,$query);
+				if($result_nazwisko->num_rows>0){
+					$result = $result_nazwisko;
+					$yes = true;
+				}
+			}
+		}
+	}
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -66,22 +101,25 @@
 				</div>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
-							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">ID</span>
-									<span class="one_line_span">STATUS</span>
-								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span">IMIĘ I NAZWISKO</span>
-									<span class="one_line_span">MIEJSCOWOŚĆ</span>
-									<span class="one_line_span">FIRMA NIP</span>
-								</div> 	
-								<div class="hr_k3">E-MAIL</div>	
-								<div class="hr_k4">OSTATNIE LOGOWANIE</div>	
-								<div class="hr_k5">DZIAŁANIA</div>
-							</div>
-							
 							<?php 
+							if($yes){
+							echo "
+							<div class='row'>
+								<div class='hr_k1'>
+									<span class='one_line_span'>ID</span>
+									<span class='one_line_span'>STATUS</span>
+								</div>	
+								<div class='hr_k2'>
+									<span class='one_line_span'>IMIĘ I NAZWISKO</span>
+									<span class='one_line_span'>MIEJSCOWOŚĆ</span>
+									<span class='one_line_span'>FIRMA NIP</span>
+								</div> 	
+								<div class='hr_k3'>E-MAIL</div>	
+								<div class='hr_k4'>OSTATNIE LOGOWANIE</div>	
+								<div class='hr_k5'>DZIAŁANIA</div>
+							</div>";
+							
+							
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 									echo "<div class='row'>
 								<div class='hr_k1'>
@@ -101,6 +139,10 @@
 							</div>";
 								}
 								//<span class='one_line_span red_click_me_span'>zablokuj konto</span>
+							}
+							else{
+								echo "Brak wyników do wyświetlenia.";
+							}
 							?>
 						</div>
 					</div>

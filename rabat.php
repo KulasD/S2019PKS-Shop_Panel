@@ -10,9 +10,10 @@
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$kod = ''; $status = ''; $procent = ''; $id_kod = '';
+	$kod = ''; $status = ''; $procent = ''; $id_kod = ''; $yes=false;
 	if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 	{
+		$yes=true;
 		$id_kod = $_GET['id'];
 		$query = "SELECT * FROM kod_rabatowy WHERE id_kod='$id_kod'";
 		$result = mysqli_query($con,$query);
@@ -69,12 +70,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -105,7 +101,16 @@
 									</select>
 								</div>		
 								<div class="hr_k4">
-									<input class="tx" type="text" id="procent_in" maxlength="2" value="<?php echo "".$procent.""; ?>"/>
+									<?php
+										if($yes)
+										{
+											echo "<input disabled class='tx' type='text' id='procent_in' maxlength='2' value='$procent'/>";
+										}
+										else
+										{
+											echo "<input class='tx' type='text' id='procent_in' maxlength='2' value='$procent'/>";
+										}
+									?>
 								</div> 	
 								<div class="hr_k5">
 									<div class="s_d_b"><button class="button" onclick="add('<?php echo "".$id_kod.""; ?>')">ZAPISZ</button></div>

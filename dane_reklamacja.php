@@ -102,12 +102,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -313,6 +308,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 					</div>
 				</div>
 				<div style="clear:both;"></div>
+				<form action="reklamacja_update.php" method="post">
 					<div id="produkty_start">
 						<span class="info_span">Obsługa reklamacji</span>
 						<div class="bordered_div_no_padding">
@@ -322,7 +318,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										Status reklamacji:
 									</div>				
 									<div class="half_row_right2">
-										<select id="status_reklamacji" class="tx">
+										<select id="status_reklamacji" class="tx" name="status">
 										<?php
 										$table_status = ['Sklep czeka na produkt','W trakcie sprawdzania przez pracownika','Produkt dostarczony','W trakcie reklamacji','Reklamacja zrealizowana','Reklamacja odrzucona', 'Reklamacja zrealizowana, towar odesłany do klienta','Reklamacja odrzucona, towar odesłany do klienta'];
 											for($q = 0; $q<count($table_status);$q++)
@@ -358,12 +354,12 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 									
 								</div>
 								<div class="margin_box_left">
-									<span class="one_line_span">Wyposarzenie otrzymanego towaru</span>
-									<textarea class="areatx tx" rows="4"></textarea>
+									<span class="one_line_span">Wyposażenie otrzymanego towaru</span>
+									<textarea class="areatx tx" rows="4" name="wyposazenie"></textarea>
 								</div>
 								<div class="margin_box_left">
 									<span class="one_line_span">Komentarz do reklamującego</span>
-									<textarea class="areatx tx" rows="4"></textarea>
+									<textarea class="areatx tx" rows="4" name="komentarz"></textarea>
 								</div>
 								<div class="margin_box_left" style="padding-bottom:5px;">
 									<div class="flex_box_space">
@@ -380,7 +376,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										RMA serwisu:
 									</div>				
 									<div class="half_row_right">
-										<input class="tx" type="text" name="id_reklamacji"/>
+										<input class="tx" type="text" name="RMA_serwis"/>
 									</div>
 								</div>
 								<div class="flex_box_padding">
@@ -388,21 +384,22 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										Przyporządkowany pracownik:
 									</div>				
 									<div class="half_row_right">
-										<select id="pracownik" class="tx">
+										<select id="pracownik" class="tx" name="id_pracownik">
 										<option> Pracownik do zwrotów nr 1 </option>
 										</select>
 									</div>
 								</div>
 								<div class="margin_box_right">
 									<span class="one_line_span">Opis naprawy</span>
-									<textarea class="areatx tx" rows="4"></textarea>
+									<textarea class="areatx tx" rows="4" name="opis_naprawy"></textarea>
 								</div>
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-					</div>
-					<div class="center_holder">
-						<button type="button" class="button">Zapisz zmiany</button>
+						<div class="center_holder">
+							<button type="submit" class="button" name="id_rekl" value="<?php echo"".$rows_reklamacja[0]['id_rek']."";?>">Zapisz zmiany</button>
+						</div>
+					</form>
 					</div>
 			</div>
 		</div>

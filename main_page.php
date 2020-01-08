@@ -155,7 +155,7 @@
 					".$r_p['sztuki']."
 				</div>
 				<div class='text_UP mp_od9 center_holder_no_padding'>
-					<button type='button' class='button'><i class='icon-logout'></i></button>
+					<a href='dane_produkt.php?idp=".$r_p['id_produktu']."'><button type='button' class='button'>EDYTUJ</button></a>
 				</div>
 			</div>";
 	}
@@ -194,7 +194,7 @@
 					".$r_p['sztuki']."
 				</div>
 				<div class='text_UP mp_od9 center_holder_no_padding'>
-					<button type='button' class='button'><i class='icon-logout'></i></button>
+					<a href='dane_produkt.php?idp=".$r_p['id_produktu']."'><button type='button' class='button'>EDYTUJ</button></a>
 				</div>
 			</div>";
 	}
@@ -245,7 +245,7 @@
 						".$r_p['sztuki']."
 					</div>
 					<div class='text_UP mp_od9 center_holder_no_padding'>
-						<button type='button' class='button'><i class='icon-logout'></i></button>
+						<a href='dane_produkt.php?idp=".$r_p['id_produktu']."'><button type='button' class='button'>EDYTUJ</button></a>
 					</div>
 				</div>";
 		}
@@ -282,8 +282,8 @@
 				<div class='text_UP mp_oo6'>
 					".$r_p['opinia']."
 				</div>
-				<div class='text_UP mp_oo7'>
-					<button type='button' class='button'><i class='icon-logout'></i></button>
+				<div class='text_UP mp_oo7 center_holder_no_padding'>
+					<a href='dane_produkt.php?idp=".$r_p['id_produktu']."'><button type='button' class='button'>EDYTUJ</button></a>
 				</div>
 			</div>";
 	}
@@ -336,12 +336,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -372,7 +367,7 @@
 								<div class="mp_z3">Wartość</div>
 								<div class="mp_z4">Data</div>
 								<div class="mp_z5">Status_zamówienia</div>
-								<div class="mp_z6">GO</div>
+								<div class="mp_z6">Idź</div>
 							</div>
 							<?php
 								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -432,7 +427,7 @@
 						<div id="buttons_div">
 							<button id="1" type="button" class="button_clicked" onclick="change(1)">Ostatnio dodane</button>
 							<button id="2" type="button" class="button" onclick="change(2)">Najczęściej oglądane</button>
-							<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>
+							<!--<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>-->
 							<button id="4" type="button" class="button" onclick="change(4)">Ostatnie opinie</button>
 						</div>
 						<div id="produkty_naglowek">
@@ -462,7 +457,7 @@
 									magazyn
 								</div>
 								<div class="text_UP mp_od9 center_holder_no_padding">
-									GO
+									działania
 								</div>
 							</div>
 						</div>
@@ -514,13 +509,13 @@ for(t=0;t<table.length;t++)
 </script>
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5">ocena</div><div class="text_UP mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">zakupień</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">GO</div></div>';
+var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5">ocena</div><div class="text_UP mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">zakupień</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">DZIAŁANIA</div></div>';
 var ostatnio_dodane = <?php echo json_encode($od); ?>;
 var najczesciej_ogladane = <?php echo json_encode($nd); ?>;
 var do_zamowienia = <?php echo json_encode($dz); ?>;
 var yes_or_no = <?php echo json_encode($yes_or_no); ?>;
 var ostatnie_opinie = <?php echo json_encode($oo); ?>;
-var naglowek_4 = "<div class='row'><div class='text_UP mp_oo1'>OBRAZEK</div><div class='text_UP mp_oo2 center_holder_no_padding'>ID PRODUKTU</div><div class='text_UP mp_oo3'>NAZWA PRODUKTU</div><div class='text_UP mp_oo4'>OCENIAJĄCY</div><div class='text_UP mp_oo5'>OCENA</div><div class='text_UP mp_oo6'>TREŚĆ OPINII</div><div class='text_UP mp_oo7'>GO</div></div>";
+var naglowek_4 = "<div class='row'><div class='text_UP mp_oo1'>OBRAZEK</div><div class='text_UP mp_oo2 center_holder_no_padding'>ID PRODUKTU</div><div class='text_UP mp_oo3'>NAZWA PRODUKTU</div><div class='text_UP mp_oo4'>OCENIAJĄCY</div><div class='text_UP mp_oo5'>OCENA</div><div class='text_UP mp_oo6'>TREŚĆ OPINII</div><div class='text_UP mp_oo7  center_holder_no_padding'>DZIAŁANIA</div></div>";
 function change(id)
 {
 	document.getElementsByClassName('button_clicked')[0].classList.add('button');
@@ -535,7 +530,7 @@ function change(id)
 		document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
 		document.getElementById("produkty_box").innerHTML = najczesciej_ogladane;
 	}
-	else if(id==3){
+	/*else if(id==3){
 		if(yes_or_no=="no"){
 			document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
 		}
@@ -543,7 +538,7 @@ function change(id)
 			document.getElementById("produkty_naglowek").innerHTML = "";
 		}
 		document.getElementById("produkty_box").innerHTML = do_zamowienia;
-	}
+	}*/
 	else if(id==4){
 		document.getElementById("produkty_naglowek").innerHTML = naglowek_4;
 		document.getElementById("produkty_box").innerHTML = ostatnie_opinie;

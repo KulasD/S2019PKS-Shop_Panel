@@ -114,12 +114,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -157,7 +152,7 @@
 						
 						<div class="row"><div class="half_row">Aktualny status zamówienia:</div>	<div class="half_row_right"><select class="tx" id="status"><?php 
 						
-						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie anulowane"];
+						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie zrealizowane (reklamacja w toku)","Zamówienie zrealizowane po reklamacji","Zamówienie anulowane"];
 						for($a=0;$a<count($table);$a++)
 						{
 							$sta = "".$zamowienie[0]['status']."";

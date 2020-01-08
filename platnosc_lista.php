@@ -15,29 +15,6 @@
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	$query = "SELECT * FROM zamowienie_informacje WHERE status_zaplaty LIKE 'niezapłacono' ORDER BY id_zamowienie DESC";
 	$result = mysqli_query($con,$query);
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ZABLOKOWAC PRZEJSCIE DO EDYCJI GDY ZAMOWIENIE ZOSTALO ZREALIZOWANE!
-
-
-
-
-
-
-
-
-
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -79,12 +56,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -97,7 +69,8 @@
 							<div class="row">
 								<div class="p1">NUMER ZAMÓWIENIA</div>	
 								<div class="p2">DATA ZAMÓWIENIA</div>
-								<div class="p3">STATUS ZAPŁATY</div>
+								<div class="p3">WARTOŚĆ ZAMÓWIENIA</div>
+								<div class="p4">STATUS ZAPŁATY</div>
 							</div>				
 							<?php
 								while($r = $result->fetch_array(MYSQLI_ASSOC)){
@@ -105,7 +78,8 @@
 									<div class='row'>
 										<div class='p1'>".$r['id_zamowienie']."</div>
 										<div class='p2'>".$r['data_zamowienia']."</div>
-										<div class='p3'>
+										<div class='p3'>".$r['cena_zamowienia']." zł</div>
+										<div class='p4'>
 											<button class='zaplataBN zbnp' onclick='zaplacono(".$r['id_zamowienie'].")'>Niezapłacono</button>
 										</div>
 									</div>

@@ -10,10 +10,10 @@
 	
 ?>
 <?php
-	$con = mysqli_connect("localhost","root","","user");
+	$con = mysqli_connect("localhost","root","","administracja");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM kod_rabatowy ORDER BY id_kod ASC ";
+	$query = "SELECT * FROM dostawy WHERE status NOT IN ('zakończona', 'anulowana') ORDER BY id_dostawy DESC";
 	$result = mysqli_query($con,$query);
 ?>
 <!DOCTYPE HTML>
@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
-	<script src="script.js"></script>
+
     </script>
 </head>
 
@@ -62,43 +62,39 @@
 				<div id="panel_admin_border">
 					<div id="panel_admin">
 						<div class="flex_box_space">
-							<div>KODY RABATOWE</div>
-							<div><a href='rabat.php'><button type="button" class="button_green">NOWY KOD RABATOWY</button></a></div>
+							<div>LISTA DOSTAW DO SKLEPU</div>
+							<div><a href='dostawa_new.php'><button type="button" class="button_green">NOWA DOSTAWA</button></a></div>
 						</div>
 					</div>
 				</div>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">
-								<div class="hr_k1">
-									<span class="one_line_span">ID</span>
-								</div>	
-								<div class="hr_k2">
-									<span class="one_line_span">KOD RABATOWY</span>
-								</div> 	
-								<div class="hr_k3">STATUS</div>	
-								<div class="hr_k4">DATA DODANIA</div>	
-								<div class="hr_k5">DZIAŁANIA</div>	
-							</div>
-							
+								<div class="d1">NUMER DOSTAWY</div>	
+								<div class="d2">DATA ZGŁOSZENIA DOSTAWY</div>
+								<div class="d3">DOSTAWCA</div>
+								<div class="d4 center_holder_no_padding">STATUS</div>
+								<div class="d5 center_holder_no_padding">DZIAŁANIA</div>
+							</div>				
 							<?php
-								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
-								echo "<div class='row'>
-								<div class='hr_k1'>
-									<span class='one_line_span'>".$r['id_kod']."</span>
-								</div>	
-								<div class='hr_k2'>
-									<span class='one_line_span'>".$r['kod'].", ".$r['rabat']."%</span>
-								</div> 	
-								<div class='hr_k3'>
-									".$r['status']."
-								</div>		
-								<div class='hr_k4'>".$r['data_dodania']."</div>
-								<div class='hr_k5'>
-									<div class='s_d_b'><button class='button' onclick='g(".$r['id_kod'].")'>EDYTUJ</button></div>
-									<div class='s_d_b'><button class='red_button' onclick='deletekod(".$r['id_kod'].")'>USUŃ</button></div>
-								</div>
-							</div>";
+								while($r = $result->fetch_array(MYSQLI_ASSOC)){
+									$query_dostawca = "SELECT * FROM dostawcy WHERE id LIKE '".$r['id_dostawcy']."'";
+									$result_dostawca = mysqli_query($con,$query_dostawca);
+									$r_dostawca = $result_dostawca->fetch_array(MYSQLI_ASSOC);
+									echo "
+									<div class='row'>
+										<div class='d1'>".$r['id_dostawy']."</div>
+										<div class='d2'>".$r['data']."</div>
+										<div class='d3'>
+											<span class='one_line_span'>".$r_dostawca['nazwa']."</span>
+											<span class='one_line_span'>tel: ".$r_dostawca['telefon']."</span>
+										</div>
+										<div class='d4 center_holder_no_padding'>".$r['status']."</div>
+										<div class='d5 center_holder_no_padding'>
+											<div class='s_d_b'><a href='dostawa_edit.php?id=".$r['id_dostawy']."'><button type='button' class='button'>EDYTUJ</button></a></div>
+										</div>
+									</div>
+									";
 								}
 							?>
 						</div>
@@ -107,12 +103,5 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
-<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
-<script>
-function g(nr)
-{
-	window.location.href = "rabat.php?id="+nr;
-}
-</script>
 </body>
 </html>

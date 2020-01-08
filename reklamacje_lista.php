@@ -13,7 +13,7 @@
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM reklamacje ORDER BY id_rek ASC ";
+	$query = "SELECT * FROM reklamacje WHERE status NOT LIKE 'reklamacja%' ORDER BY id_rek DESC ";
 	$result = mysqli_query($con,$query);
 
 ?>
@@ -57,12 +57,7 @@
 		</div>
 		<div id="page">
 			<div id="search_inputs">
-				<input class="search_input" type="search" name="search_product" placeholder="szukaj produktu" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj produktu'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_req" placeholder="szukaj zamówienia" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj zamówienia'" />
-				<input class="search_button" type="submit" value="&#xe801" />
-				<input class="search_input" type="search" name="search_user" placeholder="szukaj klienta" onfocus="this.placeholder=''" onblur="this.placeholder='szukaj klienta'" />
-				<input class="search_button" type="submit" value="&#xe801" />
+				<?php include('search_bar.php'); ?>
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
@@ -129,10 +124,11 @@
 								<div class='hr_k4'>".$data_z."</div>	
 								<div class='hr_k5'>
 									<div class='s_d_b'><button type='button' class='button' onclick='go_rek(".$r['id_rek'].")'>EDYTUJ</button></div>
-									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
+									
 								</div>
 							</div>";
-								};	
+								};
+								//<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
 							?>
 						</div>
 					</div>
