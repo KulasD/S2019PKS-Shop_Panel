@@ -92,7 +92,7 @@
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">
-								<div class="hr_z1">NUMER I STATUS ZAMÓWIENIA</div>	<div class="hr_z2">DATA</div> 	<div class="hr_z3">KLIENT</div>	<div class="hr_z4">PRODUKTY</div>	<div class="hr_z5">WARTOŚĆ</div>	<div class="hr_z6">INFORMACJE DODATKOWE</div><div class="hr_z7">STATUS ZAPŁATY</div>
+								<div class="hr_z1">NUMER I STATUS ZAMÓWIENIA</div>	<div class="hr_z2">DATA</div> 	<div class="hr_z3">KLIENT</div>	<div class="hr_z4">PRODUKTY</div>	<div class="hr_z5">WARTOŚĆ</div>	<div class="hr_z6">INFORMACJE DODATKOWE</div><div class="hr_z7">DZIAŁANIA</div>
 							</div>				
 							<?php
 									while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -115,7 +115,9 @@
 										echo "<div class='row' style='background-color:".$color."';>
 								<div class='hr_z1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
-									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>
+									<div>";
+										if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+									echo "</div>
 									<span id='status_1' style='".$z."'>".$r['status']."</span>
 								</div>	
 								<div class='hr_z2'>".$data_z."</div>";
@@ -167,8 +169,9 @@
 									}
 									echo "
 								</div>
-								<div class='hr_z7'>";
-								if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+								<div class='hr_z7'>
+									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>";
+								
 								echo "
 								</div>
 							</div>";

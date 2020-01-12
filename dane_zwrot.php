@@ -16,6 +16,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 	$id_zwrotu = $_GET['id'];
 	} else {
 	header('Location: zwroty_lista.php');exit();};
+	$disabled = 'disabled';
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
@@ -32,6 +33,9 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 	$result = mysqli_query($con,$query);
 	while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 		$rows[] = $r;
+		if(($rows[0]['status']=='Sklep czeka na produkt') || ($rows[0]['status']=='W trakcie realizacji')){
+			$disabled = '';
+		}
 		$ids[] = explode("|", $r['produkty']);
 		$id_user = $r['id_user'];
 		$id_zamowienie = $r['id_zamowienie'];
@@ -54,6 +58,9 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 		
 	}	
 	$j = -1;
+	$ile_produktow = 0;
+	$id_zamow_pp = array();
+	$ilosc_zamow_pp = array();
 	for($i = 0; $i < count($ids) ; $i++)
 		{
 			for($k = 0; $k < count($ids[$i]); $k++)
@@ -65,6 +72,10 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 					$query_x = "SELECT * FROM zamowienie_przedmiot WHERE id_zamow_p='$id[0]'";
 					$result_x = mysqli_query($con,$query_x);
 					while($re = $result_x->fetch_array(MYSQLI_ASSOC)) {
+						$id_zamow_pp[$ile_produktow] = $id[0];
+						$ilosc_zamow_pp[$ile_produktow] = $id[1];
+						$wartosc_zamow_pp[$ile_produktow] = $id[2];
+						$ile_produktow++;
 						$rows_product[$j] = $re;
 						$rows_product[$j]['ilosc']	= $id[1];
 						$id_produktu = $re['id_produktu'];
@@ -319,6 +330,15 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 
 				<div style="clear:both;"></div>
 				<form action="zwrot_update.php" method="post">
+					<?php
+						for ($i = 0; $i < $ile_produktow ; $i++){
+							echo "<input type='hidden' name='id_zamow_p".$i."' value='".$id_zamow_pp[$i]."'/>";
+							echo "<input type='hidden' name='ilosc_zamow_p".$i."' value='".$ilosc_zamow_pp[$i]."'/>";
+							echo "<input type='hidden' name='wartosc_zamow_p".$i."' value='".$wartosc_zamow_pp[$i]."'/>";
+						}
+						echo "<input type='hidden' name='ile_produktow' value='$ile_produktow'/>";
+					?>
+					<input type="hidden" name="zamowienie_id" value="<?php echo $rows[0]['id_zamowienie'];?>"/>
 					<div id="produkty_start">
 						<span class="info_span">Obsługa zwrotu</span>
 						<div class="bordered_div_no_padding">
@@ -328,8 +348,8 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										Status zwrotu:
 									</div>				
 									<div class="half_row_right2">
-										<select id="status_zwrotu" class="tx" name="status"><?php 
-										$table_status = ['Sklep czeka na produkt','W trakcie realizacji','Produkt otrzymany, w trakcie sprawdzania','Zwrot dokonany','Zwrot anulowany','Zwrot anulowany, towar odesłany do klienta'];
+										<select <?php echo $disabled; ?> id="status_zwrotu" class="tx" name="status"><?php 
+										$table_status = ['Sklep czeka na produkt','W trakcie realizacji','Zwrot dokonany','Zwrot anulowany'];
 											for($q = 0; $q<count($table_status);$q++)
 											{
 												if($table_status[$q] == $rows[0]['status']) {
@@ -343,11 +363,12 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 								</div>
 								<div class="margin_box_left">
 									<span class="one_line_span">Wyposażenie otrzymanego towaru</span>
-									<textarea class="areatx tx" rows="4" name="wyposazenie"></textarea>
+									<textarea <?php echo $disabled; ?> class="areatx tx" rows="4" name="wyposazenie"></textarea>
 								</div>
 								
 							</div>
 							<div class="half_width">
+								<!--
 								<div class="flex_box_padding">
 									<div class="half_row2">
 										Przyporządkowany pracownik:
@@ -358,6 +379,8 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										</select>
 									</div>
 								</div>
+								-->
+								<!--
 								<div class="margin_box_right">
 									<span class="one_line_span">Komentarz do klienta</span>
 									<textarea class="areatx tx" rows="4" name="komentarz"></textarea>
@@ -368,19 +391,20 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										<div><a href='#'><button type="button" class="button_green">Wyślij</button></a></div>
 									</div>
 								</div>
+								-->
 							</div>
 							<div style="clear:both;"></div>
 						</div>
 					</div>
 					<div class="center_holder">
-						<button type="submit" class="button" name="id_zwr" value="<?php echo "".$rows[0]['id_zwrot']."";?>">Zapisz zmiany</button>
+						<button <?php echo $disabled; ?> type="submit" class="button" name="id_zwr" value="<?php echo "".$rows[0]['id_zwrot']."";?>">Zapisz zmiany</button>
 					</div>
 					</form>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">
 								<div class="hru1">
-									ID
+									LP
 								</div>	
 								<div class="hru2">
 									ZDJĘCIE

@@ -16,6 +16,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 	$id_r = $_GET['id'];
 	} else {
 	header('Location: zwroty_lista.php');exit();};
+	$disabled = 'disabled';
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
@@ -32,6 +33,9 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 	$zamowienie = array();
 	while ($ry = $resu->fetch_array(MYSQLI_ASSOC)) {
 		$rows_reklamacja[] = $ry;
+		if(($rows_reklamacja[0]['status']=='Sklep czeka na produkt') || ($rows_reklamacja[0]['status']=='W trakcie reklamacji')){
+			$disabled = '';
+		}
 		$id_reklamacja = $ry['id_zamow_p'];
 		$id_zamowienie = $ry['id_zamowienie'];
 		$query_z = "SELECT * FROM zamowienie_informacje WHERE id_zamowienie='$id_zamowienie'";
@@ -309,6 +313,11 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 				</div>
 				<div style="clear:both;"></div>
 				<form action="reklamacja_update.php" method="post">
+					<input type="hidden" name="zamowienie_id" value="<?php echo $rows_reklamacja[0]['id_zamowienie'];?>"/>
+					<input type="hidden" name="produkt_id" value="<?php echo $rows_info_r[0]['id_produktu'];?>"/>
+					<input type="hidden" name="id_zamow_p" value="<?php echo $rows_reklamacja[0]['id_zamow_p'];?>"/>
+					<input type="hidden" name="produkt_ilosc" value="<?php echo $rows_reklamacja[0]['quantity'];?>"/>
+					<input type="hidden" name="produkt_wartosc" value="<?php echo $rows_product_r[0]['price_one_quan'];?>"/>
 					<div id="produkty_start">
 						<span class="info_span">Obsługa reklamacji</span>
 						<div class="bordered_div_no_padding">
@@ -318,9 +327,9 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										Status reklamacji:
 									</div>				
 									<div class="half_row_right2">
-										<select id="status_reklamacji" class="tx" name="status">
+										<select <?php echo $disabled; ?> id="status_reklamacji" class="tx" name="status">
 										<?php
-										$table_status = ['Sklep czeka na produkt','W trakcie sprawdzania przez pracownika','Produkt dostarczony','W trakcie reklamacji','Reklamacja zrealizowana','Reklamacja odrzucona', 'Reklamacja zrealizowana, towar odesłany do klienta','Reklamacja odrzucona, towar odesłany do klienta'];
+										$table_status = ['Sklep czeka na produkt','W trakcie reklamacji','Reklamacja zrealizowana, produkt po serwisie','Reklamacja zrealizowana, pieniądze zwrócone','Reklamacja anulowana'];
 											for($q = 0; $q<count($table_status);$q++)
 											{
 												if($table_status[$q] == $rows_reklamacja[0]['status']) {
@@ -355,8 +364,9 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 								</div>
 								<div class="margin_box_left">
 									<span class="one_line_span">Wyposażenie otrzymanego towaru</span>
-									<textarea class="areatx tx" rows="4" name="wyposazenie"></textarea>
+									<textarea <?php echo $disabled; ?> class="areatx tx" rows="4" name="wyposazenie"></textarea>
 								</div>
+								<!--
 								<div class="margin_box_left">
 									<span class="one_line_span">Komentarz do reklamującego</span>
 									<textarea class="areatx tx" rows="4" name="komentarz"></textarea>
@@ -365,10 +375,11 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 									<div class="flex_box_space">
 										<div></div>
 										<div>
-										<a href='#'><button type="button" class="button_green">Wyślij e-mail</button></a><!-- Automatyczny email do uzytkownika, aby spakował przedmiot i wysłał na adres-->
+										<a href='#'><button type="button" class="button_green">Wyślij e-mail</button></a>
 										</div>
 									</div>
 								</div>
+								-->
 							</div>
 							<div class="half_width">
 								<div class="flex_box_padding">
@@ -376,28 +387,30 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 										RMA serwisu:
 									</div>				
 									<div class="half_row_right">
-										<input class="tx" type="text" name="RMA_serwis"/>
+										<input <?php echo $disabled; ?> class="tx" type="text" name="RMA_serwis"/>
 									</div>
 								</div>
+								<!--
 								<div class="flex_box_padding">
 									<div class="half_row2">
 										Przyporządkowany pracownik:
 									</div>				
 									<div class="half_row_right">
-										<select id="pracownik" class="tx" name="id_pracownik">
+										<select <?php //echo $disabled; ?> id="pracownik" class="tx" name="id_pracownik">
 										<option> Pracownik do zwrotów nr 1 </option>
 										</select>
 									</div>
 								</div>
+								-->
 								<div class="margin_box_right">
 									<span class="one_line_span">Opis naprawy</span>
-									<textarea class="areatx tx" rows="4" name="opis_naprawy"></textarea>
+									<textarea <?php echo $disabled; ?> class="areatx tx" rows="4" name="opis_naprawy"></textarea>
 								</div>
 							</div>
 							<div style="clear:both;"></div>
 						</div>
 						<div class="center_holder">
-							<button type="submit" class="button" name="id_rekl" value="<?php echo"".$rows_reklamacja[0]['id_rek']."";?>">Zapisz zmiany</button>
+							<button <?php echo $disabled; ?> type="submit" class="button" name="id_rekl" value="<?php echo"".$rows_reklamacja[0]['id_rek']."";?>">Zapisz zmiany</button>
 						</div>
 					</form>
 					</div>

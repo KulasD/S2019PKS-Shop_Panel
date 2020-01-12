@@ -129,7 +129,9 @@
 										echo "<div class='row' style='background-color:".$color."';>
 								<div class='hr_z1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
-									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>
+									<div>";
+										if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+									echo "</div>
 									<span id='status_1' style='".$z."'>".$r['status']."</span>
 								</div>	
 								<div class='hr_z2'>".$data_z."</div>";
@@ -181,8 +183,8 @@
 									}
 									echo "
 								</div>
-								<div class='hr_z7'>";
-								if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+								<div class='hr_z7'>
+									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>";
 								echo "
 								</div>
 							</div>";
