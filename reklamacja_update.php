@@ -66,6 +66,8 @@
 	$query = "UPDATE reklamacje SET status='$status', RMA_serwis='$RMA_serwis', id_pracownik='$id_pracownik', opis_naprawy='$opis_naprawy', komentarz='$komentarz', wyposazenie='$wyposazenie' WHERE id_rek='$id_rekl'";
 	$result = mysqli_query($con,$query);
 	
+	//wersja 1
+	/*
 	if (($status=='Reklamacja zrealizowana, produkt po serwisie') || ($status=='Reklamacja zrealizowana, pieniądze zwrócone') || ($status=='Reklamacja anulowana')){
 		$query = "UPDATE zamowienie_informacje SET status='Zamówienie zrealizowane po reklamacji' WHERE id_zamowienie='$zamowienie_id'";
 		$result = mysqli_query($con,$query);
@@ -86,6 +88,18 @@
 		
 		$qa = "UPDATE zamowienie_informacje SET vat23='$vat_new', cena_zamowienia='$wartosc_new' WHERE id_zamowienie='$zamowienie_id'";
 		mysqli_query($con,$qa);
+	}
+	*/
+	
+	//wersja 2
+	if (($status=='Reklamacja zrealizowana, produkt po serwisie') || ($status=='Reklamacja zrealizowana, pieniądze zwrócone') || ($status=='Reklamacja anulowana')){
+		$query = "UPDATE zamowienie_informacje SET status='Zamówienie zrealizowane po reklamacji' WHERE id_zamowienie='$zamowienie_id'";
+		$result = mysqli_query($con,$query);
+	}
+	
+	if (($status=='Reklamacja zrealizowana, produkt po serwisie') || ($status=='Reklamacja anulowana')){
+		$query = "UPDATE zamowienie_przedmiot SET reklamacja_quantity=reklamacja_quantity-$produkt_ilosc WHERE id_zamow_p='$id_zamow_p'";
+		$result = mysqli_query($con,$query);
 	}
 	
 	header('Location: dane_reklamacja.php?id='.$id_rekl);

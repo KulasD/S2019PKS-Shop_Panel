@@ -46,6 +46,8 @@
 	$query = "UPDATE zwroty SET status='$status' WHERE id_zwrot='$id_zwr'";
 	$result = mysqli_query($con,$query);
 	
+	// wersja 1
+	/*
 	if (($status=='Zwrot dokonany') || ($status=='Zwrot anulowany')){
 		$query = "UPDATE zamowienie_informacje SET status='Zamówienie zrealizowane po zwrocie' WHERE id_zamowienie='$zamowienie_id'";
 		$result = mysqli_query($con,$query);
@@ -74,6 +76,22 @@
 		$vat_now = $wartosc_now * 0.23;
 		$qa = "UPDATE zamowienie_informacje SET vat23='$vat_now', cena_zamowienia='$wartosc_now' WHERE id_zamowienie='$zamowienie_id'";
 		mysqli_query($con,$qa);
+	}
+	*/
+	
+	//wersja 2
+	if (($status=='Zwrot dokonany') || ($status=='Zwrot anulowany')){
+		$query = "UPDATE zamowienie_informacje SET status='Zamówienie zrealizowane po zwrocie' WHERE id_zamowienie='$zamowienie_id'";
+		$result = mysqli_query($con,$query);
+	}
+	
+	if ($status=='Zwrot anulowany'){
+		for ($i = 0; $i < $ile_produktow ; $i++){
+			$id_now = $_POST['id_zamow_p'.$i];
+			$ilosc_now = $_POST['ilosc_zamow_p'.$i];
+			$query = "UPDATE zamowienie_przedmiot SET zwrot_quantity=zwrot_quantity-$ilosc_now WHERE id_zamow_p='$id_now'";
+			mysqli_query($con,$query);
+		}
 	}
 	
 	header('Location: dane_zwrot.php?id='.$id_zwr);
