@@ -15,6 +15,16 @@
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	$query = "SELECT * FROM zamowienie_informacje WHERE status NOT LIKE 'zamówienie zrealizowane%' AND status NOT LIKE 'zamówienie anulowane' ORDER BY id_zamowienie DESC ";
 	$result = mysqli_query($con,$query);
+	
+	if($_SESSION['uprawnienia'] == 'administrator'){
+		$query = "SELECT * FROM zamowienie_informacje WHERE status NOT LIKE 'zamówienie zrealizowane%' AND status NOT LIKE 'zamówienie anulowane' ORDER BY id_zamowienie DESC ";
+		$result = mysqli_query($con,$query);
+	}
+	else {
+		$my_id = $_SESSION['id'];
+		$query = "SELECT * FROM zamowienie_informacje WHERE (status NOT LIKE 'zamówienie zrealizowane%' AND status NOT LIKE 'zamówienie anulowane') AND id_pracownik IN (0, $my_id)  ORDER BY id_zamowienie DESC";
+		$result = mysqli_query($con,$query);
+	}
 
 
 

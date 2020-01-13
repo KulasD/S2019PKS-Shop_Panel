@@ -173,7 +173,7 @@
 									echo "
 								</div>
 								<div class='hr_z7'>
-									<div><button type='button' class='button' onclick='go(".$id_zamowienie.")'>EDYTUJ</button></div>";
+									<div><button type='button' class='button' onclick='go_old_req(".$id_zamowienie.")'>EDYTUJ</button></div>";
 								
 								echo "
 								</div>

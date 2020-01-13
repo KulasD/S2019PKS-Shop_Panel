@@ -17,6 +17,8 @@
 		echo json_encode("Ok");
 	} else if($id_pracownik == '1'){
 		echo json_encode("Ok");
+	} else if($_SESSION['uprawnienia'] == 'administrator'){
+		echo json_encode("Ok");
 	} else {
 		echo json_encode("No");
 	}

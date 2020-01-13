@@ -18,10 +18,6 @@
 	} else {
 	header('Location: zamowienia_lista.php');exit();}
 	$disabled = 'disabled';
-	$adm_disabled = 'disabled';
-	if($_SESSION['uprawnienia']=='administrator'){
-		$adm_disabled = '';
-	}
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
@@ -163,8 +159,8 @@
 						
 						<div class="row"><div class="half_row">Aktualny status zamówienia:</div>	<div class="half_row_right"><select <?php echo $disabled; ?> class="tx" id="status"><?php 
 						
-						//$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie zrealizowane (reklamacja w toku)","Zamówienie zrealizowane po reklamacji","Zamówienie anulowane"];
-						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie anulowane"];
+						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie zrealizowane (reklamacja w toku)","Zamówienie zrealizowane po reklamacji","Zamówienie anulowane"];
+						//$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie anulowane"];
 						for($a=0;$a<count($table);$a++)
 						{
 							$sta = "".$zamowienie[0]['status']."";
@@ -178,7 +174,7 @@
 						
 						</select></div></div>
 						
-						<div class="row"><div class="half_row">Opiekun zamówienia:</div>		<div class="half_row_right"><select <?php echo $disabled; ?> <?php echo $adm_disabled; ?> class="tx" id="opiekun"><?php
+						<div class="row"><div class="half_row">Opiekun zamówienia:</div>		<div class="half_row_right"><select <?php echo $disabled; ?> class="tx" id="opiekun"><?php
 						
 						if($_SESSION['id'] == '1') { 
 						for($s=0;$s<count($pracownicy);$s++)

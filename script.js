@@ -166,6 +166,11 @@ function go(nr)
 	});	
 }
 
+function go_old_req(nr)
+{
+	window.location.href = "dane_zamowienie_old.php?id="+nr;
+}
+
 function go_rek(nr)
 {
 	window.location.href = "dane_reklamacja.php?id="+nr; 
