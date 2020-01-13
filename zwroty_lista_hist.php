@@ -18,7 +18,7 @@
 	$rows_info = array();
 	$ids = array();
 	$user = array();
-	$query = "SELECT * FROM zwroty WHERE status NOT LIKE 'zwrot%' ORDER BY id_zwrot DESC";
+	$query = "SELECT * FROM zwroty WHERE status LIKE 'zwrot%' ORDER BY id_zwrot DESC";
 	$result = mysqli_query($con,$query);
 	while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
 		$rows[] = $r;
@@ -120,8 +120,8 @@
 				<div id="panel_admin_border">
 					<div id="panel_admin">
 						<div class="flex_box_space">
-							Zwroty
-							<div><button type="button" class="button" onclick="zwr_hist()">ZWROTY ZAKOŃCZONE</button></div>
+							Zwroty zakończone
+							<div><button type="button" class="button" onclick="zwr_hist_back()">WRÓĆ</button></div>
 						</div>
 					</div>
 				</div>
@@ -187,9 +187,9 @@
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
-function zwr_hist()
+function zwr_hist_back()
 {
-	window.location.href = "zwroty_lista_hist.php"; 
+	window.location.href = "zwroty_lista.php"; 
 }
 </script>
 </body>

@@ -15,4 +15,8 @@
 	$waga = htmlentities($waga, ENT_QUOTES, "UTF-8");
 	$komentarz = htmlentities($komentarz, ENT_QUOTES, "UTF-8");
 	$con->query("UPDATE zamowienie_informacje SET id_pracownik='$id_pracownik', status='$status', szacowana_data_dostawy='$termin', nr_paczki='$nr_paczki', waga_paczki='$waga', komentarz_pracownik='$komentarz' WHERE id_zamowienie='$id_zamowienie' ");
+	
+	if($status=='Zamówienie zrealizowane'){
+		$con->query("UPDATE zamowienie_informacje SET data_dostarczenia=current_timestamp() WHERE id_zamowienie='$id_zamowienie' ");
+	}
 ?>

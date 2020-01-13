@@ -13,7 +13,7 @@
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM reklamacje WHERE status NOT LIKE 'reklamacja%' ORDER BY id_rek DESC ";
+	$query = "SELECT * FROM reklamacje WHERE status LIKE 'reklamacja%' ORDER BY id_rek DESC ";
 	$result = mysqli_query($con,$query);
 
 ?>
@@ -63,8 +63,8 @@
 				<div id="panel_admin_border">
 					<div id="panel_admin">
 						<div class="flex_box_space">
-							Reklamacje
-							<div><button type="button" class="button" onclick="rekl_hist()">REKLAMACJE ZAKOŃCZONE</button></div>
+							Reklamacje zakończone
+							<div><button type="button" class="button" onclick="rekl_hist_back()">WRÓĆ</button></div>
 						</div>
 					</div>
 				</div>
@@ -141,9 +141,9 @@
 	</div>
 <script type="text/javascript" src="script.js"></script>
 <script>
-function rekl_hist()
+function rekl_hist_back()
 {
-	window.location.href = "reklamacje_lista_hist.php"; 
+	window.location.href = "reklamacje_lista.php"; 
 }
 </script>
 </body>

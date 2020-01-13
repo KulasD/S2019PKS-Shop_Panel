@@ -13,7 +13,7 @@
 	$con = mysqli_connect("localhost","root","","user");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM zamowienie_informacje WHERE status NOT LIKE 'zamówienie zrealizowane%' AND status NOT LIKE 'zamówienie anulowane' ORDER BY id_zamowienie DESC ";
+	$query = "SELECT * FROM zamowienie_informacje WHERE status LIKE 'zamówienie zrealizowane%' OR status LIKE 'zamówienie anulowane' ORDER BY id_zamowienie DESC ";
 	$result = mysqli_query($con,$query);
 
 
@@ -87,8 +87,8 @@
 				<div id="panel_admin_border">
 					<div id="panel_admin">
 						<div class="flex_box_space">
-							Zamówienia
-							<div><button type="button" class="button" onclick="zam_hist()">ZAMÓWIENIA ZAKOŃCZONE</button></div>
+							Zamówienia zakończone
+							<div><button type="button" class="button" onclick="zam_hist_back()">WRÓĆ</button></div>
 						</div>
 					</div>
 				</div>
@@ -191,10 +191,10 @@
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
-function zam_hist()
+function zam_hist_back()
 {
-	window.location.href = "zamowienia_lista_hist.php";
-} 
+	window.location.href = "zamowienia_lista.php";
+}
 </script>
 </body>
 </html>
