@@ -121,15 +121,19 @@
 			</div>
 			<div id="main_content">
 				<div id="panel_admin_border">
-					<div id="panel_admin_x">
-						Zamówienie nr <?php echo "".$id_zamowienie."";?>
+					<div id="panel_admin">
+						<div class="flex_box_space">
+							<div>
+								Zamówienie nr <?php echo "".$id_zamowienie."";?>
+							</div>
+							<?php 
+							$status_zaplaty = "".$zamowienie[0]['status_zaplaty']."";
+							if($status_zaplaty == "Zapłacono") {
+								echo "<div><button class='zaplataB'>Zapłacono</button></div>";
+							} else {echo "<div><button class='zaplataBN'>Niezapłacono</button></div>";}
+							?>
+						</div>
 					</div>
-					<?php 
-					$status_zaplaty = "".$zamowienie[0]['status_zaplaty']."";
-					if($status_zaplaty == "Zapłacono") {
-						echo "<div id='panel_admin_r'><button class='zaplataB'>Zapłacono</button></div>";
-					} else {echo "<div id='panel_admin_r'><button class='zaplataBN'>Niezapłacono</button></div>";}
-					?>
 					<div style="clear:both;"></div>
 				</div>
 				<div class="half_width">
