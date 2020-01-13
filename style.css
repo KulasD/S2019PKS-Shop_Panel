@@ -118,7 +118,7 @@ body
 
 .nav_red:hover
 {
-	background-color: rgba(255, 0, 0, 0.6);
+	background-color: rgba(0, 204, 0, 0.6);
 	border-radius: 10px;
 }
 
@@ -147,6 +147,7 @@ a.nav_link
 	display: block;
 	color: white;
 	text-decoration: none;
+	font-weight: bold;
 }
 
 a.nav_link:hover
@@ -160,8 +161,9 @@ a.nav_link_red
 {
 	padding-top: 5px;
 	display: block;
-	color: red;
+	color: #00cc00;
 	text-decoration: none;
+	font-weight: bold;
 }
 
 a.nav_link_red:hover
@@ -365,6 +367,7 @@ div#wykres
 	margin-bottom: 10px;
 }
 
+/*Button style*/
 .button{
 	color: white;
 	background-color: #999999;
@@ -379,18 +382,32 @@ div#wykres
 	cursor: pointer;
 }
 
-.red_button{
+.red_button, .zaplataBN{
 	color: white;
-	background-color: red;
+	background-color: #ff0000;
 	border: 0px;
 	text-transform: uppercase;
 	padding: 5px;
 	border-radius: 2px;
 }
 
-.red_button:hover{
+.red_button:hover, .zaplataBN:hover{
 	background-color: white;
-	color: red;
+	color: #ff0000;
+	cursor: pointer;
+}
+
+.button_green, .zaplataB{
+	color: white;
+	background-color: #00cc00;
+	border: 0px;
+	text-transform: uppercase;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+.button_green:hover, .zaplataB:hover{
+	background-color: #0574FF;
 	cursor: pointer;
 }
 
@@ -558,20 +575,6 @@ img {
 	justify-content: space-between;
 }
 
-.button_green{
-	color: white;
-	background-color: #009900;
-	border: 0px;
-	text-transform: uppercase;
-	padding: 5px;
-	border-radius: 2px;
-}
-
-.button_green:hover{
-	background-color: #0574FF;
-	cursor: pointer;
-}
-
 .to_right{
 
 }
@@ -689,6 +692,8 @@ img {
 	margin:2px;
 }
 
+/*Buttony zapłaty Dominika*/
+/*
 .zaplataB {
 	box-shadow:inset 0px 1px 0px 0px #caefab;
 	background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
@@ -736,6 +741,7 @@ img {
 	background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
 	background-color:#ce0100;
 }
+*/
 
 .zbnp 
 {

@@ -115,7 +115,7 @@
 										$status = $r['status'];
 										$status_zaplaty = $r['status_zaplaty'];
 										$id_pracownik = $r['id_pracownik'];
-										if($id_pracownik == '0') {$color = '#BBBBBB';} else {$color = '';};
+										if($id_pracownik == '0') {$color = '';} else {$color = '';};
 									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie' || $status == 'Zamówienie zrealizowane po reklamacji') {
 										$z = "color: #04A1EE !important";
 									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie zrealizowane (reklamacja w toku)' ||$status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy') {
