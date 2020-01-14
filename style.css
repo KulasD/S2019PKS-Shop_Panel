@@ -391,7 +391,7 @@ div#wykres
 	border-radius: 2px;
 }
 
-.red_button:hover, .zaplataBN:hover{
+.red_button:hover{
 	background-color: white;
 	color: #ff0000;
 	cursor: pointer;
@@ -406,7 +406,7 @@ div#wykres
 	border-radius: 2px;
 }
 
-.button_green:hover, .zaplataB:hover{
+.button_green:hover{
 	background-color: #0574FF;
 	cursor: pointer;
 }
