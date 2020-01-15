@@ -80,11 +80,12 @@ echo "
 		echo "<div class='nav_border'><div class='nav'><a href='produkty_lista.php' class='nav_link'>produkty</a></div></div>";
 	}
 echo "
+	<div class='nav_border'><div class='nav'><a href='rabaty_lista.php' class='nav_link'>rabaty</a></div></div>
 	<div class='nav_border'><div class='nav'><a href='dostawy_lista.php' class='nav_link'>dostawy</a></div></div>
 	";
 	if ($jestem=="administrator")
 	{
-		echo "<div class='nav_border'><div class='nav'><a href='#' class='nav_link'>pracownicy</a></div></div>";
+		echo "<div class='nav_border'><div class='nav'><a href='pracownicy_lista.php' class='nav_link'>pracownicy</a></div></div>";
 		echo "<div class='nav_border'><div class='nav'><a href='platnosc_lista.php' class='nav_link'>płatność</a></div></div>";
 	}
 	if ($jestem=="ksiegowosc")

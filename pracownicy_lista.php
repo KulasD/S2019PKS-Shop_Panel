@@ -13,8 +13,13 @@
 	$con = mysqli_connect("localhost","root","","administracja");
 	mysqli_query($con, "SET CHARSET utf8");
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-	$query = "SELECT * FROM dostawy WHERE status NOT IN ('zakończona', 'anulowana') ORDER BY id_dostawy DESC";
+	$query = "SELECT * FROM kadra ORDER BY uprawnienia DESC";
 	$result = mysqli_query($con,$query);
+	
+	$user = mysqli_connect("localhost","root","","user");
+	mysqli_query($user, "SET CHARSET utf8");
+	mysqli_query($user, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -62,41 +67,49 @@
 				<div id="panel_admin_border">
 					<div id="panel_admin">
 						<div class="flex_box_space">
-							<div>LISTA DOSTAW DO SKLEPU
-								<a href='dostawcy_lista.php'><button type="button" class="button">DOSTAWCY</button></a>
-							</div>
-							<div><a href='dostawa_new.php'><button type="button" class="button_green">NOWA DOSTAWA</button></a></div>
+							<div>PRACOWNICY</div>
+							<div><a href='pracownik.php'><button type="button" class="button_green">NOWY PRACOWNIK</button></a></div>
 						</div>
 					</div>
 				</div>
 					<div id="produkty_start">
 						<div class="bordered_div_no_padding">
 							<div class="row">
-								<div class="d1">NUMER DOSTAWY</div>	
-								<div class="d2">DATA ZGŁOSZENIA DOSTAWY</div>
-								<div class="d3">DOSTAWCA</div>
-								<div class="d4 center_holder_no_padding">STATUS</div>
-								<div class="d5 center_holder_no_padding">DZIAŁANIA</div>
-							</div>				
+								<div class="hr_k1">
+									<span class="one_line_span">ID</span>
+									<span class="one_line_span">UPRAWNIENIA</span>
+								</div>	
+								<div class="hr_k2">
+									<span class="one_line_span">IMIĘ I NAZWISKO</span>
+								</div> 	
+								<div class="hr_k3">DANE KONTAKTOWE</div>	
+								<div class="hr_k4">ILOŚĆ OBSŁUŻONYCH ZAMÓWIEŃ</div>	
+								<div class="hr_k5">DZIAŁANIA</div>	
+							</div>
 							<?php
-								while($r = $result->fetch_array(MYSQLI_ASSOC)){
-									$query_dostawca = "SELECT * FROM dostawcy WHERE id LIKE '".$r['id_dostawcy']."'";
-									$result_dostawca = mysqli_query($con,$query_dostawca);
-									$r_dostawca = $result_dostawca->fetch_array(MYSQLI_ASSOC);
-									echo "
-									<div class='row'>
-										<div class='d1'>".$r['id_dostawy']."</div>
-										<div class='d2'>".$r['data']."</div>
-										<div class='d3'>
-											<span class='one_line_span'>".$r_dostawca['nazwa']."</span>
-											<span class='one_line_span'>tel: ".$r_dostawca['telefon']."</span>
-										</div>
-										<div class='d4 center_holder_no_padding'>".$r['status']."</div>
-										<div class='d5 center_holder_no_padding'>
-											<div class='s_d_b'><a href='dostawa_edit.php?id=".$r['id_dostawy']."'><button type='button' class='button'>EDYTUJ</button></a></div>
-										</div>
-									</div>
-									";
+								while ($r = $result->fetch_array(MYSQLI_ASSOC)) {
+									$pracownik_id = $r['id'];
+									$query_u = "SELECT id_zamowienie FROM zamowienie_informacje WHERE id_pracownik='$pracownik_id'";
+									$result_u = mysqli_query($user,$query_u);
+									$ile_obs = $result_u->num_rows;
+								echo "<div class='row'>
+								<div class='hr_k1'>
+									<span class='one_line_span'>".$r['id']."</span>
+									<span class='one_line_span'>".$r['uprawnienia']."</span>
+								</div>	
+								<div class='hr_k2'>
+									<span class='one_line_span'>".$r['imie']." ".$r['nazwisko']."</span>
+								</div> 	
+								<div class='hr_k3'>
+									<span class='one_line_span'>".$r['tel']."</span>
+								</div>		
+								<div class='hr_k4'>
+									<span class='one_line_span'>".$ile_obs."</span>
+								</div>
+								<div class='hr_k5'>
+									<div class='s_d_b'><a href='pracownik.php?id=".$r['id']."'><button type='button' class='button'>EDYTUJ</button></a></div>
+								</div>
+							</div>";
 								}
 							?>
 						</div>
