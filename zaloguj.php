@@ -43,7 +43,12 @@
 					
 					unset($_SESSION['blad']);
 					$rezultat->free_result();
-					header('Location: main_page.php');
+					if ($_SESSION['uprawnienia']=="ksiegowosc"){
+						header('Location: platnosc_lista.php');
+					}
+					else {
+						header('Location: main_page.php');
+					}
 				}
 				else 
 				{

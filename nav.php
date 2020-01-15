@@ -32,7 +32,9 @@
 	
 	
 echo "
-<div id='nav'>
+<div id='nav'>";
+	if(($jestem=="administrator") || ($jestem=="pracownik")){
+	echo "
 	<div class='nav_border'><div class='nav'><a href='main_page.php' class='nav_link'>start</a></div></div>
 	";
 	if ($ile_nowych_zamowien>0)
@@ -83,6 +85,7 @@ echo "
 	<div class='nav_border'><div class='nav'><a href='rabaty_lista.php' class='nav_link'>rabaty</a></div></div>
 	<div class='nav_border'><div class='nav'><a href='dostawy_lista.php' class='nav_link'>dostawy</a></div></div>
 	";
+	}
 	if ($jestem=="administrator")
 	{
 		echo "<div class='nav_border'><div class='nav'><a href='pracownicy_lista.php' class='nav_link'>pracownicy</a></div></div>";
