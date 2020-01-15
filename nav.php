@@ -73,7 +73,7 @@ echo "
 echo "
 	<div class='nav_border'><div class='nav'><a href='klienci_lista.php' class='nav_link'>klienci</a></div></div>
 	";
-	if ($ile_nowych_zgloszen>0)
+	if ($malo_w_magazynie>0)
 	{
 		echo "<div class='nav_border'><div class='nav_red'><a href='produkty_lista.php' class='nav_link_red'>produkty (".$malo_w_magazynie.")</a></div></div>";
 	}

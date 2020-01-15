@@ -18,7 +18,7 @@
 
 	if ($id_p=='')
 	{
-		$con->query("INSERT INTO kadra VALUES (NULL, '$login','$haslo','$imie','$nazwisko','$$telefon','$uprawnienia')");
+		$con->query("INSERT INTO kadra VALUES (NULL, '$login','$haslo','$imie','$nazwisko','$telefon','$uprawnienia')");
 	}
 	else
 	{
