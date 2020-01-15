@@ -159,7 +159,7 @@
 										echo "
 										<div class='flex_box'>
 											<div class='f_z'>
-												<img src='../lepsza/category/produkty/".$src."'/>
+												<img src='../kseshop/category/produkty/".$src."'/>
 											</div>
 											<div id='produkt_1' class='n_z'>
 												".$order_all[$d][$s]['pelna_nazwa']." <br />

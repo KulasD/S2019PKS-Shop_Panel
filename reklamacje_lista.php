@@ -115,7 +115,7 @@
 									while ($re = $res->fetch_array(MYSQLI_ASSOC)) {
 										$src = $re['zdjecie'];
 												echo "<div class='f_z'>
-															<img src='../lepsza/category/produkty/".$src."'/>
+															<img src='../kseshop/category/produkty/".$src."'/>
 														</div>";
 									}
 										echo "

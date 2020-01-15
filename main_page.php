@@ -131,7 +131,7 @@
 		$od .= 
 			"<div class='row'>
 				<div class='text_UP mp_od1'>
-					<img src='../lepsza/category/produkty/".$src."'/>
+					<img src='../kseshop/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_od2 center_holder_no_padding'>
 					".$r_p['id_produktu']."								
@@ -170,7 +170,7 @@
 		$nd .= 
 			"<div class='row'>
 				<div class='text_UP mp_od1'>
-					<img src='../lepsza/category/produkty/".$src."'/>
+					<img src='../kseshop/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_od2 center_holder_no_padding'>
 					".$r_p['id_produktu']."								
@@ -221,7 +221,7 @@
 			$dz .= 
 				"<div class='row'>
 					<div class='text_UP mp_od1'>
-						<img src='../lepsza/category/produkty/".$src."'/>
+						<img src='../kseshop/category/produkty/".$src."'/>
 					</div>
 					<div class='text_UP mp_od2 center_holder_no_padding'>
 						".$r_p['id_produktu']."								
@@ -265,7 +265,7 @@
 		$oo .= 
 			"<div class='row'>
 				<div class='text_UP mp_oo1'>
-					<img src='../lepsza/category/produkty/".$src."'/>
+					<img src='../kseshop/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_oo2 center_holder_no_padding'>
 					".$r_p['id_produktu']."							

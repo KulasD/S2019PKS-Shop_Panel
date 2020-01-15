@@ -176,7 +176,7 @@
 	//------------------------------------------------------ ZDJECIE GLOWNE
 	
 	if ($z_main){
-	$target_dir = "../lepsza/category/produkty/img/".$kategoria."/";
+	$target_dir = "../kseshop/category/produkty/img/".$kategoria."/";
 	$target_file = $target_dir . basename($_FILES['main_zdj']['name']);
 	$uploadOk = 1;
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

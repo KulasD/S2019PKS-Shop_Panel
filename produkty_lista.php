@@ -48,7 +48,7 @@
 		$od .= 
 			"<div class='row'  style='background-color:".$color."';>
 				<div class='text_UP mp_od1'>
-					<img src='../lepsza/category/produkty/".$src."'/>
+					<img src='../kseshop/category/produkty/".$src."'/>
 				</div>
 				<div class='text_UP mp_od2 center_holder_no_padding'>
 					".$r_p['id_produktu']."								
