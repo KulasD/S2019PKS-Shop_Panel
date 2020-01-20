@@ -115,11 +115,16 @@
 	mysqli_query($con, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	$query = "SELECT * FROM zamowienie_informacje ORDER BY id_zamowienie DESC LIMIT 10";
 	$result = mysqli_query($con,$query);
+	
 ?>
 <?php
 	$con_p = mysqli_connect("localhost","root","","przedmioty");
 	mysqli_query($con_p, "SET CHARSET utf8");
 	mysqli_query($con_p, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+	
+	$con_pd = mysqli_connect("localhost","root","","administracja");
+	mysqli_query($con_pd, "SET CHARSET utf8");
+	mysqli_query($con_pd, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 	
 	// OSTATNIO DODANE PRODUKTY -------------------------------------------------------------------------
 	
@@ -201,7 +206,7 @@
 	
 	// PRODUKTY DO ZAMÓWIENIA ---------------------------------------------------------------------------
 	
-	$query_p = "SELECT * FROM przedmioty_ogolne_informacje WHERE sztuki<=5 ORDER BY sztuki ASC";
+	$query_p = "SELECT * FROM przedmioty_ogolne_informacje WHERE sztuki<=5 ORDER BY sztuki ASC LIMIT 5";
 	$result_p = mysqli_query($con_p,$query_p);
 	$dz = '';
 	$yes_or_no = "no";
@@ -217,9 +222,18 @@
 	else{
 		$yes_or_no = "no";
 		while ($r_p = $result_p->fetch_array(MYSQLI_ASSOC)) {
+			$display='inline';
+			if($r_p['sztuki']>5){$color = '#eeeeee';}
+			else{$color = '#F59696';}
+			$query_pd = "SELECT id_pdd FROM produkty_do_dostawy WHERE id_pdd='".$r_p['id_produktu']."'";
+			$result_pd = mysqli_query($con_pd,$query_pd);
+			$r_pd = $result_pd->fetch_array(MYSQLI_ASSOC);
+			if($r_pd['id_pdd']==$r_p['id_produktu']){
+				$display='none';
+			}
 			$src = $r_p['zdjecie'];
 			$dz .= 
-				"<div class='row'>
+				"<div class='row'  style='background-color:".$color."';>
 					<div class='text_UP mp_od1'>
 						<img src='../kseshop/category/produkty/".$src."'/>
 					</div>
@@ -245,7 +259,8 @@
 						".$r_p['sztuki']."
 					</div>
 					<div class='text_UP mp_od9 center_holder_no_padding'>
-						<a href='dane_produkt.php?idp=".$r_p['id_produktu']."'><button type='button' class='button'>EDYTUJ</button></a>
+						<div class='s_d_b'><a href='dane_produkt.php?idp=".$r_p['id_produktu']."'><button type='button' class='button'>EDYTUJ</button></a></div>
+						<div class='s_d_b'><button style='display:".$display.";' id='".$r_p['id_produktu']."' type='button' class='button' onclick='do_dostawy(".$r_p['id_produktu'].")'>DO DOSTAWY</button></div>
 					</div>
 				</div>";
 		}
@@ -377,7 +392,7 @@
 									$status_zaplaty = $r['status_zaplaty'];
 									if($status == 'Zamówienie zrealizowane' || $status == 'Zamówienie zrealizowane po zwrocie') {
 										$z = "color: #04A1EE !important";
-									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy') {
+									} else if ($status == 'W trakcie realizacji' || $status == 'Zamówienie zrealizowane (zwrot w toku)' || $status == 'Zamówienie gotowe do wysyłki' || $status == 'Zamówienie przekazane dostawcy' || $status == 'Zamówienie zrealizowane (reklamacja w toku)') {
 										$z = "color: gray !important";
 									} else if($status == 'Zamówienie anulowane') {
 										$z = "color: #CC0000 !important";
@@ -411,7 +426,7 @@
 											<span style='".$z."'>".$r['status']."</span>
 										</div>
 										<div class='mp_z6'>
-											<button type='button' class='button' onclick='go(".$r['id_zamowienie'].")'><i class='icon-logout'></i></button>
+											<button type='button' class='button' onclick='go_old_req(".$r['id_zamowienie'].")'><i class='icon-logout'></i></button>
 										</div>
 									</div>";
 								}
@@ -427,7 +442,7 @@
 						<div id="buttons_div">
 							<button id="1" type="button" class="button_clicked" onclick="change(1)">Ostatnio dodane</button>
 							<button id="2" type="button" class="button" onclick="change(2)">Najczęściej oglądane</button>
-							<!--<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>-->
+							<button id="3" type="button" class="button" onclick="change(3)">Do zamówienia</button>
 							<button id="4" type="button" class="button" onclick="change(4)">Ostatnie opinie</button>
 						</div>
 						<div id="produkty_naglowek">
@@ -530,7 +545,7 @@ function change(id)
 		document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
 		document.getElementById("produkty_box").innerHTML = najczesciej_ogladane;
 	}
-	/*else if(id==3){
+	else if(id==3){
 		if(yes_or_no=="no"){
 			document.getElementById("produkty_naglowek").innerHTML = naglowek_123;
 		}
@@ -538,12 +553,21 @@ function change(id)
 			document.getElementById("produkty_naglowek").innerHTML = "";
 		}
 		document.getElementById("produkty_box").innerHTML = do_zamowienia;
-	}*/
+	}
 	else if(id==4){
 		document.getElementById("produkty_naglowek").innerHTML = naglowek_4;
 		document.getElementById("produkty_box").innerHTML = ostatnie_opinie;
 	}
 }
+	function do_dostawy(nr){
+		$.ajax({
+			url: "do_dostawy.php",
+			method: "POST",
+			dataType: 'json',
+			data: {n: nr},
+		});
+		document.getElementById(nr).style.display="none";
+	}
 </script>
 </body>
 </html>

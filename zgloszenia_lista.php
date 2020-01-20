@@ -114,11 +114,12 @@
 										</div>	
 										<div class='zgl_list6'>
 											<div class='s_d_b'><button type='button' class='button' onclick='zgloszenie(".$id_zgloszenie.")'>CZYTAJ</button></div>
-											<div class='s_d_b'><button type='button' class='red_button' onclick='delete_z(".$id_zgloszenie.")'>USUŃ</button></div>
+											
 											<div class='s_d_b'><button type='button' class='red_button' onclick='add_block(".$id_zgloszenie.")'>ZABLOKUJ SPAM</button></div>
 										</div>
 									</div>
 								";
+								//<div class='s_d_b'><button type='button' class='red_button' onclick='delete_z(".$id_zgloszenie.")'>USUŃ</button></div>
 							}
 							?>
 							

@@ -348,7 +348,7 @@ EOF;
 						
 						<div class="row"><div class="half_row">Aktualny status zamówienia:</div>	<div class="half_row_right"><select <?php echo $disabled; ?> class="tx" id="status"><?php 
 						
-						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie zrealizowane (reklamacja w toku)","Zamówienie zrealizowane po reklamacji","Zamówienie anulowane"];
+						$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie gotowe do odbioru","Zamówienie zrealizowane","Zamówienie zrealizowane (zwrot w toku)","Zamówienie zrealizowane po zwrocie","Zamówienie zrealizowane (reklamacja w toku)","Zamówienie zrealizowane po reklamacji","Zamówienie anulowane"];
 						//$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie anulowane"];
 						for($a=0;$a<count($table);$a++)
 						{
