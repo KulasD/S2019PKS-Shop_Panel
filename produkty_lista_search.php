@@ -39,14 +39,11 @@
 			<div class="text_UP mp_od4">
 				cena		
 			</div>
-			<div class="text_UP mp_od5">
-				ocena		
-			</div>
-			<div class="text_UP mp_od6 center_holder_no_padding">
+			<div class="text_UP mp_od5 mp_od6 center_holder_no_padding">
 				wejść
 			</div>
 			<div class="text_UP mp_od7 center_holder_no_padding">
-				zakupień
+				sprzedanych
 			</div>
 			<div class="text_UP mp_od8 center_holder_no_padding">
 				magazyn
@@ -92,10 +89,8 @@
 						<div class='text_UP mp_od4'>
 							".$r_p['cena']." zł		
 						</div>
-						<div class='text_UP mp_od5'>
-							OCENA		
-						</div>
-						<div class='text_UP mp_od6 center_holder_no_padding'>
+
+						<div class='text_UP mp_od5 mp_od6 center_holder_no_padding'>
 							".$r_p['ilosc_odwiedzin']."
 						</div>
 						<div class='text_UP mp_od7 center_holder_no_padding'>
@@ -143,10 +138,8 @@
 							<div class='text_UP mp_od4'>
 								".$r_p['cena']." zł		
 							</div>
-							<div class='text_UP mp_od5'>
-								OCENA		
-							</div>
-							<div class='text_UP mp_od6 center_holder_no_padding'>
+
+							<div class='text_UP mp_od5 mp_od6 center_holder_no_padding'>
 								".$r_p['ilosc_odwiedzin']."
 							</div>
 							<div class='text_UP mp_od7 center_holder_no_padding'>

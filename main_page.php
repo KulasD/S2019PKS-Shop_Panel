@@ -147,10 +147,8 @@
 				<div class='text_UP mp_od4'>
 					".$r_p['cena']." zł		
 				</div>
-				<div class='text_UP mp_od5'>
-					OCENA		
-				</div>
-				<div class='text_UP mp_od6 center_holder_no_padding'>
+
+				<div class='text_UP mp_od5 mp_od6 center_holder_no_padding'>
 					".$r_p['ilosc_odwiedzin']."
 				</div>
 				<div class='text_UP mp_od7 center_holder_no_padding'>
@@ -186,10 +184,8 @@
 				<div class='text_UP mp_od4'>
 					".$r_p['cena']." zł		
 				</div>
-				<div class='text_UP mp_od5'>
-					OCENA		
-				</div>
-				<div class='text_UP mp_od6 center_holder_no_padding'>
+
+				<div class='text_UP mp_od5 mp_od6 center_holder_no_padding'>
 					".$r_p['ilosc_odwiedzin']."
 				</div>
 				<div class='text_UP mp_od7 center_holder_no_padding'>
@@ -246,10 +242,8 @@
 					<div class='text_UP mp_od4'>
 						".$r_p['cena']." zł		
 					</div>
-					<div class='text_UP mp_od5'>
-						OCENA		
-					</div>
-					<div class='text_UP mp_od6 center_holder_no_padding'>
+
+					<div class='text_UP mp_od5 mp_od6 center_holder_no_padding'>
 						".$r_p['ilosc_odwiedzin']."
 					</div>
 					<div class='text_UP mp_od7 center_holder_no_padding'>
@@ -459,14 +453,14 @@
 								<div class="text_UP mp_od4">
 									cena		
 								</div>
-								<div class="text_UP mp_od5">
+								<!--<div class="text_UP mp_od5">
 									ocena		
-								</div>
-								<div class="text_UP mp_od6 center_holder_no_padding">
+								</div>-->
+								<div class="text_UP mp_od5 mp_od6 center_holder_no_padding">
 									wejść
 								</div>
 								<div class="text_UP mp_od7 center_holder_no_padding">
-									zakupień
+									sprzedanych
 								</div>
 								<div class="text_UP mp_od8 center_holder_no_padding">
 									magazyn
@@ -524,7 +518,7 @@ for(t=0;t<table.length;t++)
 </script>
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5">ocena</div><div class="text_UP mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">zakupień</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">DZIAŁANIA</div></div>';
+var naglowek_123 = '<div class="row"><div class="text_UP mp_od1">Obrazek</div><div class="text_UP mp_od2 center_holder_no_padding">ID_produktu								</div><div class="text_UP mp_od3">Nazwa_produktu</div><div class="text_UP mp_od4">cena</div><div class="text_UP mp_od5 mp_od6 center_holder_no_padding">wejść</div><div class="text_UP mp_od7 center_holder_no_padding">sprzedanych</div><div class="text_UP mp_od8 center_holder_no_padding">magazyn</div><div class="text_UP mp_od9 center_holder_no_padding">DZIAŁANIA</div></div>';
 var ostatnio_dodane = <?php echo json_encode($od); ?>;
 var najczesciej_ogladane = <?php echo json_encode($nd); ?>;
 var do_zamowienia = <?php echo json_encode($dz); ?>;
