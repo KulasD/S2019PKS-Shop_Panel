@@ -77,8 +77,8 @@
 									<span class="one_line_span">FIRMA NIP</span>
 								</div> 	
 								<div class="hr_k3">E-MAIL</div>	
-								<div class="hr_k4">OSTATNIE LOGOWANIE</div>	
-								<div class="hr_k5">DZIAŁANIA</div>
+								<!--<div class="hr_k4">OSTATNIE LOGOWANIE</div>	-->
+								<div class="hr_k4 hr_k5">DZIAŁANIA</div>
 							</div>
 							
 							<?php 
@@ -93,8 +93,8 @@
 									<span class='one_line_span'>".$r['adres']." ".$r['kod_pocztowy']." ".$r['miejscowosc']."</span>
 								</div> 	
 								<div class='hr_k3'>".$r['email']."</div>	
-								<div class='hr_k4'>No info</div>	
-								<div class='hr_k5'>
+
+								<div class='hr_k4 hr_k5'>
 									<span class='one_line_span click_me_span' onclick='go_to_klient(".$r['id_user'].")'>szczegóły i edycja danych</span>
 									
 								</div>

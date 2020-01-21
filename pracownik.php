@@ -104,7 +104,7 @@
 				</div>
 				<form action="pracownik_add.php" method="post">
 				<div class="half_width">
-					<span class="info_span">Dane klienta</span>
+					<span class="info_span">Dane pracownika</span>
 					<div class="bordered_div_no_padding">
 						<div class="row">
 							<div class="half_row">
@@ -187,15 +187,3 @@
 </script>
 </body>
 </html>
-
-$table = ["W trakcie realizacji","Zamówienie gotowe do wysyłki","Zamówienie przekazane dostawcy","Zamówienie zrealizowane","Zamówienie anulowane"];
-						for($a=0;$a<count($table);$a++)
-						{
-							$sta = "".$zamowienie[0]['status']."";
-							if($sta == $table[$a]) {
-								echo "<option selected value='".$sta."'>".$sta."</option> ";
-							} else {
-								echo "<option value='".$table[$a]."'>".$table[$a]."</option> ";
-							}
-						}
-						?>

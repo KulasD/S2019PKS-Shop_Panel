@@ -291,11 +291,12 @@
 										</div>	
 										<div class='zgl_k5'>
 											<div class='s_d_b'><button type='button' class='button' onclick='zgloszenie(".$id_zgloszenie.")'>CZYTAJ</button></div>
-											<div class='s_d_b'><button type='button' class='red_button' onclick='delete_z(".$id_zgloszenie.")'>USUŃ</button></div>
+											
 											<div class='s_d_b'><button type='button' class='red_button' onclick='add_block(".$id_zgloszenie.")'>ZABLOKUJ SPAM</button></div>
 										</div>
 									</div>
 								";
+								//<div class='s_d_b'><button type='button' class='red_button' onclick='delete_z(".$id_zgloszenie.")'>USUŃ</button></div>
 							}
 						echo "</div>";
 					}
@@ -401,7 +402,7 @@
 								<div class='kd4'>".$data_z."</div>	
 								<div class='kd5'>
 									<div class='s_d_b'><button type='button' class='button' onclick='go_rek(".$r['id_rek'].")'>EDYTUJ</button></div>
-									<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
+
 								</div>
 							</div>";
 								};	
@@ -448,7 +449,7 @@
 									<div class='kd4'>".$rows[$d]['data_zwrotu']."</div>	
 									<div class='kd5'>
 										<div class='s_d_b'><button type='button' class='button' onclick='zwrot_go(".$rows[$d]['id_zwrot'].")'>EDYTUJ</button></div>
-										<div class='s_d_b'><button type='button' class='red_button'>USUŃ</button></div>
+
 									</div>
 								</div>";
 							};
