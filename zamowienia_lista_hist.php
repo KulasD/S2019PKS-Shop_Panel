@@ -119,7 +119,7 @@
 								<div class='hr_z1'>
 									<span id='id_1'>Nr. ".$id_zamowienie."</span>
 									<div>";
-										if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+										if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Nie zapłacono</button>"; } 
 									echo "</div>
 									<span id='status_1' style='".$z."'>".$r['status']."</span>
 								</div>	

@@ -80,7 +80,7 @@
 										<div class='p2'>".$r['data_zamowienia']."</div>
 										<div class='p3'>".$r['cena_zamowienia']." zł</div>
 										<div class='p4'>
-											<button class='red_button' onclick='zaplacono(".$r['id_zamowienie'].")'>Niezapłacono</button>
+											<button class='red_button' onclick='zaplacono(".$r['id_zamowienie'].")'>Nie zapłacono</button>
 										</div>
 									</div>
 									";

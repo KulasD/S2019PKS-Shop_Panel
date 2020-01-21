@@ -319,7 +319,7 @@ EOF;
 							$status_zaplaty = "".$zamowienie[0]['status_zaplaty']."";
 							if($status_zaplaty == "Zapłacono") {
 								echo "<div><button class='zaplataB'>Zapłacono</button></div>";
-							} else {echo "<div><button class='zaplataBN'>Niezapłacono</button></div>";}
+							} else {echo "<div><button class='zaplataBN'>Nie zapłacono</button></div>";}
 							?>
 						</div>
 					</div>

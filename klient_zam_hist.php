@@ -128,7 +128,7 @@
 								</div>	
 								<div class='kd2'>
 									<div><span id='status_1' style='".$z."'>".$r['status']."</span></div>";
-									if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Niezapłacono</button>"; } 
+									if($status_zaplaty == "Zapłacono") {echo "<button class='zaplataB zbnp' >Zapłacono</button>";} else {echo "<button class='zaplataBN zbnp' >Nie zapłacono</button>"; } 
 								echo "</div>
 								<div class='kd3'>";
 								$qu = "SELECT * FROM zamowienie_przedmiot WHERE id_zamowienie = '$id_zamowienie' ";
