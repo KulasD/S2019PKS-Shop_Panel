@@ -363,7 +363,7 @@ if ( isset( $_GET['id'] ) && !empty( $_GET['id'] ) )
 									
 								</div>
 								<div class="margin_box_left">
-									<span class="one_line_span">Wyposażenie otrzymanego towaru</span>
+									<span class="one_line_span">Zawartość paczki</span>
 									<textarea <?php echo $disabled; ?> class="areatx tx" rows="4" name="wyposazenie"></textarea>
 								</div>
 								<!--
