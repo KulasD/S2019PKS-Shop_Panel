@@ -8,6 +8,7 @@ Wykorzystane oprogramowanie to:
 Sklep nie posiada podziału na backend i frontend, dopiero po ukończeniu prac przy tym projekcie zdaliśmy sobię sprawę, że strona powinna działać inaczej.
 
 ## Funkcje
+- strona startowa z podsumowaniem
 - dodawanie, aktualizowanie produktów
 - obsługa dostaw produktów
 - obsługa płatności (ręczne zaznaczanie płatności)
@@ -18,4 +19,5 @@ Sklep nie posiada podziału na backend i frontend, dopiero po ukończeniu prac p
 - wyszukiwanie produktów, zamówień, profili klientów
 - tworzenie kodów rabatowych
 
-## Showcase
+## Filmik przedstawiający działanie panelu administracyjnego
+https://user-images.githubusercontent.com/43846211/122780288-016d9280-d2af-11eb-84e8-867e533f4d11.mp4
