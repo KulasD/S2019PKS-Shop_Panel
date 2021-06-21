@@ -15,6 +15,7 @@ Sklep nie posiada podziału na backend i frontend, dopiero po ukończeniu prac p
 - obsługa zamówień, reklamacji, zwrotów
 - zarządzanie pracownikami
 - przeglądanie profili klientów wraz z historią transakcji i zapytań
-- wyszukiwanie produktów
+- wyszukiwanie produktów, zamówień, profili klientów
+- tworzenie kodów rabatowych
 
 ## Showcase
